@@ -1,0 +1,191 @@
+/* ── Hero Section ── */
+.sticky-hero-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 0;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  transform: translateZ(0);
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.08) 42%, rgba(0, 0, 0, 0.04) 100%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0) 34%);
+}
+
+/* ── Video-ended play overlay ── */
+.video-ended-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  animation: overlayFadeIn 0.4s ease forwards;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.video-play-btn {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2.5px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.video-ended-overlay:hover .video-play-btn {
+  background: rgba(255, 255, 255, 0.28);
+  transform: scale(1.12);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.25);
+}
+
+/* ── Hero overlay (text + controls) ── */
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8%;
+}
+
+.hero-text {
+  max-width: 700px;
+}
+
+.hero-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(3.4rem, 6.7vw, 6.4rem);
+  font-weight: 900;
+  line-height: 0.92;
+  margin-bottom: 28px;
+  color: #fff;
+  text-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.18),
+    0 10px 34px rgba(0, 0, 0, 0.72),
+    0 0 28px rgba(255, 255, 255, 0.16);
+}
+
+.hero-role {
+  font-size: clamp(0.9rem, 1.35vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.88);
+  text-transform: uppercase;
+  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.75);
+}
+
+/* ── Scroll indicator ── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: fadeUpIn 1s ease 1s both;
+}
+
+.scroll-arrow {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), transparent);
+  animation: scrollPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1);   }
+  50%       { opacity: 1;   transform: scaleY(1.2); }
+}
+
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
+}
+
+/* ── Shared button base ── */
+.playpause-btn,
+.mute-btn,
+.fullscreen-btn {
+  position: absolute;
+  bottom: 40px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.playpause-btn:hover,
+.mute-btn:hover,
+.fullscreen-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
+}
+
+/* LEFT side — mute */
+.mute-btn.left-ctrl {
+  left: 50px;
+}
+
+/* RIGHT side — play/pause then fullscreen */
+.playpause-btn {
+  right: 116px;
+}
+
+.fullscreen-btn {
+  right: 50px;
+}

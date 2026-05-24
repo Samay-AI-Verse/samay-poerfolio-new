@@ -1,0 +1,195 @@
+/* ══════════════════════════════════════
+   STACKING SCROLL SECTIONS
+   Each section sticks at top: 0 and has
+   a higher z-index than the previous —
+   creating the "page slides over page" effect.
+══════════════════════════════════════ */
+
+/* Keep overlap-sections as a plain container */
+.overlap-sections {
+  position: relative;
+}
+
+/* Shared base for all stack sections */
+.content-section {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 8%;
+  overflow: hidden;
+  /* Top shadow so each section visually "lifts" over the one below */
+  box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* Each section gets a higher z-index so it covers the one before */
+.about-section   { z-index: 2; }
+.skills-section  { z-index: 3; }
+.contact-section { z-index: 4; }
+
+
+.section-inner {
+  max-width: 900px;
+  width: 100%;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 20px;
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+}
+
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 28px;
+  background: linear-gradient(135deg, #ffffff 0%, #6b7bff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-body {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 600px;
+  margin-bottom: 50px;
+}
+
+/* CTA Button */
+.cta-btn {
+  display: inline-block;
+  padding: 16px 40px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #6b7bff, #a78bfa);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(107, 123, 255, 0.35);
+}
+
+.cta-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(107, 123, 255, 0.5);
+}
+
+/* ══════════════════════════════════════
+   SECTION BACKGROUNDS
+══════════════════════════════════════ */
+.about-section {
+  background: linear-gradient(160deg, #0d0d18 0%, #0a0a0f 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* SGGS photo backdrop */
+.about-bg-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0.38;
+  mix-blend-mode: screen;
+  filter: grayscale(0.2) contrast(1.15);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-section .section-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.skills-section {
+  background: linear-gradient(160deg, #0f0f1a 0%, #0b0b16 100%);
+}
+
+.contact-section {
+  background: linear-gradient(160deg, #09090f 0%, #070710 100%);
+}
+
+/* ══════════════════════════════════════
+   STAT CARDS (About)
+══════════════════════════════════════ */
+.stat-row {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 140px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 32px 24px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.stat-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #fff 0%, #6b7bff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-card p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 6px;
+  letter-spacing: 1px;
+}
+
+/* ══════════════════════════════════════
+   SKILL PILLS (Skills)
+══════════════════════════════════════ */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.skill-pill {
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: 1px solid rgba(107, 123, 255, 0.4);
+  background: rgba(107, 123, 255, 0.08);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.skill-pill:hover {
+  background: rgba(107, 123, 255, 0.25);
+  border-color: rgba(107, 123, 255, 0.8);
+  transform: translateY(-3px);
+  color: #fff;
+}
+
