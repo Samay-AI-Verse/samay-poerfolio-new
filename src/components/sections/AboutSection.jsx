@@ -1,159 +1,78 @@
 import React from 'react';
 import './AboutSection.css';
-import bgPhoto from '../../assets/SGGS.jpeg';
 
-const SPECIALIZATIONS = [
+const CAPABILITIES = [
   {
-    tag: 'Intelligence',
-    title: 'AI Engineering',
-    desc: 'Specializing in LLM Fine-tuning, RAG pipelines, and Vector Database integration for intelligent systems.',
+    title: 'AI Systems',
+    desc: 'RAG pipelines, LLM workflows, vector search, and applied automation.',
   },
   {
-    tag: 'Architecture',
-    title: 'Backend & Infrastructure',
-    desc: 'Building robust server-side logic with Python and FastAPI, ensuring high-performance API orchestration.',
+    title: 'Backend Engineering',
+    desc: 'FastAPI, Python services, API orchestration, and production logic.',
   },
   {
-    tag: 'Systems',
     title: 'Agentic Workflows',
-    desc: 'Designing multi-agent systems that automate complex business processes via voice and chat.',
+    desc: 'Voice and chat agents that connect tools, data, and business processes.',
   },
   {
-    tag: 'DevOps',
-    title: 'Full-Stack Deployment',
-    desc: 'Managing the full lifecycle from Dockerization to Cloud deployment (AWS / Hugging Face) for scalable apps.',
+    title: 'Deployment',
+    desc: 'Docker, cloud hosting, monitoring basics, and release-ready delivery.',
   },
 ];
 
-const PROJECTS = [
-  {
-    name: 'RAG Intel Engine',
-    desc: 'High-density document system for querying private data with context-aware retrieval.',
-  },
-  {
-    name: 'Voice AI Pipeline',
-    desc: 'End-to-end speech and NLP automation for real-time conversational agents.',
-  },
-  {
-    name: 'Sanjeevani AI OS',
-    desc: 'Integrated pharmacy operating system for managing orders, refills, and inventory.',
-  },
-];
+const SKILL_STRIP = ['Python', 'FastAPI', 'LangChain', 'Docker', 'AWS', 'React', 'PostgreSQL', 'OpenAI'];
 
 export default function AboutSection() {
   return (
     <section id="about" className="about-section">
-
-      {/* SGGS backdrop */}
-      <div className="about-bg-photo" style={{ backgroundImage: `url(${bgPhoto})` }} />
-
       <div className="about-inner">
+        <div className="about-left">
+          <span className="about-label">About Me</span>
 
-        {/* ── TOP STATUS BAR ── */}
-        <div className="about-statusbar">
-          <span className="sb-item">CONTACT</span>
-          <span className="sb-sep">·</span>
-          <span className="sb-item sb-name">Samay™</span>
-          <span className="sb-sep">·</span>
-          <span className="sb-item">AI Engineer</span>
-          <div className="sb-right">
-            <span className="sb-code">NS-ACT: 664 / 453</span>
-            <span className="sb-sep">|</span>
-            <span className="sb-code">SENS_INIT_TRUE</span>
-          </div>
-        </div>
-
-        {/* ── HERO HEADLINE ── */}
-        <div className="about-hero">
-          <p className="about-precision">Precision in Data. Innovation in AI.</p>
-          <h2 className="about-headline">
-            Building<br />Intelligence.<br />
-            <span>Engineered for Scale.</span>
+          <h2 className="about-title">
+            I build AI systems that connect data, automation, and backend workflows.
           </h2>
-          <p className="about-tagline">
-            Crafting intelligent solutions — for a smarter future.
+
+          <p className="about-bio">
+            I work on AI products that connect language models, backend services,
+            and structured data. My focus is simple: take a useful idea from
+            prototype to a reliable system people can actually use.
           </p>
-        </div>
 
-        {/* ── BIO + TAGS ── */}
-        <div className="about-bio-row">
-          <div className="about-bio">
-            <p>
-              I specialize in building production-ready systems with LLMs and Agentic Workflows.
-              From scalable backend pipelines to real-world deployments, I turn complex AI research
-              into tangible business impact.
-            </p>
-            <div className="about-tags">
-              <span>Backend Architecture</span>
-              <span>AI Integration</span>
-              <span>Cloud Deployment</span>
+          <div className="about-profile-card">
+            <div className="profile-card-row">
+              <span>Education</span>
+              <p>B.Tech 3rd Year - AI &amp; Computer Engineering</p>
             </div>
-            <div className="about-engine">
-              <span className="engine-dot" />
-              Core Engine Active
+            <div className="profile-card-row">
+              <span>College</span>
+              <p>Gramin Technical &amp; Management Science College, Maneeg Campus</p>
             </div>
           </div>
         </div>
 
-        {/* ── SPECIALIZATIONS GRID ── */}
-        <div className="spec-grid">
-          {SPECIALIZATIONS.map(({ tag, title, desc }) => (
-            <div className="spec-card" key={title}>
-              <span className="spec-tag">{tag}</span>
-              <h3 className="spec-title">{title}</h3>
-              <p className="spec-desc">{desc}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* ── DIVIDER ── */}
-        <div className="about-divider">
-          <span>Presence Hub</span>
-        </div>
-
-        {/* ── ORIGIN + PROJECTS ── */}
-        <div className="about-bottom-row">
-
-          {/* LEFT — Origin */}
-          <div className="origin-col">
-            <h3 className="origin-title">Samay Powade</h3>
-            <p className="origin-sub">Origin &amp; Focus</p>
-            <div className="origin-detail">
-              <p className="origin-fullname">Samay Santosh Powade</p>
-              <p className="origin-bio">
-                B.Tech 3rd Year · AI &amp; Computer Engineering<br />
-                <span className="origin-college">Gramin Technical &amp; Management Science College</span><br />
-                <span className="origin-campus">Maneeg Campus</span>
-              </p>
-              <p className="origin-bio" style={{ marginTop: '18px' }}>
-                I'm an AI Engineer focused on building real-world AI systems using LLMs and
-                retrieval-based workflows. I develop applications that connect conversational AI
-                with structured data, turning prototypes into production-ready systems.
-              </p>
-              <div className="origin-meta">
-                <div><span>Focus:</span> Agentic Workflows &amp; Backend Reliability</div>
-                <div><span>Stack:</span> FastAPI · Python · AWS · Docker</div>
-              </div>
-              <p className="origin-note">
-                I work across the full pipeline — from designing AI workflows to building the
-                high-concurrency backend systems that support real-world use.
-              </p>
-            </div>
-          </div>
-
-          {/* RIGHT — Projects */}
-          <div className="projects-col">
-            <h3 className="projects-label">My Core Work</h3>
-            {PROJECTS.map(({ name, desc }) => (
-              <div className="project-card" key={name}>
-                <h4 className="project-name">{name}</h4>
-                <p className="project-desc">{desc}</p>
+        <div className="about-right">
+          <span className="block-label">What I Work On</span>
+          <div className="spec-list">
+            {CAPABILITIES.map(({ title, desc }) => (
+              <div className="spec-item" key={title}>
+                <span className="spec-index" />
+                <div>
+                  <p className="spec-title">{title}</p>
+                  <p className="spec-desc">{desc}</p>
+                </div>
               </div>
             ))}
           </div>
-
         </div>
 
+        <div className="skill-marquee" aria-label="Core skills">
+          <div className="skill-marquee-track">
+            {[...SKILL_STRIP, ...SKILL_STRIP].map((skill, index) => (
+              <span key={`${skill}-${index}`}>{skill}</span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

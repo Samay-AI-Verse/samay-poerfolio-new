@@ -13,9 +13,25 @@ import ProfileSection from './components/sections/ProfileSection';
 
 const FULLSCREEN_PROMPT_KEY = 'samay-fullscreen-prompt-seen';
 
+const hasSeenFullscreenPrompt = () => {
+  try {
+    return window.localStorage.getItem(FULLSCREEN_PROMPT_KEY) === 'true';
+  } catch {
+    return false;
+  }
+};
+
+const markFullscreenPromptSeen = () => {
+  try {
+    window.localStorage.setItem(FULLSCREEN_PROMPT_KEY, 'true');
+  } catch {
+    // Storage can be unavailable in restricted browser modes.
+  }
+};
+
 function App() {
   const [showPrompt,  setShowPrompt]  = useState(() => {
-    return window.localStorage.getItem(FULLSCREEN_PROMPT_KEY) !== 'true';
+    return !hasSeenFullscreenPrompt();
   });
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMuted,     setIsMuted]     = useState(true);
@@ -31,8 +47,12 @@ function App() {
 
   // Freeze the page while the first-time experience prompt is visible.
   useEffect(() => {
+    document.documentElement.classList.toggle('prompt-open', showPrompt);
     document.body.classList.toggle('prompt-open', showPrompt);
-    return () => document.body.classList.remove('prompt-open');
+    return () => {
+      document.documentElement.classList.remove('prompt-open');
+      document.body.classList.remove('prompt-open');
+    };
   }, [showPrompt]);
 
   // Sync fullscreen state when user presses Escape etc.
@@ -58,7 +78,7 @@ function App() {
     if (go) go.call(el).catch(() => {});
     setIsFullscreen(true);
     setShowPrompt(false);
-    window.localStorage.setItem(FULLSCREEN_PROMPT_KEY, 'true');
+    markFullscreenPromptSeen();
 
     const video = videoRef.current;
     if (!video) return;
