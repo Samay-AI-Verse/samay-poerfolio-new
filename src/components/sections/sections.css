@@ -27,7 +27,7 @@
 /* Each section gets a higher z-index so it covers the one before */
 .about-section   { z-index: 2; }
 .skills-section  { z-index: 3; }
-.contact-section { z-index: 4; }
+.contact-section { z-index: 5; }
 
 
 .section-inner {
@@ -115,6 +115,7 @@
   z-index: 1;
 }
 
+/* skills-section: normal sticky section */
 .skills-section {
   background: linear-gradient(160deg, #0f0f1a 0%, #0b0b16 100%);
 }
