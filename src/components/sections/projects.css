@@ -1,0 +1,215 @@
+/* ════════════════════════════════════════════════
+   PROJECTS — stacked sticky scroll
+════════════════════════════════════════════════ */
+
+.projects-section {
+  position: relative;
+  background: #07060a;
+  padding-bottom: 120px;
+}
+
+/* ── Sticky header that stays as cards scroll under it ── */
+.projects-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 60px 8% 32px;
+  background: linear-gradient(to bottom, #07060a 70%, transparent);
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.projects-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.projects-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+/* ── Stack container ── */
+.projects-stack {
+  padding: 0 8%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Individual card — sticky with offset per index ── */
+.project-card {
+  position: sticky;
+  /* Each card sticks at a slightly lower top so they stack visually */
+  top: calc(140px + var(--stack-index) * 16px);
+  z-index: calc(1 + var(--stack-index));
+
+  background: #111018;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+  cursor: default;
+
+  /* Scale down slightly for cards underneath — creates depth illusion */
+  transform: scale(calc(1 - (2 - var(--stack-index)) * 0.015));
+  transform-origin: center top;
+}
+
+.project-card:hover {
+  border-color: rgba(var(--accent-r, 245), var(--accent-g, 166), var(--accent-b, 35), 0.3);
+}
+
+/* ── Accent line at top of each card ── */
+.project-accent-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent),
+    transparent
+  );
+  opacity: 0.6;
+}
+
+/* ── Card inner layout ── */
+.project-card-inner {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 32px;
+  align-items: center;
+  padding: 40px 44px;
+}
+
+/* ── Number ── */
+.project-num {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0.9;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -2px;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* ── Info ── */
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-subtitle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.75;
+  margin: 0;
+}
+
+.project-name {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.project-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  max-width: 600px;
+}
+
+/* ── Tech tags ── */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.project-tag {
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Link button ── */
+.project-actions {
+  flex-shrink: 0;
+}
+
+.project-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.25s, color 0.25s, background 0.25s;
+}
+
+.project-link-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .projects-header { padding: 40px 5% 24px; }
+  .projects-stack  { padding: 0 5%; }
+
+  .project-card-inner {
+    grid-template-columns: 60px 1fr;
+    grid-template-rows: auto auto;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+
+  .project-actions {
+    grid-column: 1 / -1;
+  }
+
+  .project-num { font-size: 2.2rem; }
+}
+
+@media (max-width: 600px) {
+  .project-card-inner {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
+  }
+
+  .project-num { font-size: 2rem; }
+  .project-desc { font-size: 0.83rem; }
+}

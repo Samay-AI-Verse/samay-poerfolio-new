@@ -13,11 +13,11 @@ import {
   siVercel,
   siWhatsapp,
 } from 'simple-icons';
-import awsIcon from 'devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg?raw';
 import flaskIcon from 'devicon/icons/flask/flask-original.svg?raw';
 import matplotlibIcon from 'devicon/icons/matplotlib/matplotlib-original.svg?raw';
 import numpyIcon from 'devicon/icons/numpy/numpy-original.svg?raw';
 import pandasIcon from 'devicon/icons/pandas/pandas-original.svg?raw';
+import postgresqlIcon from 'devicon/icons/postgresql/postgresql-original.svg?raw';
 import pythonIcon from 'devicon/icons/python/python-original.svg?raw';
 import './AboutSection.css';
 
@@ -57,6 +57,7 @@ const OpenAIIcon = ({ className = '', ...props }) => (
   </svg>
 );
 
+/* Matplotlib — simple line chart icon */
 const ROW_ONE = [
   { name: 'LangChain', icon: <SvgIcon title="LangChain" icon={siLangchain} /> },
   { name: 'LangGraph', icon: <SvgIcon title="LangGraph" icon={siLanggraph} /> },
@@ -75,7 +76,7 @@ const ROW_TWO = [
   { name: 'Flask', icon: <RawSvgIcon name="Flask" svg={flaskIcon} className="brand-icon-invert" /> },
   { name: 'React', icon: <SvgIcon title="React" icon={siReact} /> },
   { name: 'Docker', icon: <SvgIcon title="Docker" icon={siDocker} /> },
-  { name: 'AWS', icon: <RawSvgIcon name="AWS" svg={awsIcon} className="brand-icon-invert brand-icon-wide" /> },
+  { name: 'PostgreSQL', icon: <RawSvgIcon name="PostgreSQL" svg={postgresqlIcon} /> },
   { name: 'Google Cloud', icon: <SvgIcon title="Google Cloud" icon={siGooglecloud} /> },
   { name: 'GitHub', icon: <SvgIcon title="GitHub" icon={siGithub} className="brand-icon-light" /> },
   { name: 'GitHub Actions', icon: <SvgIcon title="GitHub Actions" icon={siGithubactions} /> },

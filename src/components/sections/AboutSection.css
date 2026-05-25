@@ -208,17 +208,7 @@
   transition: transform 0.3s ease;
 }
 
-/* Subtle Ã— separator after each item */
-.about-mq-item::after {
-  content: 'Ã—';
-  position: absolute;
-  right: -4px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.12);
-  pointer-events: none;
-}
+
 
 .about-mq-item:hover {
   transform: translateY(-4px);
@@ -428,4 +418,5 @@
   .profile-visual { width: 300px; height: 300px; margin-top: 36px; }
   .pv-avatar      { width: 280px; height: 280px; }
 }
+
 
