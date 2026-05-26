@@ -1,35 +1,38 @@
 /* ═══════════════════════════════════════════════
-   PROJECTS SECTION
-   Reference: lukebahait.fr style
-   - Left: large scroll-linked project titles
-   - Right: fixed floating preview image
-   - Smooth fade-in/out between projects
+   PROJECTS SECTION  ·  lukebahait.fr style
+   ─ Left column: large scroll-linked titles
+   ─ Right: fixed floating preview (only while section is active)
+   ─ No bleed onto adjacent sections
 ═══════════════════════════════════════════════ */
 
-/* ── Section wrapper ─────────────────────────── */
+/* ── Section wrapper ─────────────────────────────────────── */
 .proj-section {
   position: relative;
   background: #0a0a0a;
   color: #fff;
-  /* Sit above the Services section (z-index 4) */
-  z-index: 5;
   min-height: 100vh;
-  padding-bottom: 120px;
+  padding-bottom: 140px;
+  /*
+   * z-index 5 keeps it above the Services section (z-index 4).
+   * Do NOT set overflow:hidden – fixed children must escape.
+   */
+  z-index: 5;
 }
 
-/* ── Inner content (left column) ─────────────── */
+/* ── Inner scrollable content (left column) ──────────────── */
 .proj-inner {
+  /* Take only the left ~55% so the right side is free for the preview */
   max-width: 55%;
   padding: 0 72px;
 }
 
-/* ── Header ──────────────────────────────────── */
+/* ── Section header ──────────────────────────────────────── */
 .proj-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   padding-top: 80px;
-  padding-bottom: 48px;
+  padding-bottom: 52px;
 }
 
 .proj-header-eyebrow {
@@ -38,7 +41,7 @@
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .proj-header-count {
@@ -46,31 +49,19 @@
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.25);
+  color: rgba(255, 255, 255, 0.22);
 }
 
-/* ── Project list ────────────────────────────── */
-.proj-list {
-  list-style: none;
-}
-
-/* Divider rule */
+/* ── Divider rules ───────────────────────────────────────── */
 .proj-item-rule {
   width: 100%;
   height: 1px;
-  background: rgba(255,255,255,0.1);
-  transition: background 0.4s ease;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.proj-item.is-active + .proj-item .proj-item-rule,
-.proj-item.is-active .proj-item-rule {
-  background: rgba(255,255,255,0.2);
-}
-
-/* ── Single project row ──────────────────────── */
+/* ── Single project row ──────────────────────────────────── */
 .proj-item {
   position: relative;
-  cursor: default;
 }
 
 .proj-item-row {
@@ -83,7 +74,7 @@
 }
 
 .proj-item.is-active .proj-item-row {
-  padding: 34px 0 18px;
+  padding: 36px 0 18px;
 }
 
 /* Index number */
@@ -91,14 +82,14 @@
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 400;
-  color: rgba(255,255,255,0.25);
+  color: rgba(255, 255, 255, 0.22);
   padding-top: 8px;
-  transition: color 0.4s ease;
   flex-shrink: 0;
+  transition: color 0.4s ease;
 }
 
 .proj-item.is-active .proj-item-num {
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Title + category */
@@ -112,16 +103,16 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
-  color: rgba(255,255,255,0.18);
+  color: rgba(255, 255, 255, 0.16);
+  transform: translateX(0);
   transition:
     color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateX(0);
   will-change: color, transform;
 }
 
 .proj-item.is-active .proj-item-title {
-  color: #ffffff;
+  color: #fff;
   transform: translateX(6px);
 }
 
@@ -131,27 +122,27 @@
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0);
-  margin-top: 6px;
+  color: rgba(255, 255, 255, 0);
+  margin-top: 7px;
   transition: color 0.45s ease;
 }
 
 .proj-item.is-active .proj-item-cat {
-  color: rgba(255,255,255,0.4);
+  color: rgba(255, 255, 255, 0.4);
 }
 
-/* Action links (right side) */
+/* Action links */
 .proj-item-actions {
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding-top: 6px;
+  flex-shrink: 0;
   opacity: 0;
   transform: translateX(8px);
   transition:
     opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  flex-shrink: 0;
 }
 
 .proj-item.is-active .proj-item-actions {
@@ -160,7 +151,7 @@
 }
 
 .proj-item-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 5px;
   font-family: 'Inter', sans-serif;
@@ -168,7 +159,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255, 255, 255, 0.42);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -194,15 +185,13 @@
   padding-left: 76px;
   transition:
     max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.4s ease,
-    padding 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.4s ease;
 }
 
 .proj-item.is-active .proj-item-expand {
-  max-height: 100px;
+  max-height: 120px;
   opacity: 1;
   padding-bottom: 28px;
-  padding-left: 76px;
 }
 
 .proj-item-expand p {
@@ -210,11 +199,19 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 1.65;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255, 255, 255, 0.42);
   max-width: 460px;
 }
 
-/* ── Fixed right-side aside (label + progress bar) ── */
+/* ═══════════════════════════════════════════════
+   FIXED OVERLAY ELEMENTS
+   Both start invisible (opacity: 0, pointer-events: none).
+   The --on modifier is added by JS only when
+   sectionTop <= 0 AND section is still on screen.
+   This prevents bleed onto the Services section above.
+═══════════════════════════════════════════════ */
+
+/* ── Right-edge label + progress bar ────────────────────── */
 .proj-aside {
   position: fixed;
   top: 50%;
@@ -224,13 +221,15 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  z-index: 200;
-  pointer-events: none;
+  z-index: 300;
+
+  /* Hidden by default */
   opacity: 0;
-  transition: opacity 0.5s ease;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
 }
 
-.proj-aside--visible {
+.proj-aside--on {
   opacity: 1;
 }
 
@@ -240,7 +239,7 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255, 255, 255, 0.28);
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
@@ -249,40 +248,41 @@
 .proj-aside-rail {
   width: 1px;
   height: 80px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 2px;
   overflow: hidden;
 }
 
 .proj-aside-fill {
   width: 100%;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255, 255, 255, 0.65);
   border-radius: 2px;
   transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── Floating preview panel ──────────────────── */
+/* ── Floating preview card ───────────────────────────────── */
 .proj-preview {
   position: fixed;
   top: 50%;
-  right: 72px;
-  transform: translateY(-50%) translateX(24px);
+  right: 56px;
+  transform: translateY(-50%) translateX(22px);
   width: clamp(260px, 26vw, 340px);
-  z-index: 199;
-  pointer-events: none;
+  z-index: 299;
+
+  /* Hidden by default — no bleed onto Services */
   opacity: 0;
+  pointer-events: none;
   transition:
-    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.proj-preview--visible {
+.proj-preview--on {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
   pointer-events: auto;
 }
 
-/* Meta row: date + badge */
 .proj-preview-meta {
   display: flex;
   justify-content: space-between;
@@ -295,7 +295,7 @@
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.16em;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255, 255, 255, 0.4);
   text-transform: uppercase;
 }
 
@@ -304,11 +304,11 @@
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.22em;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255, 255, 255, 0.28);
   text-transform: uppercase;
 }
 
-/* Image frame */
+/* Image stack */
 .proj-preview-frame {
   position: relative;
   width: 100%;
@@ -325,6 +325,8 @@
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
+
+  /* Off state */
   opacity: 0;
   transform: scale(1.05) translateY(8px);
   transition:
@@ -333,17 +335,19 @@
   will-change: opacity, transform;
 }
 
+/* Active image */
 .proj-preview-img.is-active {
   opacity: 1;
   transform: scale(1) translateY(0);
 }
 
+/* Past (scrolled past) image */
 .proj-preview-img.is-past {
   opacity: 0;
   transform: scale(0.96) translateY(-6px);
 }
 
-/* Tags below image */
+/* Tech tag pills */
 .proj-preview-tags {
   display: flex;
   flex-wrap: wrap;
@@ -357,28 +361,30 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 100px;
   padding: 3px 9px;
-  transition: color 0.3s, border-color 0.3s;
 }
 
-/* ── Responsive ──────────────────────────────── */
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+
 @media (max-width: 1100px) {
   .proj-inner {
     max-width: 60%;
-    padding: 0 56px;
+    padding: 0 52px;
   }
 
   .proj-preview {
-    width: clamp(220px, 24vw, 300px);
-    right: 56px;
+    width: clamp(230px, 24vw, 300px);
+    right: 48px;
   }
 }
 
+/* ── Tablet / mobile: hide fixed overlay, go full width ─── */
 @media (max-width: 860px) {
-  /* On smaller screens, hide the fixed preview panel and sidebar */
   .proj-preview,
   .proj-aside {
     display: none;

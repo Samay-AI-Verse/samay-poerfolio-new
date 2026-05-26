@@ -7,43 +7,37 @@ const SERVICES = [
     id: 1,
     title: 'AI Applications',
     kicker: 'INTELLIGENT SYSTEMS',
-    desc: 'I build LLM-powered products, RAG pipelines, agents, and automation layers that turn rough workflows into usable software.',
-    cta: 'More about AI Apps',
+    desc: 'I build LLM-powered products, RAG pipelines, smart agents, and automation layers that connect real data with useful workflows. The focus is on practical AI tools that feel fast, reliable, and easy to use.',
   },
   {
     id: 2,
     title: 'Full Stack Development',
     kicker: 'PRODUCT ENGINEERING',
-    desc: 'React interfaces, backend APIs, dashboards, and cloud-ready platforms designed to feel fast, polished, and practical.',
-    cta: 'More about Full Stack',
+    desc: 'I create React interfaces, backend APIs, dashboards, and cloud-ready platforms with clean structure from front to back. Every build is shaped for performance, maintainability, and a smooth user experience.',
   },
   {
     id: 3,
     title: 'Software Development',
     kicker: 'CUSTOM SOFTWARE',
-    desc: 'Custom tools, scalable services, integrations, microservices, and data pipelines made for daily work instead of demos.',
-    cta: 'More about Software',
+    desc: 'I develop custom tools, scalable services, integrations, microservices, and data pipelines that support daily operations. The goal is software that solves a real problem and stays simple to operate.',
   },
   {
     id: 4,
     title: 'Windows Applications',
     kicker: 'DESKTOP BUILDS',
-    desc: 'Modern Windows applications with smooth UI, local data handling, automation hooks, and system integrations.',
-    cta: 'More about Windows Apps',
+    desc: 'I build modern Windows applications with smooth UI, local data handling, automation hooks, and system integrations. These apps are designed for focused desktop workflows where speed and stability matter.',
   },
   {
     id: 5,
     title: 'Android Development',
     kicker: 'MOBILE PRODUCTS',
-    desc: 'Android apps with sharp UX, API integrations, real-time sync, useful flows, and reliable release builds.',
-    cta: 'More about Android',
+    desc: 'I design and develop Android apps with sharp UX, API integrations, real-time sync, and useful mobile flows. The result is a clean app experience that works well across everyday screens.',
   },
   {
     id: 6,
     title: 'WhatsApp Chatbot',
     kicker: 'CHAT AUTOMATION',
-    desc: 'AI-powered WhatsApp bots for voice, text, bookings, support, ordering, and smart customer automation.',
-    cta: 'More about Chatbots',
+    desc: 'I build AI-powered WhatsApp bots for voice, text, bookings, support, ordering, and customer automation. They can answer common questions, collect details, trigger workflows, and hand off complex cases when needed.',
   },
 ];
 
@@ -164,9 +158,8 @@ export default function ServicesSection() {
               <b>/</b>
             </div>
             <p className="srv-desc">{activeService.desc}</p>
-            <a className="srv-cta" href="#contact">
-              {activeService.cta}
-              <span />
+            <a className="srv-cta" href="#projects">
+              See my work
             </a>
           </article>
         </div>

@@ -56,14 +56,17 @@
 }
 
 .srv-grid {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(220px, 0.74fr) minmax(360px, 1.14fr) minmax(300px, 0.92fr);
-  gap: clamp(24px, 3.6vw, 66px);
+  grid-template-columns: minmax(300px, 0.92fr) minmax(420px, 1fr) minmax(380px, 1.08fr);
+  gap: clamp(22px, 3.2vw, 58px);
   align-items: center;
   min-height: calc(100vh - clamp(122px, 15vh, 162px));
 }
 
 .srv-menu {
+  position: relative;
+  z-index: 3;
   align-self: center;
   padding-left: clamp(30px, 3vw, 54px);
 }
@@ -120,27 +123,34 @@
 
 .srv-stage {
   position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
   min-height: min(62vh, 560px);
+  overflow: visible;
+  pointer-events: none;
 }
 
 .srv-counter {
   position: absolute;
   inset: 50% auto auto 50%;
   z-index: 1;
-  width: max-content;
+  width: min-content;
   margin: 0;
   color: #000;
-  font-size: clamp(6.2rem, 11vw, 14rem);
+  font-size: clamp(4.7rem, 7.6vw, 9.4rem);
   font-weight: 400;
-  line-height: 0.84;
+  line-height: 0.86;
   letter-spacing: 0;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  text-align: left;
+  white-space: nowrap;
 }
 
 .srv-copy {
+  position: relative;
+  z-index: 3;
   display: grid;
   align-content: center;
   min-height: min(54vh, 420px);
@@ -165,13 +175,13 @@
 }
 
 .srv-desc {
-  max-width: 440px;
-  min-height: clamp(138px, 20vh, 184px);
+  max-width: 520px;
+  min-height: clamp(168px, 24vh, 230px);
   margin: 0;
   color: #0b0b0b;
-  font-size: clamp(1.08rem, 1.38vw, 1.5rem);
+  font-size: clamp(1.02rem, 1.24vw, 1.34rem);
   font-weight: 500;
-  line-height: 1.28;
+  line-height: 1.38;
   text-wrap: pretty;
   animation: srvCopyIn 0.32s ease both;
 }
@@ -179,32 +189,27 @@
 .srv-cta {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
+  justify-content: flex-start;
   width: fit-content;
-  min-height: clamp(54px, 7vh, 64px);
-  margin-top: clamp(20px, 4vh, 44px);
-  padding: 0 clamp(20px, 2vw, 26px);
-  border-radius: 8px;
-  color: #fff;
-  background: #000;
-  font-size: clamp(0.86rem, 1vw, 1.14rem);
+  min-height: 34px;
+  margin-top: clamp(14px, 3vh, 28px);
+  padding: 0 0 7px;
+  border-bottom: 3px solid var(--srv-accent);
+  border-radius: 0;
+  color: #050505;
+  background: transparent;
+  font-size: clamp(0.82rem, 0.95vw, 1rem);
   font-weight: 900;
   line-height: 1;
   text-decoration: none;
   text-transform: uppercase;
-  transition: transform 0.24s ease, background 0.24s ease;
-}
-
-.srv-cta span {
-  width: 12px;
-  aspect-ratio: 1;
-  background: #fff;
+  transition: color 0.24s ease, transform 0.24s ease, border-color 0.24s ease;
 }
 
 .srv-cta:hover {
-  transform: translateY(-4px);
-  background: var(--srv-accent);
+  color: var(--srv-accent);
+  border-color: #050505;
+  transform: translateY(-2px);
 }
 
 .srv-footer {
@@ -260,13 +265,37 @@
 
 @media (max-width: 1180px) {
   .srv-grid {
-    grid-template-columns: minmax(200px, 0.76fr) minmax(360px, 1.25fr) minmax(280px, 0.9fr);
-    gap: 28px;
+    grid-template-columns: minmax(280px, 0.92fr) minmax(340px, 0.92fr) minmax(320px, 1fr);
+    gap: 24px;
   }
 
-  .srv-image-stack {
-    width: min(43vw, 560px);
-    min-width: 330px;
+  .srv-counter {
+    font-size: clamp(4.2rem, 7vw, 7.4rem);
+  }
+
+  .srv-desc {
+    font-size: clamp(0.98rem, 1.28vw, 1.16rem);
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 1040px) and (min-width: 921px) {
+  .srv-grid {
+    grid-template-columns: minmax(260px, 0.95fr) minmax(260px, 0.78fr) minmax(290px, 1fr);
+    gap: 20px;
+  }
+
+  .srv-menu-item {
+    grid-template-columns: 42px minmax(0, 1fr);
+    font-size: clamp(1rem, 1.55vw, 1.32rem);
+  }
+
+  .srv-counter {
+    font-size: clamp(3.8rem, 6.7vw, 6.4rem);
+  }
+
+  .srv-copy {
+    padding-right: 10px;
   }
 }
 
@@ -285,11 +314,11 @@
   }
 
   .srv-stage {
-    min-height: 500px;
+    min-height: 430px;
   }
 
-  .srv-image-stack {
-    width: min(41vw, 620px);
+  .srv-counter {
+    font-size: clamp(4.2rem, 8.2vw, 8rem);
   }
 
   .srv-love {
@@ -297,7 +326,8 @@
   }
 
   .srv-desc {
-    min-height: 136px;
+    min-height: 164px;
+    font-size: clamp(0.94rem, 1.16vw, 1.08rem);
   }
 
   .srv-footer {

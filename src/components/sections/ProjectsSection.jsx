@@ -52,26 +52,36 @@ export default function ProjectsSection() {
   const sectionRef = useRef(null);
   const rafRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [sectionInView, setSectionInView] = useState(false);
+  const [panelVisible, setPanelVisible] = useState(false);
 
-  // Track which project item is in the "center" of the viewport
   useEffect(() => {
     const handleScroll = () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => {
         const section = sectionRef.current;
         if (!section) return;
+
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top;
+        const sectionBottom = rect.bottom;
+
+        // Show fixed panel only when the section's TOP edge has crossed the viewport top
+        // AND the section's bottom is still visible → fully "inside" the section
+        const isFullyIn = sectionTop <= 0 && sectionBottom > window.innerHeight * 0.3;
+        setPanelVisible(isFullyIn);
+
+        // Find the closest item to 40% down the viewport
         const items = section.querySelectorAll('.proj-item');
         if (!items.length) return;
 
-        const viewportMid = window.innerHeight * 0.40;
+        const viewportTarget = window.innerHeight * 0.4;
         let closestIndex = 0;
         let closestDist = Infinity;
 
         items.forEach((item, i) => {
-          const rect = item.getBoundingClientRect();
-          const itemMid = rect.top + rect.height / 2;
-          const dist = Math.abs(itemMid - viewportMid);
+          const r = item.getBoundingClientRect();
+          const itemMid = r.top + r.height / 2;
+          const dist = Math.abs(itemMid - viewportTarget);
           if (dist < closestDist) {
             closestDist = dist;
             closestIndex = i;
@@ -90,26 +100,23 @@ export default function ProjectsSection() {
     };
   }, []);
 
-  // Track whether the section is visible → show/hide preview panel
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setSectionInView(entry.isIntersecting),
-      { threshold: 0.05 }
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
   const activeProject = PROJECTS[activeIndex];
 
   return (
     <section id="projects" className="proj-section" ref={sectionRef}>
 
-      {/* ── Right-edge vertical label + progress bar (only visible when in-view) ── */}
-      <aside className={`proj-aside${sectionInView ? ' proj-aside--visible' : ''}`} aria-hidden="true">
+      {/*
+        Fixed panel + sidebar are rendered INSIDE the section element.
+        They use position:fixed so they stay on screen while scrolling
+        through the section, but are hidden (opacity-0 / pointer-events-none)
+        when the section isn't fully in view — preventing bleed onto Services.
+      */}
+
+      {/* ── Right-edge vertical label + progress bar ── */}
+      <aside
+        className={`proj-aside${panelVisible ? ' proj-aside--on' : ''}`}
+        aria-hidden="true"
+      >
         <span className="proj-aside-label">Projects</span>
         <div className="proj-aside-rail">
           <div
@@ -119,8 +126,11 @@ export default function ProjectsSection() {
         </div>
       </aside>
 
-      {/* ── Sticky floating preview panel ── */}
-      <div className={`proj-preview${sectionInView ? ' proj-preview--visible' : ''}`} aria-hidden="true">
+      {/* ── Floating preview card ── */}
+      <div
+        className={`proj-preview${panelVisible ? ' proj-preview--on' : ''}`}
+        aria-hidden="true"
+      >
         <div className="proj-preview-meta">
           <span className="proj-preview-date">{activeProject.id} {activeProject.year}</span>
           <span className="proj-preview-badge">PREVIEW</span>
@@ -131,8 +141,11 @@ export default function ProjectsSection() {
               key={p.id}
               src={p.image}
               alt={p.title}
-              className={`proj-preview-img${i === activeIndex ? ' is-active' : i < activeIndex ? ' is-past' : ''}`}
               draggable="false"
+              className={
+                'proj-preview-img' +
+                (i === activeIndex ? ' is-active' : i < activeIndex ? ' is-past' : '')
+              }
             />
           ))}
         </div>
@@ -143,16 +156,13 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      {/* ── Inner scrollable content ── */}
+      {/* ── Left: header + list ── */}
       <div className="proj-inner">
-
-        {/* Header */}
         <header className="proj-header">
           <span className="proj-header-eyebrow">Selected Work</span>
           <div className="proj-header-count">{PROJECTS.length.toString().padStart(2, '0')}+</div>
         </header>
 
-        {/* List */}
         <div className="proj-list" role="list">
           {PROJECTS.map((project, index) => (
             <article
@@ -168,13 +178,21 @@ export default function ProjectsSection() {
                   <p className="proj-item-cat">{project.category}</p>
                 </div>
                 <div className="proj-item-actions">
-                  <a href={project.live} className="proj-item-link" aria-label={`Live demo — ${project.title}`}>
+                  <a
+                    href={project.live}
+                    className="proj-item-link"
+                    aria-label={`Live demo — ${project.title}`}
+                  >
                     Live
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                       <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </a>
-                  <a href={project.github} className="proj-item-link" aria-label={`GitHub — ${project.title}`}>
+                  <a
+                    href={project.github}
+                    className="proj-item-link"
+                    aria-label={`GitHub — ${project.title}`}
+                  >
                     GitHub
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                       <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -189,8 +207,8 @@ export default function ProjectsSection() {
           ))}
           <div className="proj-item-rule" />
         </div>
-
       </div>
+
     </section>
   );
 }
