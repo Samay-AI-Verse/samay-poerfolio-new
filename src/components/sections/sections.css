@@ -28,7 +28,8 @@
 .about-section    { z-index: 2; }
 .skills-section   { z-index: 3; }
 .srv-section      { z-index: 4; }
-.contact-section  { z-index: 5; }
+/* proj-section z-index is set to 5 in its own CSS */
+.contact-section  { z-index: 6; }
 
 
 .section-inner {

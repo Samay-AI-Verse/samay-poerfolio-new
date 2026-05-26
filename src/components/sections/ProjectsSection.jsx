@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './ProjectsSection.css';
 
 const PROJECTS = [
@@ -37,7 +37,7 @@ const PROJECTS = [
   },
   {
     id: '04',
-    year: '2024',
+    year: '2025',
     title: 'WhatsApp AI Bot',
     category: 'Messaging Automation',
     desc: 'An LLM-powered support and ordering assistant with escalation, structured automations, and a clean backend API layer.',
@@ -50,47 +50,39 @@ const PROJECTS = [
 
 export default function ProjectsSection() {
   const sectionRef = useRef(null);
-  const listRef = useRef(null);
-  const imageRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [imageVisible, setImageVisible] = useState(false);
-  const [imageStyle, setImageStyle] = useState({});
   const rafRef = useRef(null);
-  const targetActiveRef = useRef(0);
-  const currentActiveRef = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [sectionInView, setSectionInView] = useState(false);
 
-  // Smooth scroll tracking
+  // Track which project item is in the "center" of the viewport
   useEffect(() => {
     const handleScroll = () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(updateActiveItem);
-    };
+      rafRef.current = requestAnimationFrame(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+        const items = section.querySelectorAll('.proj-item');
+        if (!items.length) return;
 
-    const updateActiveItem = () => {
-      const section = sectionRef.current;
-      if (!section) return;
+        const viewportMid = window.innerHeight * 0.40;
+        let closestIndex = 0;
+        let closestDist = Infinity;
 
-      const items = section.querySelectorAll('.proj-item');
-      if (!items.length) return;
+        items.forEach((item, i) => {
+          const rect = item.getBoundingClientRect();
+          const itemMid = rect.top + rect.height / 2;
+          const dist = Math.abs(itemMid - viewportMid);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestIndex = i;
+          }
+        });
 
-      const viewportMid = window.innerHeight * 0.42;
-      let closestIndex = 0;
-      let closestDist = Infinity;
-
-      items.forEach((item, i) => {
-        const rect = item.getBoundingClientRect();
-        const itemMid = rect.top + rect.height / 2;
-        const dist = Math.abs(itemMid - viewportMid);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestIndex = i;
-        }
+        setActiveIndex(closestIndex);
       });
-
-      setActiveIndex(closestIndex);
     };
 
-    updateActiveItem();
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -98,113 +90,107 @@ export default function ProjectsSection() {
     };
   }, []);
 
-  // Image panel visibility based on section in view
+  // Track whether the section is visible → show/hide preview panel
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setImageVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
+      ([entry]) => setSectionInView(entry.isIntersecting),
+      { threshold: 0.05 }
     );
-
     observer.observe(section);
     return () => observer.disconnect();
   }, []);
 
+  const activeProject = PROJECTS[activeIndex];
+
   return (
     <section id="projects" className="proj-section" ref={sectionRef}>
 
-      {/* Right side vertical label */}
-      <div className="proj-side-label" aria-hidden="true">Projects</div>
+      {/* ── Right-edge vertical label + progress bar (only visible when in-view) ── */}
+      <aside className={`proj-aside${sectionInView ? ' proj-aside--visible' : ''}`} aria-hidden="true">
+        <span className="proj-aside-label">Projects</span>
+        <div className="proj-aside-rail">
+          <div
+            className="proj-aside-fill"
+            style={{ height: `${((activeIndex + 1) / PROJECTS.length) * 100}%` }}
+          />
+        </div>
+      </aside>
 
-      {/* Vertical progress bar */}
-      <div className="proj-progress-rail" aria-hidden="true">
-        <div
-          className="proj-progress-fill"
-          style={{ height: `${((activeIndex + 1) / PROJECTS.length) * 100}%` }}
-        />
-      </div>
-
-      {/* Sticky image preview panel */}
-      <div className={`proj-preview-panel${imageVisible ? ' is-visible' : ''}`} aria-hidden="true">
+      {/* ── Sticky floating preview panel ── */}
+      <div className={`proj-preview${sectionInView ? ' proj-preview--visible' : ''}`} aria-hidden="true">
         <div className="proj-preview-meta">
-          <span className="proj-preview-id">{PROJECTS[activeIndex].id} {PROJECTS[activeIndex].year}</span>
-          <span className="proj-preview-label">PREVIEW</span>
+          <span className="proj-preview-date">{activeProject.id} {activeProject.year}</span>
+          <span className="proj-preview-badge">PREVIEW</span>
         </div>
         <div className="proj-preview-frame">
-          {PROJECTS.map((project, i) => (
+          {PROJECTS.map((p, i) => (
             <img
-              key={project.id}
-              src={project.image}
-              alt={project.title}
-              className={`proj-preview-img${i === activeIndex ? ' is-active' : ''}`}
+              key={p.id}
+              src={p.image}
+              alt={p.title}
+              className={`proj-preview-img${i === activeIndex ? ' is-active' : i < activeIndex ? ' is-past' : ''}`}
               draggable="false"
             />
           ))}
         </div>
         <div className="proj-preview-tags">
-          {PROJECTS[activeIndex].tags.map(tag => (
+          {activeProject.tags.map(tag => (
             <span key={tag}>{tag}</span>
           ))}
         </div>
       </div>
 
-      {/* Section header */}
-      <div className="proj-header">
-        <div className="proj-header-left">
-          <span className="proj-header-eyebrow">Selected Work</span>
-        </div>
-        <div className="proj-header-right">
-          <h2 className="proj-header-title">Projects</h2>
-          <p className="proj-header-count">({PROJECTS.length.toString().padStart(2, '0')})</p>
-        </div>
-      </div>
+      {/* ── Inner scrollable content ── */}
+      <div className="proj-inner">
 
-      {/* Projects list */}
-      <div className="proj-list" ref={listRef}>
-        {PROJECTS.map((project, index) => (
-          <div
-            key={project.id}
-            className={`proj-item${index === activeIndex ? ' is-active' : ''}`}
-          >
-            <div className="proj-item-divider" />
-            <div className="proj-item-inner">
-              <div className="proj-item-left">
-                <span className="proj-item-num">({parseInt(project.id, 10).toString().padStart(2, '0')})</span>
-              </div>
-              <div className="proj-item-center">
-                <h3 className="proj-item-title">{project.title}</h3>
-                <p className="proj-item-category">{project.category}</p>
-              </div>
-              <div className="proj-item-right">
-                <div className="proj-item-links">
-                  <a href={project.live} className="proj-item-link" aria-label={`Live demo for ${project.title}`}>
-                    <span>Live</span>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        {/* Header */}
+        <header className="proj-header">
+          <span className="proj-header-eyebrow">Selected Work</span>
+          <div className="proj-header-count">{PROJECTS.length.toString().padStart(2, '0')}+</div>
+        </header>
+
+        {/* List */}
+        <div className="proj-list" role="list">
+          {PROJECTS.map((project, index) => (
+            <article
+              key={project.id}
+              className={`proj-item${index === activeIndex ? ' is-active' : ''}`}
+              role="listitem"
+            >
+              <div className="proj-item-rule" />
+              <div className="proj-item-row">
+                <span className="proj-item-num">({project.id})</span>
+                <div className="proj-item-body">
+                  <h3 className="proj-item-title">{project.title}</h3>
+                  <p className="proj-item-cat">{project.category}</p>
+                </div>
+                <div className="proj-item-actions">
+                  <a href={project.live} className="proj-item-link" aria-label={`Live demo — ${project.title}`}>
+                    Live
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                      <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </a>
-                  <a href={project.github} className="proj-item-link" aria-label={`GitHub for ${project.title}`}>
-                    <span>GitHub</span>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <a href={project.github} className="proj-item-link" aria-label={`GitHub — ${project.title}`}>
+                    GitHub
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                      <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </a>
                 </div>
               </div>
-            </div>
-            {/* Expanded description when active */}
-            <div className="proj-item-desc">
-              <p>{project.desc}</p>
-            </div>
-          </div>
-        ))}
-        <div className="proj-item-divider" />
-      </div>
+              <div className="proj-item-expand">
+                <p>{project.desc}</p>
+              </div>
+            </article>
+          ))}
+          <div className="proj-item-rule" />
+        </div>
 
+      </div>
     </section>
   );
 }
