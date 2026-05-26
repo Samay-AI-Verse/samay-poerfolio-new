@@ -25,9 +25,10 @@
 }
 
 /* Each section gets a higher z-index so it covers the one before */
-.about-section   { z-index: 2; }
-.skills-section  { z-index: 3; }
-.contact-section { z-index: 5; }
+.about-section    { z-index: 2; }
+.skills-section   { z-index: 3; }
+.srv-section      { z-index: 4; }
+.contact-section  { z-index: 5; }
 
 
 .section-inner {

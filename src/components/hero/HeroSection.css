@@ -42,41 +42,65 @@
   inset: 0;
   z-index: 2;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.45);
+  gap: 24px;
+  background: rgba(0, 0, 0, 0.55);
   cursor: pointer;
-  animation: overlayFadeIn 0.4s ease forwards;
+  animation: overlayFadeIn 0.5s ease forwards;
 }
 
 @keyframes overlayFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .video-play-btn {
-  width: 96px;
-  height: 96px;
+  position: relative;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.15);
-  border: 2.5px solid rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transition: all 0.25s ease;
 }
 
 @keyframes popIn {
-  from { transform: scale(0.5); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .video-ended-overlay:hover .video-play-btn {
-  background: rgba(255, 255, 255, 0.28);
-  transform: scale(1.12);
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
+  border-color: #fff;
+}
+
+.video-ended-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  animation: overlayFadeIn 0.5s ease 0.3s both;
 }
 
 /* ── Hero overlay (text + controls) ── */
@@ -141,13 +165,29 @@
 }
 
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1);   }
-  50%       { opacity: 1;   transform: scaleY(1.2); }
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleY(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleY(1.2);
+  }
 }
 
 @keyframes fadeUpIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 /* ── Shared button base ── */

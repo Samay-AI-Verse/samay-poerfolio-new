@@ -3,7 +3,6 @@ import './ProfileSection.css';
 import samayPhoto from '../../image/samayphoto.png';
 
 const NAV_LINKS = [
-  { label: 'Projects',       href: '#projects'       },
   { label: 'Skills',         href: '#skills'         },
   { label: 'Certifications', href: '#certifications' },
   { label: 'Participations', href: '#participations' },

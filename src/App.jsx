@@ -7,6 +7,8 @@ import './styles/global.css';
 import FullscreenPrompt from './components/overlay/FullscreenPrompt';
 import HeroSection from './components/hero/HeroSection';
 import AboutSection from './components/sections/AboutSection';
+import ServicesSection from './components/sections/ServicesSection';
+import ProjectsSection from './components/sections/ProjectsSection';
 import SkillsSection from './components/sections/SkillsSection';
 import ContactSection from './components/sections/ContactSection';
 import ProfileSection from './components/sections/ProfileSection';
@@ -30,9 +32,7 @@ const markFullscreenPromptSeen = () => {
 };
 
 function App() {
-  const [showPrompt,  setShowPrompt]  = useState(() => {
-    return !hasSeenFullscreenPrompt();
-  });
+  const [showPrompt, setShowPrompt] = useState(true); // always show on refresh
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMuted,     setIsMuted]     = useState(true);
   const [isPlaying,   setIsPlaying]   = useState(false);
@@ -164,6 +164,8 @@ function App() {
         <ProfileSection showNav={navVisible} />
         <AboutSection />
         <SkillsSection />
+        <ServicesSection />
+        <ProjectsSection />
         <ContactSection />
       </div>
 
