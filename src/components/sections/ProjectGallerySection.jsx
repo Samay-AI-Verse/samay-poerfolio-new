@@ -20,37 +20,35 @@ const easeInOut = (value) => {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 };
 
-function getImageStyle(index, progress) {
-  const stagger = 0.085;
-  const duration = 0.37;
-  const local = clamp((progress - index * stagger) / duration);
-  const hasStarted = progress > index * stagger - 0.015;
-  const hasFinished = progress > index * stagger + duration + 0.035;
+function getImageStyle(index, progress, total) {
+  const entry = easeOut((progress - index * 0.04) / 0.32);
+  const groupSpin = easeInOut((progress - 0.38) / 0.42) * Math.PI * 0.95;
+  const exit = easeInOut((progress - 0.9 - index * 0.012) / 0.1);
 
-  const entry = easeOut(local / 0.2);
-  const orbit = easeInOut((local - 0.17) / 0.56);
-  const exit = easeInOut((local - 0.74) / 0.26);
-
-  const angle = Math.PI * 0.58 - orbit * Math.PI * 1.86;
-  const orbitX = Math.cos(angle) * 42;
-  const orbitY = Math.sin(angle) * 33;
-  const startX = -34 + (index % 3) * 10;
-  const startY = 78 + (index % 2) * 7;
-  const exitX = 83 + index * 5.5;
-  const exitY = -4 + ((index + 1) % 4) * 12;
+  const baseAngle = (index / total) * Math.PI * 2 - Math.PI * 0.82;
+  const angle = baseAngle + groupSpin;
+  const orbitX = Math.cos(angle) * 39;
+  const orbitY = Math.sin(angle) * 35;
+  const startX = -36 + (index % 4) * 11;
+  const startY = 62 + (index % 3) * 5;
+  const exitX = 70 + index * 2.5;
+  const exitY = 2 + ((index + 1) % 4) * 10;
 
   const currentX = lerp(lerp(startX, orbitX, entry), exitX, exit);
   const currentY = lerp(lerp(startY, orbitY, entry), exitY, exit);
   const depth = Math.sin(angle);
-  const rotateZ = lerp(9 - index * 1.5, depth * 5 + index * 0.9 - 5, entry);
-  const rotateY = lerp(16, depth * 15, entry);
+  const tangent = Math.cos(angle) * 10;
+  const rotateZ = lerp(9 - index * 1.2, tangent + index * 0.7 - 4, entry);
+  const rotateY = lerp(16, depth * 22, entry);
   const rotateX = lerp(8, -depth * 3, entry);
-  const scale = lerp(0.58, lerp(0.76, 0.94, (depth + 1) / 2), entry) * lerp(1, 0.82, exit);
-  const opacity = hasStarted && !hasFinished ? clamp(entry * 1.45) * (1 - exit * 0.96) : 0;
+  const translateZ = lerp(-90, lerp(-70, 130, (depth + 1) / 2), entry) * (1 - exit);
+  const scale = lerp(0.58, lerp(0.76, 0.96, (depth + 1) / 2), entry) * lerp(1, 0.84, exit);
+  const opacity = clamp((entry - 0.28) / 0.72) * (1 - exit * 0.96);
 
   return {
     '--gallery-x': `${currentX}vw`,
     '--gallery-y': `${currentY}vh`,
+    '--gallery-z': `${translateZ}px`,
     '--gallery-rx': `${rotateX}deg`,
     '--gallery-rz': `${rotateZ}deg`,
     '--gallery-ry': `${rotateY}deg`,
@@ -94,20 +92,16 @@ export default function ProjectGallerySection() {
   }, []);
 
   const imageStyles = useMemo(
-    () => GALLERY_IMAGES.map((_, index) => getImageStyle(index, progress)),
+    () => GALLERY_IMAGES.map((_, index) => getImageStyle(index, progress, GALLERY_IMAGES.length)),
     [progress]
   );
 
-  const count = Math.round(47 + progress * 14);
+  const copyOpacity = easeInOut((progress - 0.5) / 0.16) * (1 - easeInOut((progress - 0.88) / 0.08));
 
   return (
     <section className="gallery-section" ref={sectionRef} aria-label="Project gallery">
       <div className="gallery-sticky">
-        <div className="gallery-counter" aria-hidden="true">
-          ({count})
-        </div>
-
-        <div className="gallery-copy">
+        <div className="gallery-copy" style={{ '--gallery-copy-opacity': copyOpacity.toFixed(3) }}>
           <p>
             Each project is a chance to
             <br />
@@ -134,7 +128,6 @@ export default function ProjectGallerySection() {
           <div className="gallery-rail">
             <span />
           </div>
-          <strong>Gallery</strong>
         </aside>
       </div>
     </section>
