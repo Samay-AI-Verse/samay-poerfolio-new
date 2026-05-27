@@ -1,4 +1,3 @@
-import React from 'react';
 import './ProfileSection.css';
 import samayPhoto from '../../image/samayphoto.png';
 

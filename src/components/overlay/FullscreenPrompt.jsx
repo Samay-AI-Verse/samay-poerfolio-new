@@ -1,4 +1,3 @@
-import React from 'react';
 import './FullscreenPrompt.css';
 
 export default function FullscreenPrompt({ onEnter }) {

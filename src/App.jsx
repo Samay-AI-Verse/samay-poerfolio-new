@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // Global styles
 import './styles/global.css';
@@ -9,19 +9,12 @@ import HeroSection from './components/hero/HeroSection';
 import AboutSection from './components/sections/AboutSection';
 import ServicesSection from './components/sections/ServicesSection';
 import ProjectsSection from './components/sections/ProjectsSection';
+import ProjectGallerySection from './components/sections/ProjectGallerySection';
 import SkillsSection from './components/sections/SkillsSection';
 import ContactSection from './components/sections/ContactSection';
 import ProfileSection from './components/sections/ProfileSection';
 
 const FULLSCREEN_PROMPT_KEY = 'samay-fullscreen-prompt-seen';
-
-const hasSeenFullscreenPrompt = () => {
-  try {
-    return window.localStorage.getItem(FULLSCREEN_PROMPT_KEY) === 'true';
-  } catch {
-    return false;
-  }
-};
 
 const markFullscreenPromptSeen = () => {
   try {
@@ -166,6 +159,7 @@ function App() {
         <SkillsSection />
         <ServicesSection />
         <ProjectsSection />
+        <ProjectGallerySection />
         <ContactSection />
       </div>
 

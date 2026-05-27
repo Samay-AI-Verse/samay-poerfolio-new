@@ -1,4 +1,3 @@
-import React from 'react';
 import './sections.css';
 
 export default function ContactSection() {
