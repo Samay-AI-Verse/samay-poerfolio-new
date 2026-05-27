@@ -20,31 +20,38 @@ const easeInOut = (value) => {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 };
 
-function getImageStyle(index, progress, total) {
-  const baseAngle = (index / total) * Math.PI * 2 - Math.PI * 0.65;
-  const orbitSpin = progress * Math.PI * 1.85;
-  const angle = baseAngle + orbitSpin;
-  const entry = easeOut(progress / 0.34);
-  const exit = easeInOut((progress - 0.72) / 0.28);
+function getImageStyle(index, progress) {
+  const stagger = 0.085;
+  const duration = 0.37;
+  const local = clamp((progress - index * stagger) / duration);
+  const hasStarted = progress > index * stagger - 0.015;
+  const hasFinished = progress > index * stagger + duration + 0.035;
 
-  const startX = -68 - index * 4;
-  const startY = -28 + (index % 4) * 18;
-  const orbitX = Math.cos(angle) * 34;
-  const orbitY = Math.sin(angle) * 27;
-  const exitX = 68 + index * 3.5;
-  const exitY = -20 + ((index + 2) % 4) * 15;
+  const entry = easeOut(local / 0.2);
+  const orbit = easeInOut((local - 0.17) / 0.56);
+  const exit = easeInOut((local - 0.74) / 0.26);
+
+  const angle = Math.PI * 0.58 - orbit * Math.PI * 1.86;
+  const orbitX = Math.cos(angle) * 42;
+  const orbitY = Math.sin(angle) * 33;
+  const startX = -34 + (index % 3) * 10;
+  const startY = 78 + (index % 2) * 7;
+  const exitX = 83 + index * 5.5;
+  const exitY = -4 + ((index + 1) % 4) * 12;
 
   const currentX = lerp(lerp(startX, orbitX, entry), exitX, exit);
   const currentY = lerp(lerp(startY, orbitY, entry), exitY, exit);
   const depth = Math.sin(angle);
-  const rotateZ = lerp(-18 + index * 5, depth * 10 + index * 2 - 7, entry);
-  const rotateY = lerp(-58, depth * 36, entry);
-  const scale = lerp(0.72, lerp(0.88, 1.08, (depth + 1) / 2), entry) * lerp(1, 0.86, exit);
-  const opacity = clamp(entry * 1.25) * (1 - clamp((progress - 0.9) / 0.1) * 0.85);
+  const rotateZ = lerp(9 - index * 1.5, depth * 5 + index * 0.9 - 5, entry);
+  const rotateY = lerp(16, depth * 15, entry);
+  const rotateX = lerp(8, -depth * 3, entry);
+  const scale = lerp(0.58, lerp(0.76, 0.94, (depth + 1) / 2), entry) * lerp(1, 0.82, exit);
+  const opacity = hasStarted && !hasFinished ? clamp(entry * 1.45) * (1 - exit * 0.96) : 0;
 
   return {
     '--gallery-x': `${currentX}vw`,
     '--gallery-y': `${currentY}vh`,
+    '--gallery-rx': `${rotateX}deg`,
     '--gallery-rz': `${rotateZ}deg`,
     '--gallery-ry': `${rotateY}deg`,
     '--gallery-scale': scale.toFixed(3),
@@ -87,7 +94,7 @@ export default function ProjectGallerySection() {
   }, []);
 
   const imageStyles = useMemo(
-    () => GALLERY_IMAGES.map((_, index) => getImageStyle(index, progress, GALLERY_IMAGES.length)),
+    () => GALLERY_IMAGES.map((_, index) => getImageStyle(index, progress)),
     [progress]
   );
 

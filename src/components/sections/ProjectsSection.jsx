@@ -191,28 +191,32 @@ export default function ProjectsSection() {
                 <div className="proj-item-body">
                   <h3 className="proj-item-title">{project.title}</h3>
                   <p className="proj-item-cat">{project.category}</p>
-                </div>
-                <div className="proj-item-actions">
-                  <a
-                    href={project.live}
-                    className="proj-item-link"
-                    aria-label={`Live demo — ${project.title}`}
-                  >
-                    Live
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                      <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </a>
-                  <a
-                    href={project.github}
-                    className="proj-item-link"
-                    aria-label={`GitHub — ${project.title}`}
-                  >
-                    GitHub
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                      <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </a>
+                  <div className="proj-item-actions">
+                    <a
+                      href={project.live}
+                      className="proj-item-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Live demo — ${project.title}`}
+                    >
+                      Live
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
+                    <a
+                      href={project.github}
+                      className="proj-item-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`GitHub — ${project.title}`}
+                    >
+                      GitHub
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </div>
               <div className="proj-item-expand">

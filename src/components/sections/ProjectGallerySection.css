@@ -1,6 +1,6 @@
 .gallery-section {
   position: relative;
-  height: 360vh;
+  height: 440vh;
   background: #050505;
   color: #fff;
   z-index: 6;
@@ -29,25 +29,26 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: clamp(120px, 14vw, 230px);
+  width: clamp(96px, 8.8vw, 162px);
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: 4px;
   opacity: var(--gallery-opacity);
   transform:
     translate3d(calc(-50% + var(--gallery-x)), calc(-50% + var(--gallery-y)), 0)
+    rotateX(var(--gallery-rx))
     rotateY(var(--gallery-ry))
     rotateZ(var(--gallery-rz))
     scale(var(--gallery-scale));
   transform-origin: center;
-  filter: saturate(0.95) contrast(1.08);
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.48);
+  filter: brightness(1.08) saturate(1.03) contrast(1.06);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.5);
   z-index: var(--gallery-depth);
   will-change: transform, opacity;
 }
 
 .gallery-card--wide {
-  width: clamp(180px, 22vw, 420px);
+  width: clamp(142px, 14vw, 265px);
   aspect-ratio: 16 / 10;
 }
 
@@ -133,7 +134,7 @@
 
 @media (max-width: 900px) {
   .gallery-section {
-    height: 300vh;
+    height: 380vh;
   }
 
   .gallery-copy {
@@ -146,11 +147,11 @@
   }
 
   .gallery-card {
-    width: clamp(94px, 22vw, 170px);
+    width: clamp(72px, 15vw, 116px);
   }
 
   .gallery-card--wide {
-    width: clamp(150px, 38vw, 280px);
+    width: clamp(108px, 26vw, 195px);
   }
 
   .gallery-counter {
