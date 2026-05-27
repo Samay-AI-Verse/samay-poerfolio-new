@@ -2,31 +2,30 @@ import { useEffect, useRef, useState } from 'react';
 import './AnotherSection.css';
 
 const COLUMN_1 = [
-  { src: '/covers/mario_kart_64.png', alt: 'Mario Kart 64' },
-  { src: '/covers/goldeneye_007.png', alt: 'GoldenEye 007' },
-  { src: '/covers/super_mario_64.png', alt: 'Super Mario 64' },
-  { src: '/covers/zelda_oot.png', alt: 'The Legend of Zelda: Ocarina of Time' },
-  { src: '/covers/goemon.png', alt: 'Ganbare Goemon' },
-  { src: '/covers/perfect_dark.png', alt: 'Perfect Dark' },
+  { src: '/highlights/depex_main.jpeg', alt: 'DIPEX 2026 Innovation Hub' },
+  { src: '/highlights/depex_1.jpeg', alt: 'DIPEX 2026 Showcase - MIT Nanded' },
+  { src: '/highlights/hackfusion.jpeg', alt: 'Hackfusion 3.0 - SGGS Nanded' },
+  { src: '/highlights/depex_mit.jpeg', alt: 'Innovation Pavilion - MIT (DIPEX 2026)' },
 ];
 
 const COLUMN_2 = [
-  { src: '/covers/goemon.png', alt: 'Ganbare Goemon' },
-  { src: '/covers/zelda_majora.png', alt: 'The Legend of Zelda: Majora\'s Mask' },
-  { src: '/covers/perfect_dark.png', alt: 'Perfect Dark' },
-  { src: '/covers/goemon_sugoroku.png', alt: 'Goemon Mononoke Sugoroku' },
-  { src: '/covers/smash_bros.png', alt: 'Super Smash Bros.' },
-  { src: '/covers/super_mario_64.png', alt: 'Super Mario 64' },
+  { src: '/highlights/depex_2.jpeg', alt: 'Technical Exhibit - DIPEX 2026' },
+  { src: '/highlights/itm_collage.jpeg', alt: 'Project Competition - ITM College Nanded' },
+  { src: '/highlights/sggs.jpeg', alt: 'Campus Highlights - SGGS Nanded' },
+  { src: '/highlights/depex_main.jpeg', alt: 'DIPEX 2026 Innovation Hub' },
 ];
 
 const COLUMN_3 = [
-  { src: '/covers/zelda_oot.png', alt: 'The Legend of Zelda: Ocarina of Time' },
-  { src: '/covers/smash_bros.png', alt: 'Super Smash Bros.' },
-  { src: '/covers/1080_snowboarding.png', alt: '1080° Snowboarding' },
-  { src: '/covers/mario_kart_64.png', alt: 'Mario Kart 64' },
-  { src: '/covers/goldeneye_007.png', alt: 'GoldenEye 007' },
-  { src: '/covers/zelda_majora.png', alt: 'The Legend of Zelda: Majora\'s Mask' },
+  { src: '/highlights/depex_3.jpeg', alt: 'State-Level Project Competition' },
+  { src: '/highlights/depex_mit.jpeg', alt: 'Innovation Pavilion - MIT (DIPEX 2026)' },
+  { src: '/highlights/hackfusion.jpeg', alt: 'Hackfusion 3.0 - SGGS Nanded' },
+  { src: '/highlights/depex_1.jpeg', alt: 'DIPEX 2026 Showcase - MIT Nanded' },
 ];
+
+// Repeat 3 times for seamless looping
+const LOOPED_COL_1 = [...COLUMN_1, ...COLUMN_1, ...COLUMN_1];
+const LOOPED_COL_2 = [...COLUMN_2, ...COLUMN_2, ...COLUMN_2];
+const LOOPED_COL_3 = [...COLUMN_3, ...COLUMN_3, ...COLUMN_3];
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
@@ -63,70 +62,79 @@ export default function AnotherSection() {
     };
   }, []);
 
-  const count = Math.round(64 + progress * 34);
+  const count = Math.round(10 + progress * 16);
 
   return (
-    <section className="another-gallery-section" ref={sectionRef} aria-label="Another Retro Gallery">
+    <section className="another-gallery-section" ref={sectionRef} aria-label="Achievements Showcase Gallery">
       <div className="another-gallery-sticky">
         <div className="another-gallery-vignette" />
 
         <div className="another-gallery-counter" aria-hidden="true">
-          N64_JP_{count}
+          DIPEX_2K26_{count}
         </div>
 
         <div className="another-gallery-copy">
           <p>
-            Retro <em>Aesthetics</em>
+            Exhibitions &amp; <em>Hackathons</em>
             <br />
-            inspiring modern
+            representing real-world
             <br />
             <strong>innovations</strong>.
           </p>
         </div>
 
-        {/* 3D Tilted Column Stage */}
+        {/* 3D Tilted Stage */}
         <div className="another-gallery-stage" aria-hidden="true">
           
-          <div className="another-gallery-column another-column-left">
-            {COLUMN_1.map((image, index) => (
-              <div className="another-card-wrapper" key={`another1-${index}`}>
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  draggable="false"
-                  className="another-card"
-                />
-                <span className="another-card-glare" />
-              </div>
-            ))}
+          {/* Column 1 Wrapper */}
+          <div className="another-column-wrapper column-left-wrapper">
+            <div className="another-gallery-column another-column-left">
+              {LOOPED_COL_1.map((image, index) => (
+                <div className="another-card-wrapper" key={`another1-${index}`}>
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    draggable="false"
+                    className="another-card"
+                  />
+                  <span className="another-card-glare" />
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="another-gallery-column another-column-center">
-            {COLUMN_2.map((image, index) => (
-              <div className="another-card-wrapper" key={`another2-${index}`}>
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  draggable="false"
-                  className="another-card"
-                />
-                <span className="another-card-glare" />
-              </div>
-            ))}
+          {/* Column 2 Wrapper */}
+          <div className="another-column-wrapper column-center-wrapper">
+            <div className="another-gallery-column another-column-center">
+              {LOOPED_COL_2.map((image, index) => (
+                <div className="another-card-wrapper" key={`another2-${index}`}>
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    draggable="false"
+                    className="another-card"
+                  />
+                  <span className="another-card-glare" />
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="another-gallery-column another-column-right">
-            {COLUMN_3.map((image, index) => (
-              <div className="another-card-wrapper" key={`another3-${index}`}>
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  draggable="false"
-                  className="another-card"
-                />
-                <span className="another-card-glare" />
-              </div>
-            ))}
+          {/* Column 3 Wrapper */}
+          <div className="another-column-wrapper column-right-wrapper">
+            <div className="another-gallery-column another-column-right">
+              {LOOPED_COL_3.map((image, index) => (
+                <div className="another-card-wrapper" key={`another3-${index}`}>
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    draggable="false"
+                    className="another-card"
+                  />
+                  <span className="another-card-glare" />
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>
@@ -135,7 +143,7 @@ export default function AnotherSection() {
           <div className="another-gallery-rail">
             <span />
           </div>
-          <strong>Retro Gallery</strong>
+          <strong>Achievements</strong>
         </aside>
       </div>
     </section>

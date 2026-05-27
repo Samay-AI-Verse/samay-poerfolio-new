@@ -21,29 +21,29 @@ const easeInOut = (value) => {
 };
 
 function getImageStyle(index, progress, total) {
-  const entry = easeOut((progress - index * 0.04) / 0.32);
-  const groupSpin = easeInOut((progress - 0.38) / 0.42) * Math.PI * 0.95;
-  const exit = easeInOut((progress - 0.9 - index * 0.012) / 0.1);
+  const entry = easeOut((progress - index * 0.035) / 0.34);
+  const groupSpin = easeInOut((progress - 0.38) / 0.42) * Math.PI * 1.05;
+  const exit = easeInOut((progress - 0.86 - index * 0.012) / 0.12);
 
-  const baseAngle = (index / total) * Math.PI * 2 - Math.PI * 0.82;
+  const baseAngle = (index / total) * Math.PI * 2 - Math.PI * 0.86;
   const angle = baseAngle + groupSpin;
   const orbitX = Math.cos(angle) * 39;
   const orbitY = Math.sin(angle) * 35;
-  const startX = -36 + (index % 4) * 11;
-  const startY = 62 + (index % 3) * 5;
-  const exitX = 70 + index * 2.5;
-  const exitY = 2 + ((index + 1) % 4) * 10;
+  const startX = -58 + (index % 4) * 10;
+  const startY = 58 + (index % 3) * 5;
+  const exitX = 68 + index * 2;
+  const exitY = 6 + ((index + 1) % 4) * 9;
 
   const currentX = lerp(lerp(startX, orbitX, entry), exitX, exit);
   const currentY = lerp(lerp(startY, orbitY, entry), exitY, exit);
   const depth = Math.sin(angle);
-  const tangent = Math.cos(angle) * 10;
-  const rotateZ = lerp(9 - index * 1.2, tangent + index * 0.7 - 4, entry);
-  const rotateY = lerp(16, depth * 22, entry);
-  const rotateX = lerp(8, -depth * 3, entry);
-  const translateZ = lerp(-90, lerp(-70, 130, (depth + 1) / 2), entry) * (1 - exit);
+  const tangent = Math.cos(angle) * 9;
+  const rotateZ = lerp(8 - index * 1.1, tangent + index * 0.7 - 4, entry);
+  const rotateY = lerp(-18, depth * 22, entry);
+  const rotateX = lerp(8, -depth * 4, entry);
+  const translateZ = lerp(-100, lerp(-70, 130, (depth + 1) / 2), entry) * (1 - exit);
   const scale = lerp(0.58, lerp(0.76, 0.96, (depth + 1) / 2), entry) * lerp(1, 0.84, exit);
-  const opacity = clamp((entry - 0.28) / 0.72) * (1 - exit * 0.96);
+  const opacity = clamp((entry - 0.24) / 0.76) * (1 - exit * 0.96);
 
   return {
     '--gallery-x': `${currentX}vw`,
@@ -54,7 +54,7 @@ function getImageStyle(index, progress, total) {
     '--gallery-ry': `${rotateY}deg`,
     '--gallery-scale': scale.toFixed(3),
     '--gallery-opacity': opacity.toFixed(3),
-    '--gallery-depth': Math.round(20 + depth * 10),
+    '--gallery-depth': Math.round(20 + depth * 20 + (total - index)),
   };
 }
 

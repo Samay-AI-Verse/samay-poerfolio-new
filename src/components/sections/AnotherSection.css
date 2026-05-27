@@ -1,9 +1,9 @@
 .another-gallery-section {
   position: relative;
-  height: 380vh; /* gives plenty of scroll range for smooth parallax */
+  height: 380vh; /* scroll depth for responsive parallax speed changes */
   background: #050505;
   color: #fff;
-  z-index: 7; /* Stacks perfectly between original gallery (6) and contact (8) */
+  z-index: 7;
   box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.7);
 }
 
@@ -21,7 +21,7 @@
   background-position: center;
 }
 
-/* Beautiful cinematic vignette overlays */
+/* Cinematic vignettes */
 .another-gallery-sticky::before {
   content: '';
   position: absolute;
@@ -54,20 +54,40 @@
   pointer-events: none;
 }
 
-/* 3D Tilted Column Container */
+/* 3D Stage */
 .another-gallery-stage {
   position: absolute;
-  inset: -15% -25%; /* give columns extra room to extend outside the screen safely */
+  inset: -15% -25%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: clamp(24px, 3.5vw, 68px);
   transform-style: preserve-3d;
   transform: rotateX(15deg) rotateY(-18deg) rotateZ(3deg) scale(1.06);
-  pointer-events: auto; /* enable clicking/hovering on cards */
+  pointer-events: auto;
 }
 
-/* The three staggered columns */
+/* Wrappers react to user's scrolling */
+.another-column-wrapper {
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.column-left-wrapper {
+  transform: translateY(calc(-10vh + (var(--another-progress) * 20vh)));
+}
+
+.column-center-wrapper {
+  transform: translateY(calc(8vh - (var(--another-progress) * 20vh)));
+}
+
+.column-right-wrapper {
+  transform: translateY(calc(-8vh + (var(--another-progress) * 16vh)));
+}
+
+/* Columns loop infinitely using GPU-accelerated CSS animations */
 .another-gallery-column {
   display: flex;
   flex-direction: column;
@@ -77,23 +97,40 @@
   will-change: transform;
 }
 
-/* Opposing animations driven by --another-progress */
 .another-column-left {
-  /* Scrolls DOWN as scroll progress increases */
-  transform: translateY(calc(-60vh + (var(--another-progress) * 45vh)));
+  animation: loop-down 36s linear infinite;
 }
 
 .another-column-center {
-  /* Scrolls UP as scroll progress increases */
-  transform: translateY(calc(5vh - (var(--another-progress) * 45vh)));
+  animation: loop-up 36s linear infinite;
+  animation-delay: -6s; /* stagger starting positions */
 }
 
 .another-column-right {
-  /* Scrolls DOWN as scroll progress increases (slightly offset for staggering) */
-  transform: translateY(calc(-52vh + (var(--another-progress) * 42vh)));
+  animation: loop-down 36s linear infinite;
+  animation-delay: -12s; /* stagger starting positions */
 }
 
-/* Premium N64 Cover Card Styles */
+/* Seamless 33.333% looping animations across 12 cards (3 repetitions of 4) */
+@keyframes loop-down {
+  0% {
+    transform: translateY(-33.3333%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes loop-up {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-33.3333%);
+  }
+}
+
+/* Premium Card Styles */
 .another-card-wrapper {
   position: relative;
   border-radius: 8px;
@@ -117,13 +154,13 @@
 
 .another-card {
   width: 100%;
-  aspect-ratio: 4 / 5.6; /* Perfectly matches Japanese vertical box arts */
+  aspect-ratio: 4 / 5.6;
   object-fit: cover;
   display: block;
   user-select: none;
 }
 
-/* Plastic gloss sheen glare animation */
+/* Gloss Glare Reflection */
 .another-card-glare {
   position: absolute;
   inset: 0;
@@ -145,7 +182,7 @@
   transform: translateX(100%) translateY(100%);
 }
 
-/* Page UI Decorations */
+/* Page UI Labels & Accents */
 .another-gallery-copy {
   position: absolute;
   left: 8%;
@@ -230,7 +267,7 @@
   border-radius: 4px;
 }
 
-/* Responsiveness adjustments */
+/* Responsive Styles */
 @media (max-width: 1024px) {
   .another-gallery-stage {
     inset: -10% -15%;
@@ -242,16 +279,16 @@
     width: clamp(110px, 15vw, 170px);
   }
 
-  .another-column-left {
-    transform: translateY(calc(-45vh + (var(--another-progress) * 35vh)));
+  .column-left-wrapper {
+    transform: translateY(calc(-8vh + (var(--another-progress) * 16vh)));
   }
 
-  .another-column-center {
-    transform: translateY(calc(5vh - (var(--another-progress) * 35vh)));
+  .column-center-wrapper {
+    transform: translateY(calc(6vh - (var(--another-progress) * 16vh)));
   }
 
-  .another-column-right {
-    transform: translateY(calc(-38vh + (var(--another-progress) * 32vh)));
+  .column-right-wrapper {
+    transform: translateY(calc(-6vh + (var(--another-progress) * 12vh)));
   }
 }
 
@@ -271,16 +308,16 @@
     gap: 16px;
   }
 
-  .another-column-left {
-    transform: translateY(calc(-30vh + (var(--another-progress) * 25vh)));
+  .column-left-wrapper {
+    transform: translateY(calc(-6vh + (var(--another-progress) * 12vh)));
   }
 
-  .another-column-center {
-    transform: translateY(calc(5vh - (var(--another-progress) * 25vh)));
+  .column-center-wrapper {
+    transform: translateY(calc(4vh - (var(--another-progress) * 12vh)));
   }
 
-  .another-column-right {
-    transform: translateY(calc(-25vh + (var(--another-progress) * 22vh)));
+  .column-right-wrapper {
+    transform: translateY(calc(-4vh + (var(--another-progress) * 10vh)));
   }
 
   .another-gallery-copy {
@@ -289,7 +326,7 @@
   }
   
   .another-gallery-aside {
-    display: none; /* Hide vertical track bar on small tablets and mobile to reduce clutter */
+    display: none;
   }
 }
 
@@ -313,7 +350,7 @@
   }
 }
 
-/* Accessibility: Safe mode for prefers-reduced-motion */
+/* reduced-motion accessibility fallbacks */
 @media (prefers-reduced-motion: reduce) {
   .another-gallery-section {
     height: auto;
@@ -339,5 +376,6 @@
   .another-gallery-column {
     width: 200px;
     transform: none !important;
+    animation: none !important;
   }
 }
