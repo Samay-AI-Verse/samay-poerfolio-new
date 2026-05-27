@@ -1,6 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import './AnotherSection.css';
 
+/* 
+  ========================================================================
+  💡 HOW TO ADD NEW IMAGES IN THE FUTURE:
+  ========================================================================
+  To add more achievement images:
+  1. Upload your new image to the folder: public/highlights/
+  2. Add a new object to any of the columns below (COLUMN_1, COLUMN_2, or COLUMN_3).
+     Example: { src: '/highlights/your_new_image.jpeg', alt: 'Your Image Description' }
+  3. The code will automatically duplicate and distribute them to maintain the infinite loop!
+  ========================================================================
+*/
+
 const COLUMN_1 = [
   { src: '/highlights/depex_main.jpeg', alt: 'DIPEX 2026 Innovation Hub' },
   { src: '/highlights/depex_1.jpeg', alt: 'DIPEX 2026 Showcase - MIT Nanded' },
@@ -69,10 +81,7 @@ export default function AnotherSection() {
       <div className="another-gallery-sticky">
         <div className="another-gallery-vignette" />
 
-        <div className="another-gallery-counter" aria-hidden="true">
-          DIPEX_2K26_{count}
-        </div>
-
+        {/* Elegant typography text block in bottom-left */}
         <div className="another-gallery-copy">
           <p>
             Exhibitions &amp; <em>Hackathons</em>
@@ -83,7 +92,7 @@ export default function AnotherSection() {
           </p>
         </div>
 
-        {/* 3D Tilted Stage */}
+        {/* 3D Tilted Fullscreen Stage */}
         <div className="another-gallery-stage" aria-hidden="true">
           
           {/* Column 1 Wrapper */}
@@ -139,12 +148,14 @@ export default function AnotherSection() {
 
         </div>
 
+        {/* High-end vertical Achievements aside indicator */}
         <aside className="another-gallery-aside" aria-hidden="true">
           <div className="another-gallery-rail">
-            <span />
+            <span style={{ height: `${progress * 100}%` }} />
           </div>
           <strong>Achievements</strong>
         </aside>
+
       </div>
     </section>
   );

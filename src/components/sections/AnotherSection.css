@@ -54,17 +54,21 @@
   pointer-events: none;
 }
 
-/* 3D Stage */
+/* Clean Upright Vertical Stage: Shifted further left, keeping all 3 columns straight and fully visible */
 .another-gallery-stage {
   position: absolute;
-  inset: -15% -25%;
+  left: 16vw; /* Leaves a sleek left margin for the text while sliding columns closer to the center-left */
+  right: -6vw; /* Extends slightly off-screen to avoid margin clipping */
+  top: -12%;
+  bottom: -12%;
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Center columns within the layout */
   align-items: center;
-  gap: clamp(24px, 3.5vw, 68px);
+  gap: clamp(24px, 3.5vw, 64px); /* elegant horizontal column separation */
   transform-style: preserve-3d;
-  transform: rotateX(15deg) rotateY(-18deg) rotateZ(3deg) scale(1.06);
+  transform: rotateX(8deg) rotateY(-2deg) rotateZ(0deg) scale(1.02); /* straight, upright vertical scroll flow for a neat, professional look */
   pointer-events: auto;
+  z-index: 10;
 }
 
 /* Wrappers react to user's scrolling */
@@ -76,23 +80,23 @@
 }
 
 .column-left-wrapper {
-  transform: translateY(calc(-10vh + (var(--another-progress) * 20vh)));
+  transform: translateY(calc(-22vh + (var(--another-progress) * 24vh)));
 }
 
 .column-center-wrapper {
-  transform: translateY(calc(8vh - (var(--another-progress) * 20vh)));
+  transform: translateY(calc(5vh - (var(--another-progress) * 24vh)));
 }
 
 .column-right-wrapper {
-  transform: translateY(calc(-8vh + (var(--another-progress) * 16vh)));
+  transform: translateY(calc(-18vh + (var(--another-progress) * 20vh)));
 }
 
 /* Columns loop infinitely using GPU-accelerated CSS animations */
 .another-gallery-column {
   display: flex;
   flex-direction: column;
-  gap: clamp(24px, 3vw, 56px);
-  width: clamp(140px, 16vw, 240px);
+  gap: clamp(24px, 3.2vw, 56px);
+  width: clamp(170px, 20vw, 290px); /* slightly bigger photorealistic image card size */
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -111,7 +115,7 @@
   animation-delay: -12s; /* stagger starting positions */
 }
 
-/* Seamless 33.333% looping animations across 12 cards (3 repetitions of 4) */
+/* Seamless 33.333% looping animations across 12 cards */
 @keyframes loop-down {
   0% {
     transform: translateY(-33.3333%);
@@ -133,7 +137,7 @@
 /* Premium Card Styles */
 .another-card-wrapper {
   position: relative;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   background: #111;
   transform-style: preserve-3d;
@@ -148,19 +152,19 @@
   transform: translate3d(0, -10px, 45px) scale(1.08);
   box-shadow: 
     0 35px 70px rgba(0, 0, 0, 0.8),
-    0 0 30px rgba(255, 255, 255, 0.18);
+    0 0 30px rgba(232, 117, 50, 0.22); /* Orange theme hover glow! */
   filter: brightness(1.08) contrast(1.04);
 }
 
 .another-card {
   width: 100%;
-  aspect-ratio: 4 / 5.6;
+  aspect-ratio: 4 / 5.6; /* Perfect vertical-horizontal ratio for photorealistic cards */
   object-fit: cover;
   display: block;
   user-select: none;
 }
 
-/* Gloss Glare Reflection */
+/* Plastic gloss sheen glare animation */
 .another-card-glare {
   position: absolute;
   inset: 0;
@@ -182,22 +186,21 @@
   transform: translateX(100%) translateY(100%);
 }
 
-/* Page UI Labels & Accents */
 .another-gallery-copy {
   position: absolute;
-  left: 8%;
-  bottom: 12%;
-  z-index: 60;
+  left: clamp(24px, 6vw, 100px);
+  bottom: clamp(24px, 6vw, 80px);
+  z-index: 100;
   pointer-events: none;
 }
 
 .another-gallery-copy p {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(20px, 2.2vw, 36px);
+  font-size: clamp(20px, 2.4vw, 38px);
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.95);
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
@@ -213,24 +216,12 @@
   color: #fff;
 }
 
-.another-gallery-counter {
-  position: absolute;
-  left: clamp(24px, 3.5vw, 54px);
-  top: clamp(24px, 3.5vw, 54px);
-  z-index: 60;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(14px, 1vw, 18px);
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.45);
-}
-
 .another-gallery-aside {
   position: absolute;
-  right: clamp(24px, 3.5vw, 54px);
+  right: clamp(24px, 5vw, 80px);
   top: 50%;
   transform: translateY(-50%);
-  z-index: 60;
+  z-index: 100;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -239,9 +230,9 @@
 }
 
 .another-gallery-aside strong {
-  font-size: clamp(14px, 1vw, 18px);
+  font-size: clamp(12px, 1vw, 16px);
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   writing-mode: vertical-rl;
   text-transform: uppercase;
 }
@@ -249,7 +240,7 @@
 .another-gallery-rail {
   position: relative;
   width: 2px;
-  height: min(60vh, 500px);
+  height: min(50vh, 400px);
   background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
   border-radius: 4px;
@@ -260,93 +251,94 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: calc(var(--another-progress, 0) * 100%);
-  min-height: 30px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), #fff);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transition: height 0.1s ease-out; /* smooth scroll height changes */
+  background: linear-gradient(to bottom, rgba(232, 117, 50, 0.3), #e87532); /* Premium orange glow tracking line */
+  box-shadow: 0 0 10px rgba(232, 117, 50, 0.6);
   border-radius: 4px;
 }
 
-/* Responsive Styles */
+/* Responsiveness adjustments */
 @media (max-width: 1024px) {
+  .another-gallery-section {
+    height: auto !important;
+  }
+
+  .another-gallery-sticky {
+    position: relative !important;
+    height: auto !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: visible !important;
+    padding: 80px 24px 60px 24px;
+  }
+
+  .another-gallery-copy {
+    position: relative !important;
+    left: auto !important;
+    bottom: auto !important;
+    margin: 0 auto 30px auto;
+    text-align: center;
+    width: 90%;
+    pointer-events: auto;
+  }
+
+  .another-gallery-copy p {
+    font-size: clamp(20px, 3.5vw, 28px);
+  }
+
   .another-gallery-stage {
-    inset: -10% -15%;
-    gap: clamp(16px, 2.5vw, 40px);
-    transform: rotateX(12deg) rotateY(-12deg) rotateZ(2deg) scale(1.03);
+    position: relative !important;
+    inset: 0 !important;
+    transform: rotateX(8deg) rotateY(-4deg) rotateZ(1deg) scale(1.02) !important;
+    display: flex;
+    justify-content: center !important;
+    gap: 24px !important;
+    width: 100%;
+    padding-right: 0 !important;
   }
 
   .another-gallery-column {
-    width: clamp(110px, 15vw, 170px);
+    width: clamp(120px, 25vw, 200px) !important;
+    gap: 24px !important;
   }
 
-  .column-left-wrapper {
-    transform: translateY(calc(-8vh + (var(--another-progress) * 16vh)));
-  }
-
-  .column-center-wrapper {
-    transform: translateY(calc(6vh - (var(--another-progress) * 16vh)));
-  }
-
+  .column-left-wrapper,
+  .column-center-wrapper,
   .column-right-wrapper {
-    transform: translateY(calc(-6vh + (var(--another-progress) * 12vh)));
+    transform: none !important;
+  }
+
+  .another-gallery-aside {
+    display: none !important; /* Hide achievements rail on mobile */
   }
 }
 
 @media (max-width: 768px) {
-  .another-gallery-section {
-    height: 300vh;
+  .another-gallery-sticky {
+    padding: 60px 16px 40px 16px;
   }
 
   .another-gallery-stage {
-    inset: -5% -10%;
-    gap: 16px;
-    transform: rotateX(10deg) rotateY(-8deg) rotateZ(1deg) scale(1.02);
+    transform: rotateX(6deg) rotateY(-3deg) rotateZ(0deg) scale(1) !important;
+    gap: 16px !important;
   }
 
   .another-gallery-column {
-    width: clamp(90px, 25vw, 130px);
-    gap: 16px;
-  }
-
-  .column-left-wrapper {
-    transform: translateY(calc(-6vh + (var(--another-progress) * 12vh)));
-  }
-
-  .column-center-wrapper {
-    transform: translateY(calc(4vh - (var(--another-progress) * 12vh)));
-  }
-
-  .column-right-wrapper {
-    transform: translateY(calc(-4vh + (var(--another-progress) * 10vh)));
-  }
-
-  .another-gallery-copy {
-    left: 24px;
-    bottom: 24px;
-  }
-  
-  .another-gallery-aside {
-    display: none;
+    width: 29vw !important;
+    gap: 16px !important;
   }
 }
 
 @media (max-width: 480px) {
-  .another-gallery-section {
-    height: 250vh;
-  }
-
   .another-gallery-stage {
-    transform: rotateX(8deg) rotateY(-5deg) rotateZ(0deg) scale(1);
-    gap: 12px;
+    gap: 12px !important;
   }
 
   .another-gallery-column {
-    width: 29vw;
-    gap: 12px;
-  }
-  
-  .another-gallery-copy p {
-    font-size: 18px;
+    gap: 12px !important;
   }
 }
 
