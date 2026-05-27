@@ -54,19 +54,19 @@
   pointer-events: none;
 }
 
-/* Clean Upright Vertical Stage: Shifted further left, keeping all 3 columns straight and fully visible */
+/* 3D Curved Perspective Stage: Shifted to left: 18vw and right: 2vw to prevent clipping and center perfectly with zero overlap */
 .another-gallery-stage {
   position: absolute;
-  left: 16vw; /* Leaves a sleek left margin for the text while sliding columns closer to the center-left */
-  right: -6vw; /* Extends slightly off-screen to avoid margin clipping */
+  left: 18vw; /* Safely clears the left text block while keeping all columns centered and fully visible */
+  right: 2vw;  /* Keeps the rightmost column fully on screen without clipping */
   top: -12%;
   bottom: -12%;
   display: flex;
   justify-content: center; /* Center columns within the layout */
   align-items: center;
-  gap: clamp(24px, 3.5vw, 64px); /* elegant horizontal column separation */
+  gap: clamp(24px, 3.2vw, 56px); /* elegant horizontal column separation */
   transform-style: preserve-3d;
-  transform: rotateX(8deg) rotateY(-2deg) rotateZ(0deg) scale(1.02); /* straight, upright vertical scroll flow for a neat, professional look */
+  transform: rotateX(11deg) rotateY(-13deg) rotateZ(1.5deg) scale(1.05); /* organic 3D curved perspective, bent downwards at the bottom */
   pointer-events: auto;
   z-index: 10;
 }
@@ -186,17 +186,19 @@
   transform: translateX(100%) translateY(100%);
 }
 
+/* Page UI Labels & Accents (Retro Aesthetics matching reference image) */
 .another-gallery-copy {
   position: absolute;
-  left: clamp(24px, 6vw, 100px);
+  left: clamp(24px, 5vw, 80px);
   bottom: clamp(24px, 6vw, 80px);
+  width: clamp(260px, 20vw, 340px); /* strictly constrained to prevent any overlapping with the right columns */
   z-index: 100;
   pointer-events: none;
 }
 
 .another-gallery-copy p {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(20px, 2.4vw, 38px);
+  font-size: clamp(20px, 2.4vw, 36px);
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -216,46 +218,6 @@
   color: #fff;
 }
 
-.another-gallery-aside {
-  position: absolute;
-  right: clamp(24px, 5vw, 80px);
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-family: 'Inter', sans-serif;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.another-gallery-aside strong {
-  font-size: clamp(12px, 1vw, 16px);
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  writing-mode: vertical-rl;
-  text-transform: uppercase;
-}
-
-.another-gallery-rail {
-  position: relative;
-  width: 2px;
-  height: min(50vh, 400px);
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.another-gallery-rail span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  transition: height 0.1s ease-out; /* smooth scroll height changes */
-  background: linear-gradient(to bottom, rgba(232, 117, 50, 0.3), #e87532); /* Premium orange glow tracking line */
-  box-shadow: 0 0 10px rgba(232, 117, 50, 0.6);
-  border-radius: 4px;
-}
 
 /* Responsiveness adjustments */
 @media (max-width: 1024px) {
@@ -279,14 +241,14 @@
     position: relative !important;
     left: auto !important;
     bottom: auto !important;
+    width: 90% !important;
     margin: 0 auto 30px auto;
     text-align: center;
-    width: 90%;
     pointer-events: auto;
   }
 
   .another-gallery-copy p {
-    font-size: clamp(20px, 3.5vw, 28px);
+    font-size: clamp(18px, 3.5vw, 24px) !important;
   }
 
   .another-gallery-stage {
@@ -311,9 +273,6 @@
     transform: none !important;
   }
 
-  .another-gallery-aside {
-    display: none !important; /* Hide achievements rail on mobile */
-  }
 }
 
 @media (max-width: 768px) {

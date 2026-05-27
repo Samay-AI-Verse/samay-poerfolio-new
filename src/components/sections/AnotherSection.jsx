@@ -81,7 +81,7 @@ export default function AnotherSection() {
       <div className="another-gallery-sticky">
         <div className="another-gallery-vignette" />
 
-        {/* Elegant typography text block in bottom-left */}
+        {/* Elegant horizontal typography text block in bottom-left */}
         <div className="another-gallery-copy">
           <p>
             Exhibitions &amp; <em>Hackathons</em>
@@ -147,14 +147,6 @@ export default function AnotherSection() {
           </div>
 
         </div>
-
-        {/* High-end vertical Achievements aside indicator */}
-        <aside className="another-gallery-aside" aria-hidden="true">
-          <div className="another-gallery-rail">
-            <span style={{ height: `${progress * 100}%` }} />
-          </div>
-          <strong>Achievements</strong>
-        </aside>
 
       </div>
     </section>
