@@ -54,7 +54,7 @@
   pointer-events: none;
 }
 
-/* 3D Curved Perspective Stage: Shifted to left: 18vw and right: 2vw to prevent clipping and center perfectly with zero overlap */
+/* 3D Curved Perspective Stage: Shifted to left: 18vw and right: 2vw, tilted more and shifted slightly downward */
 .another-gallery-stage {
   position: absolute;
   left: 18vw; /* Safely clears the left text block while keeping all columns centered and fully visible */
@@ -66,7 +66,7 @@
   align-items: center;
   gap: clamp(24px, 3.2vw, 56px); /* elegant horizontal column separation */
   transform-style: preserve-3d;
-  transform: rotateX(11deg) rotateY(-13deg) rotateZ(1.5deg) scale(1.05); /* organic 3D curved perspective, bent downwards at the bottom */
+  transform: rotateX(11deg) rotateY(-16deg) rotateZ(1.5deg) translateY(4.5vh) scale(1.05); /* organic 3D curved perspective with extra Y tilt, shifted downward */
   pointer-events: auto;
   z-index: 10;
 }

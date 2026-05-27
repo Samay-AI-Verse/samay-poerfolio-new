@@ -15,23 +15,32 @@ import './AnotherSection.css';
 
 const COLUMN_1 = [
   { src: '/highlights/depex_main.jpeg', alt: 'DIPEX 2026 Innovation Hub' },
-  { src: '/highlights/depex_1.jpeg', alt: 'DIPEX 2026 Showcase - MIT Nanded' },
+  { src: '/highlights/WhatsApp Image 2026-05-28 at 12.40.34 AM.jpeg', alt: 'Technical Project Presentation' },
+  { src: '/highlights/WhatsApp Video 2026-05-28 at 12.41.12 AM.mp4', alt: 'Innovation Pitch Video', isVideo: true },
   { src: '/highlights/hackfusion.jpeg', alt: 'Hackfusion 3.0 - SGGS Nanded' },
-  { src: '/highlights/depex_mit.jpeg', alt: 'Innovation Pavilion - MIT (DIPEX 2026)' },
+  { src: '/highlights/WhatsApp Image 2026-05-28 at 12.40.39 AM.jpeg', alt: 'Technical Jury Assessment' },
+  { src: '/highlights/depex_1.jpeg', alt: 'Prototype Demonstration MIT' },
+  { src: '/highlights/WhatsApp Image 2026-05-28 at 12.40.44 AM.jpeg', alt: 'Interactive Exhibition Showcase' },
 ];
 
 const COLUMN_2 = [
-  { src: '/highlights/depex_2.jpeg', alt: 'Technical Exhibit - DIPEX 2026' },
+  { src: '/highlights/depex_2.jpeg', alt: 'State-Level Project Exhibit' },
+  { src: '/highlights/WhatsApp Image 2026-05-28 at 12.40.38 AM.jpeg', alt: 'Active Robotics Team' },
   { src: '/highlights/itm_collage.jpeg', alt: 'Project Competition - ITM College Nanded' },
+  { src: '/highlights/WhatsApp Image 2026-05-28 at 12.40.40 AM.jpeg', alt: 'Visitors & Panel Review' },
   { src: '/highlights/sggs.jpeg', alt: 'Campus Highlights - SGGS Nanded' },
-  { src: '/highlights/depex_main.jpeg', alt: 'DIPEX 2026 Innovation Hub' },
+  { src: '/highlights/WhatsApp Image 2026-05-28 at 12.40.45 AM.jpeg', alt: 'Winner Team Celebration' },
+  { src: '/highlights/depex_main.jpeg', alt: 'DIPEX 2026 Main Exhibition' },
 ];
 
 const COLUMN_3 = [
-  { src: '/highlights/depex_3.jpeg', alt: 'State-Level Project Competition' },
-  { src: '/highlights/depex_mit.jpeg', alt: 'Innovation Pavilion - MIT (DIPEX 2026)' },
-  { src: '/highlights/hackfusion.jpeg', alt: 'Hackfusion 3.0 - SGGS Nanded' },
-  { src: '/highlights/depex_1.jpeg', alt: 'DIPEX 2026 Showcase - MIT Nanded' },
+  { src: '/highlights/depex_3.jpeg', alt: 'State-Level Award Winner' },
+  { src: '/highlights/WhatsApp Image 2026-04-21 at 11.33.18 AM.jpeg', alt: 'Hardware Prototype Setup' },
+  { src: '/highlights/depex_mit.jpeg', alt: 'Innovation Pavilion - MIT' },
+  { src: '/highlights/WhatsApp Video 2026-05-28 at 12.41.29 AM.mp4', alt: 'Live Project Demonstration Video', isVideo: true },
+  { src: '/highlights/WhatsApp Image 2026-05-28 at 12.41.25 AM.jpeg', alt: 'Electronics & Coding Implementation' },
+  { src: '/highlights/WhatsApp Image 2026-05-28 at 12.41.26 AM.jpeg', alt: 'Grand Finale Showcase' },
+  { src: '/highlights/depex_2.jpeg', alt: 'State-Level Project Exhibit' },
 ];
 
 // Repeat 3 times for seamless looping
@@ -98,14 +107,25 @@ export default function AnotherSection() {
           {/* Column 1 Wrapper */}
           <div className="another-column-wrapper column-left-wrapper">
             <div className="another-gallery-column another-column-left">
-              {LOOPED_COL_1.map((image, index) => (
+              {LOOPED_COL_1.map((item, index) => (
                 <div className="another-card-wrapper" key={`another1-${index}`}>
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    draggable="false"
-                    className="another-card"
-                  />
+                  {item.isVideo ? (
+                    <video
+                      src={item.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="another-card"
+                    />
+                  ) : (
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      draggable="false"
+                      className="another-card"
+                    />
+                  )}
                   <span className="another-card-glare" />
                 </div>
               ))}
@@ -115,14 +135,25 @@ export default function AnotherSection() {
           {/* Column 2 Wrapper */}
           <div className="another-column-wrapper column-center-wrapper">
             <div className="another-gallery-column another-column-center">
-              {LOOPED_COL_2.map((image, index) => (
+              {LOOPED_COL_2.map((item, index) => (
                 <div className="another-card-wrapper" key={`another2-${index}`}>
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    draggable="false"
-                    className="another-card"
-                  />
+                  {item.isVideo ? (
+                    <video
+                      src={item.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="another-card"
+                    />
+                  ) : (
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      draggable="false"
+                      className="another-card"
+                    />
+                  )}
                   <span className="another-card-glare" />
                 </div>
               ))}
@@ -132,14 +163,25 @@ export default function AnotherSection() {
           {/* Column 3 Wrapper */}
           <div className="another-column-wrapper column-right-wrapper">
             <div className="another-gallery-column another-column-right">
-              {LOOPED_COL_3.map((image, index) => (
+              {LOOPED_COL_3.map((item, index) => (
                 <div className="another-card-wrapper" key={`another3-${index}`}>
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    draggable="false"
-                    className="another-card"
-                  />
+                  {item.isVideo ? (
+                    <video
+                      src={item.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="another-card"
+                    />
+                  ) : (
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      draggable="false"
+                      className="another-card"
+                    />
+                  )}
                   <span className="another-card-glare" />
                 </div>
               ))}
