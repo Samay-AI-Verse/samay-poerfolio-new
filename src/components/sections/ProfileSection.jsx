@@ -1,10 +1,18 @@
 import './ProfileSection.css';
 import samayPhoto from '../../image/samayphoto.png';
 
-const NAV_LINKS = [
-  { label: 'Skills',         href: '#skills'         },
-  { label: 'Certifications', href: '#certifications' },
-  { label: 'Participations', href: '#participations' },
+const SOCIAL_LINKS = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+  { label: 'GitHub', href: 'https://github.com/Samay-AI-Verse' },
+];
+
+const CENTER_NAV_LINKS = [
+  { label: 'Work', href: '#projects' },
+  { label: 'Info', href: '#skills' },
+];
+
+const RIGHT_NAV_LINKS = [
+  { label: 'Contact', href: '#contact' },
 ];
 
 export default function ProfileSection({ showNav }) {
@@ -14,13 +22,26 @@ export default function ProfileSection({ showNav }) {
       {/* ── NAV built into this section ── */}
       <nav className={`profile-nav${showNav ? ' visible' : ''}`}>
         {/* Left — Logo */}
-        <a href="#" className="profile-nav-logo">
-          Sam<span>a</span>y
-        </a>
+        <ul className="profile-social-links" aria-label="Social links">
+          {SOCIAL_LINKS.map(({ label, href }, index) => (
+            <li key={label}>
+              <a href={href} target="_blank" rel="noreferrer">{label}</a>
+              {index < SOCIAL_LINKS.length - 1 && <span className="profile-nav-divider">/</span>}
+            </li>
+          ))}
+        </ul>
 
         {/* Center — links */}
-        <ul className="profile-nav-links">
-          {NAV_LINKS.map(({ label, href }) => (
+        <ul className="profile-nav-links" aria-label="Main navigation">
+          {CENTER_NAV_LINKS.map(({ label, href }) => (
+            <li key={label}>
+              <a href={href}>{label}</a>
+            </li>
+          ))}
+        </ul>
+
+        <ul className="profile-nav-right-links" aria-label="Contact navigation">
+          {RIGHT_NAV_LINKS.map(({ label, href }) => (
             <li key={label}>
               <a href={href}>{label}</a>
             </li>
@@ -28,7 +49,6 @@ export default function ProfileSection({ showNav }) {
         </ul>
 
         {/* Right — Contact CTA */}
-        <a href="#contact" className="pnav-cta">Contact</a>
       </nav>
 
       {/* ── LEFT — text ── */}

@@ -1,4 +1,4 @@
-﻿.about-section {
+.about-section {
   position: relative !important;
   min-height: 100vh;
   z-index: 2;
@@ -418,5 +418,7 @@
   .profile-visual { width: 300px; height: 300px; margin-top: 36px; }
   .pv-avatar      { width: 280px; height: 280px; }
 }
+
+
 
 

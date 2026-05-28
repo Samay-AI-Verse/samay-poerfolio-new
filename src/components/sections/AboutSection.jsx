@@ -68,38 +68,38 @@ const OpenAIIcon = ({ className = '', ...props }) => (
 
 /* ── ROW ONE: AI / ML / LLM Stack ── */
 const ROW_ONE = [
-  { name: 'Python',       icon: <RawSvgIcon name="Python"       svg={pythonIcon} /> },
-  { name: 'LangChain',    icon: <SvgIcon title="LangChain"    icon={siLangchain} /> },
-  { name: 'LangGraph',    icon: <SvgIcon title="LangGraph"    icon={siLanggraph} /> },
-  { name: 'Qdrant',       icon: <SvgIcon title="Qdrant"       icon={siQdrant} /> },
-  { name: 'OpenAI',       icon: <OpenAIIcon className="brand-icon brand-icon-openai" aria-label="OpenAI logo" /> },
-  { name: 'Gemini',       icon: <SvgIcon title="Google Gemini" icon={siGooglegemini} /> },
+  { name: 'Python', icon: <RawSvgIcon name="Python" svg={pythonIcon} /> },
+  { name: 'LangChain', icon: <SvgIcon title="LangChain" icon={siLangchain} /> },
+  { name: 'LangGraph', icon: <SvgIcon title="LangGraph" icon={siLanggraph} /> },
+  { name: 'Qdrant', icon: <SvgIcon title="Qdrant" icon={siQdrant} /> },
+  { name: 'OpenAI', icon: <OpenAIIcon className="brand-icon brand-icon-openai" aria-label="OpenAI logo" /> },
+  { name: 'Gemini', icon: <SvgIcon title="Google Gemini" icon={siGooglegemini} /> },
   { name: 'Hugging Face', icon: <SvgIcon title="Hugging Face" icon={siHuggingface} /> },
-  { name: 'Ollama',       icon: <SvgIcon title="Ollama"       icon={siOllama} className="brand-icon-light" /> },
-  { name: 'WhatsApp',     icon: <SvgIcon title="WhatsApp"     icon={siWhatsapp} /> },
-  { name: 'Streamlit',    icon: <SvgIcon title="Streamlit"    icon={siStreamlit} /> },
-  { name: 'NumPy',        icon: <RawSvgIcon name="NumPy"       svg={numpyIcon} /> },
-  { name: 'Pandas',       icon: <RawSvgIcon name="Pandas"      svg={pandasIcon} /> },
+  { name: 'Ollama', icon: <SvgIcon title="Ollama" icon={siOllama} className="brand-icon-light" /> },
+  { name: 'WhatsApp', icon: <SvgIcon title="WhatsApp" icon={siWhatsapp} /> },
+  { name: 'Streamlit', icon: <SvgIcon title="Streamlit" icon={siStreamlit} /> },
+  { name: 'NumPy', icon: <RawSvgIcon name="NumPy" svg={numpyIcon} /> },
+  { name: 'Pandas', icon: <RawSvgIcon name="Pandas" svg={pandasIcon} /> },
 ];
 
 /* ── ROW TWO: Full-Stack / Backend / DevOps / DB ── */
 const ROW_TWO = [
-  { name: 'JavaScript',   icon: <SvgIcon title="JavaScript"   icon={siJavascript} /> },
-  { name: 'React',        icon: <SvgIcon title="React"        icon={siReact} /> },
-  { name: 'Next.js',      icon: <SvgIcon title="Next.js"      icon={siNextdotjs} className="brand-icon-light" /> },
-  { name: 'Node.js',      icon: <SvgIcon title="Node.js"      icon={siNodedotjs} /> },
+  { name: 'JavaScript', icon: <SvgIcon title="JavaScript" icon={siJavascript} /> },
+  { name: 'React', icon: <SvgIcon title="React" icon={siReact} /> },
+  { name: 'Next.js', icon: <SvgIcon title="Next.js" icon={siNextdotjs} className="brand-icon-light" /> },
+  { name: 'Node.js', icon: <SvgIcon title="Node.js" icon={siNodedotjs} /> },
   { name: 'Tailwind CSS', icon: <SvgIcon title="Tailwind CSS" icon={siTailwindcss} /> },
-  { name: 'FastAPI',      icon: <SvgIcon title="FastAPI"      icon={siFastapi} /> },
-  { name: 'Flask',        icon: <RawSvgIcon name="Flask"       svg={flaskIcon} className="brand-icon-invert" /> },
-  { name: 'MySQL',        icon: <RawSvgIcon name="MySQL"       svg={mysqlIcon} /> },
-  { name: 'PostgreSQL',   icon: <RawSvgIcon name="PostgreSQL"  svg={postgresqlIcon} /> },
-  { name: 'MongoDB',      icon: <SvgIcon title="MongoDB"      icon={siMongodb} /> },
-  { name: 'Supabase',     icon: <SvgIcon title="Supabase"     icon={siSupabase} /> },
-  { name: 'Docker',       icon: <SvgIcon title="Docker"       icon={siDocker} /> },
+  { name: 'FastAPI', icon: <SvgIcon title="FastAPI" icon={siFastapi} /> },
+  { name: 'Flask', icon: <RawSvgIcon name="Flask" svg={flaskIcon} className="brand-icon-invert" /> },
+  { name: 'MySQL', icon: <RawSvgIcon name="MySQL" svg={mysqlIcon} /> },
+  { name: 'PostgreSQL', icon: <RawSvgIcon name="PostgreSQL" svg={postgresqlIcon} /> },
+  { name: 'MongoDB', icon: <SvgIcon title="MongoDB" icon={siMongodb} /> },
+  { name: 'Supabase', icon: <SvgIcon title="Supabase" icon={siSupabase} /> },
+  { name: 'Docker', icon: <SvgIcon title="Docker" icon={siDocker} /> },
   { name: 'Google Cloud', icon: <SvgIcon title="Google Cloud" icon={siGooglecloud} /> },
-  { name: 'Git',          icon: <SvgIcon title="Git"          icon={siGit} /> },
-  { name: 'GitHub',       icon: <SvgIcon title="GitHub"       icon={siGithub} className="brand-icon-light" /> },
-  { name: 'Vercel',       icon: <SvgIcon title="Vercel"       icon={siVercel} className="brand-icon-light" /> },
+  { name: 'Git', icon: <SvgIcon title="Git" icon={siGit} /> },
+  { name: 'GitHub', icon: <SvgIcon title="GitHub" icon={siGithub} className="brand-icon-light" /> },
+  { name: 'Vercel', icon: <SvgIcon title="Vercel" icon={siVercel} className="brand-icon-light" /> },
 ];
 
 const MarqueeItem = ({ name, icon }) => (
@@ -168,11 +168,11 @@ export default function AboutSection() {
         {/* FULL-WIDTH — icon marquee */}
         <div className="about-marquee-section">
           <MarqueeStrip items={ROW_ONE} />
-          <div className="mq-center-label">
+          {/* <div className="mq-center-label">
             <span className="mq-label-line" />
             <span className="mq-label-text">Skills</span>
             <span className="mq-label-line" />
-          </div>
+          </div> */}
           <MarqueeStrip items={ROW_TWO} reverse />
         </div>
       </div>
