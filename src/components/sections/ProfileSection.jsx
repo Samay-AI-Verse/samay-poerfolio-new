@@ -8,33 +8,79 @@ const SOCIAL_LINKS = [
 ];
 
 const CENTER_NAV_LINKS = [
-  { label: 'Work', href: '#projects' },
-  { label: 'Info', href: '#skills' },
+  { label: 'About', href: '#about', id: 'about' },
+  { label: 'Services', href: '#services', id: 'services' },
+  { label: 'Work', href: '#projects', id: 'projects' },
+  { label: 'Skills', href: '#skills', id: 'skills' },
 ];
 
 const RIGHT_NAV_LINKS = [
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '#contact', id: 'contact' },
+];
+
+// The words of the headline matching your reference text
+const HEADLINE_WORDS = [
+  { text: "As", italic: false },
+  { text: "a", italic: false },
+  { text: "creative", italic: true },
+  { text: "developer,", italic: true },
+  { text: "I", italic: false },
+  { text: "craft", italic: false },
+  { text: "tailor-made", italic: false },
+  { text: "web", italic: false },
+  { text: "experiences,", italic: false },
+  { text: "blending", italic: false },
+  { text: "technical", italic: false },
+  { text: "precision", italic: false },
+  { text: "and", italic: false },
+  { text: "emotion.", italic: true }
 ];
 
 export default function ProfileSection({ showNav }) {
   const trackRef = useRef(null);
   const [progress, setProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!trackRef.current) return;
-      const rect = trackRef.current.getBoundingClientRect();
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const elementTop = rect.top + scrollTop;
-      const elementHeight = rect.height;
-      const viewportHeight = window.innerHeight;
+      // 1. Calculate progress of sticky section
+      if (trackRef.current) {
+        const rect = trackRef.current.getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const elementTop = rect.top + scrollTop;
+        const elementHeight = rect.height;
+        const viewportHeight = window.innerHeight;
 
-      const totalScrollable = elementHeight - viewportHeight;
-      if (totalScrollable <= 0) return;
+        const totalScrollable = elementHeight - viewportHeight;
+        if (totalScrollable > 0) {
+          const scrolled = scrollTop - elementTop;
+          const currentProgress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+          setProgress(currentProgress);
+        }
+      }
 
-      const scrolled = scrollTop - elementTop;
-      const currentProgress = Math.max(0, Math.min(1, scrolled / totalScrollable));
-      setProgress(currentProgress);
+      // 2. Real-time ScrollSpy tracker to highlight active navigation link
+      const scrollPosition = window.scrollY + window.innerHeight * 0.45; // trigger halfway
+      const sections = ['about', 'services', 'projects', 'skills', 'contact'];
+      
+      if (scrollPosition < window.innerHeight) {
+        setActiveSection('');
+        return;
+      }
+
+      let currentActive = '';
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            currentActive = sectionId;
+            break;
+          }
+        }
+      }
+      setActiveSection(currentActive);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -43,17 +89,59 @@ export default function ProfileSection({ showNav }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Determine blur level class for the photo
-  let blurClass = 'blur-high';
-  if (progress >= 0.35 && progress < 0.65) {
-    blurClass = 'blur-med';
-  } else if (progress >= 0.65) {
-    blurClass = 'blur-none';
-  }
+  // Custom click handler for smooth, exact scroll targeting bypassed stacking/sticky offsets
+  const handleNavClick = (event, targetId) => {
+    event.preventDefault();
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      const topOffset = targetElement.offsetTop;
+      window.scrollTo({
+        top: topOffset,
+        behavior: 'smooth',
+      });
+    }
+  };
 
-  // Active status for the scrolling text blocks
-  const isHeadlineActive = progress < 0.5;
-  const isBioActive = progress >= 0.5;
+  // Calculate dynamic style for each word based on scroll progress
+  const getWordStyle = (index) => {
+    // The entire reveal animation occurs between scroll progress 0.08 and 0.85
+    const startScroll = 0.08;
+    const endScroll = 0.82;
+    const totalRange = endScroll - startScroll;
+
+    const wordStep = totalRange / HEADLINE_WORDS.length;
+    const wordStart = startScroll + index * wordStep;
+    // Each word has an overlapping active range to create a wave feel
+    const wordEnd = wordStart + wordStep * 1.8;
+
+    let wordProgress = 0;
+    if (progress > wordStart) {
+      wordProgress = (progress - wordStart) / (wordEnd - wordStart);
+      wordProgress = Math.min(1, Math.max(0, wordProgress));
+    }
+
+    // Smooth blur from 10px down to 0px
+    const blur = 10 - wordProgress * 10;
+    // Smooth opacity from 0.12 up to 1.0
+    const opacity = 0.12 + wordProgress * 0.88;
+
+    return {
+      opacity,
+      filter: `blur(${blur}px)`,
+      display: 'inline-block',
+      marginRight: '0.26em',
+      whiteSpace: 'pre',
+    };
+  };
+
+  // Calculate image blur dynamically:
+  // Stays blurred (16px) until progress hits 0.16 (approx 3-4 words unblurred)
+  // Then smoothly clears to 0px blur between progress 0.16 and 0.36
+  let imageBlur = 16;
+  if (progress > 0.16) {
+    const blurProgress = (progress - 0.16) / (0.36 - 0.16);
+    imageBlur = 16 - Math.min(1, Math.max(0, blurProgress)) * 16;
+  }
 
   return (
     <div className="profile-scroll-track" ref={trackRef}>
@@ -71,17 +159,29 @@ export default function ProfileSection({ showNav }) {
           </ul>
 
           <ul className="profile-nav-links" aria-label="Main navigation">
-            {CENTER_NAV_LINKS.map(({ label, href }) => (
+            {CENTER_NAV_LINKS.map(({ label, href, id }) => (
               <li key={label}>
-                <a href={href}>{label}</a>
+                <a 
+                  href={href} 
+                  className={activeSection === id ? 'active' : ''}
+                  onClick={(e) => handleNavClick(e, id)}
+                >
+                  {label}
+                </a>
               </li>
             ))}
           </ul>
 
           <ul className="profile-nav-right-links" aria-label="Contact navigation">
-            {RIGHT_NAV_LINKS.map(({ label, href }) => (
+            {RIGHT_NAV_LINKS.map(({ label, href, id }) => (
               <li key={label}>
-                <a href={href}>{label}</a>
+                <a 
+                  href={href}
+                  className={activeSection === id ? 'active' : ''}
+                  onClick={(e) => handleNavClick(e, id)}
+                >
+                  {label}
+                </a>
               </li>
             ))}
           </ul>
@@ -90,65 +190,34 @@ export default function ProfileSection({ showNav }) {
         {/* Content Container */}
         <div className="profile-container-new">
           
-          {/* Left Area: Stories & Headlines */}
+          {/* Left Area: Dynamic Word-by-Word Headline */}
           <div className="profile-story-area">
-            <div 
-              className="profile-story-scroller"
-              style={{
-                transform: `translateY(${isHeadlineActive ? '0' : '-100vh'})`,
-              }}
-            >
-              
-              {/* Row 1: Headline Block */}
-              <div className={`profile-headline-row ${isHeadlineActive ? 'active' : 'blurred'}`}>
-                <div className="profile-row-left">
-                  <span className="profile-row-num">(23)</span>
-                </div>
-                <div className="profile-row-right">
-                  <h2 className="profile-headline-main">
-                    As a <span className="serif-italic">creative developer</span>, I craft<br />
-                    tailor-made web experiences,<br />
-                    blending technical precision and<br />
-                    <span className="serif-italic">emotion</span>.
-                  </h2>
-                </div>
-              </div>
-
-              {/* Row 2: Bio & Info Block */}
-              <div className={`profile-bio-row ${isBioActive ? 'active' : 'blurred'}`}>
-                <div className="profile-row-left">
-                  <span className="profile-row-num">(26)</span>
-                </div>
-                <div className="profile-row-right">
-                  <p className="profile-bio-text">
-                    My name is Samay. A passionate creator and AI/Full-Stack engineer, I build memorable digital experiences, always seeking the symbiosis between art and information.
-                  </p>
-                  <a href="#skills" className="profile-info-link-btn">INFO</a>
-                </div>
-              </div>
-
-            </div>
+            <h2 className="profile-headline-main">
+              {HEADLINE_WORDS.map((word, idx) => (
+                <span 
+                  key={idx} 
+                  style={getWordStyle(idx)}
+                  className={word.italic ? 'serif-italic' : ''}
+                >
+                  {word.text}
+                </span>
+              ))}
+            </h2>
           </div>
 
-          {/* Right Area: Dynamic capsule visual */}
+          {/* Right Area: Large, smooth capsule visual (original photo, no filter) */}
           <div className="profile-visual-area">
             <div className="profile-capsule-container">
-              <div className={`profile-capsule-photo ${blurClass}`}>
+              <div className="profile-capsule-photo">
                 <img
                   src={samayPhoto}
                   alt="Samay Powade"
                   className="profile-photo-new"
                   style={{
-                    transform: `scale(${1.08 - progress * 0.08})`,
+                    transform: `scale(${1.05 - progress * 0.05}) translateY(${progress * 15}px)`,
+                    filter: `blur(${imageBlur}px)`,
                   }}
                 />
-                {/* Red tint filter / gradient overlay */}
-                <div className="profile-photo-red-overlay" />
-              </div>
-              
-              {/* Dynamic stamp/label overlay */}
-              <div className={`profile-version-stamp ${progress >= 0.8 ? 'active' : ''}`}>
-                <span className="stamp-arrow">→</span> V3.0
               </div>
             </div>
           </div>

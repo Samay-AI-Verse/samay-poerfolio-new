@@ -2,10 +2,12 @@ import { useEffect, useRef } from 'react';
 import './ContactPage.css';
 
 const CONTACT_LINKS = [
+  { label: 'WhatsApp', href: 'https://wa.me/919764096358' },
   { label: 'Direct mail', href: 'mailto:samaypowade9@gmail.com' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
   { label: 'GitHub', href: 'https://github.com/Samay-AI-Verse' },
-  { label: 'Behance', href: 'https://www.behance.net/' },
+  { label: 'Hugging Face', href: 'https://huggingface.co/Samay-AI-Verse' },
+  { label: 'Kaggle', href: 'https://www.kaggle.com/' },
 ];
 
 const BRIEF_ITEMS = [
@@ -73,6 +75,9 @@ export default function ContactPage({ origin, onBack }) {
 
           <a className="contact-page-email" href="mailto:samaypowade9@gmail.com">
             samaypowade9@gmail.com
+          </a>
+          <a className="contact-page-whatsapp" href="https://wa.me/919764096358" target="_blank" rel="noreferrer">
+            WhatsApp: +91 9764096358
           </a>
         </section>
 

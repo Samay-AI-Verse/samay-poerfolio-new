@@ -37,8 +37,8 @@
 .profile-container-new {
   flex: 1;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr; /* Left text scroller, Right visual capsule */
-  align-items: stretch;
+  grid-template-columns: 1.15fr 0.85fr; /* 57.5% text scrolling, 42.5% visual capsule */
+  align-items: center;
   padding: 0;
   width: 100%;
   height: 100%;
@@ -49,76 +49,22 @@
 /* ── Left Story/Text Area ── */
 .profile-story-area {
   position: relative;
-  height: 100vh; /* full height to support 100vh rows */
-  overflow: hidden;
-  padding: 0 4% 0 10%; /* matching left padding of reference */
-}
-
-.profile-story-scroller {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform;
-}
-
-/* Row-based Grid Layout for perfect alignment */
-.profile-headline-row,
-.profile-bio-row {
-  display: grid;
-  grid-template-columns: clamp(40px, 5.5vw, 85px) 1fr;
   align-items: center;
-  gap: clamp(12px, 2.5vw, 36px);
-  width: 100%;
-  height: 100vh; /* Each text block is exactly 100vh to ensure perfect centering */
-  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: opacity, filter;
-}
-
-/* Active & Blurred States matching screenshot perfectly */
-.profile-headline-row.blurred,
-.profile-bio-row.blurred {
-  opacity: 0.12;
-  filter: blur(5px);
-}
-
-.profile-headline-row.active,
-.profile-bio-row.active {
-  opacity: 1;
-  filter: blur(0);
-}
-
-/* ── Number Columns (Left side of the grid) ── */
-.profile-row-left {
-  display: flex;
-  justify-content: flex-start;
-  align-self: center;
-}
-
-.profile-row-num {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.95rem, 1.3vw, 1.4rem);
-  font-weight: 400;
-  color: #fff;
-  letter-spacing: -0.5px;
-}
-
-/* ── Right side text contents ── */
-.profile-row-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
+  padding: 0 4% 0 10%; /* matching left padding of reference */
 }
 
 .profile-headline-main {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(2rem, 3.6vw, 4.3rem);
+  font-size: clamp(2rem, 3.8vw, 4.3rem);
   font-weight: 400;
-  line-height: 1.25;
+  line-height: 1.28;
   color: #fff;
   letter-spacing: -0.025em;
   margin: 0;
+  word-wrap: break-word;
+  max-width: 680px;
 }
 
 .serif-italic {
@@ -126,36 +72,6 @@
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.015em;
-}
-
-.profile-bio-text {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(1.1rem, 1.55vw, 1.8rem);
-  line-height: 1.5;
-  font-weight: 400;
-  color: #fff;
-  max-width: 520px;
-  margin: 0 0 28px 0;
-  letter-spacing: -0.2px;
-}
-
-.profile-info-link-btn {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #fff;
-  text-decoration: none;
-  border-bottom: 2px solid #fff;
-  padding-bottom: 6px;
-  align-self: flex-start;
-  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-}
-
-.profile-info-link-btn:hover {
-  color: rgba(255, 255, 255, 0.6);
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: translateX(4px);
 }
 
 /* ── Right Capsule Visual Area (Full Height off-screen crop) ── */
@@ -186,23 +102,9 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   overflow: hidden;
-  /* Neon red halo glow extending out from the curved border exactly like 3D reference */
-  box-shadow: -25px 0 80px rgba(255, 28, 10, 0.35), -10px 0 30px rgba(255, 28, 10, 0.25);
-  transition: filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: filter;
-  background: #080100;
-}
-
-.profile-capsule-photo.blur-high {
-  filter: blur(22px);
-}
-
-.profile-capsule-photo.blur-med {
-  filter: blur(9px);
-}
-
-.profile-capsule-photo.blur-none {
-  filter: blur(0);
+  background: #000;
+  box-shadow: none; /* No shadow border as requested */
 }
 
 .profile-photo-new {
@@ -210,50 +112,10 @@
   height: 100%;
   object-fit: cover;
   object-position: center 20%;
-  /* High contrast neon red duotone styling using browser filters matching reference guy exactly */
-  filter: grayscale(100%) sepia(100%) hue-rotate(-50deg) saturate(650%) brightness(0.82) contrast(1.22);
+  /* Original photo: No filters or red tint overlays applied! */
+  filter: none;
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform;
-}
-
-/* Elegant red glowing tint overlay to match reference exactly */
-.profile-photo-red-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 40% 50%, rgba(255, 28, 10, 0.3) 0%, rgba(160, 12, 5, 0.15) 50%, rgba(0, 0, 0, 0.8) 100%);
-  mix-blend-mode: hard-light;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Floating version stamp in final step */
-.profile-version-stamp {
-  position: absolute;
-  left: -20px;
-  top: 50%;
-  transform: translateY(-50%) translateX(-20px);
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(2rem, 3.2vw, 3.6rem);
-  font-weight: 600;
-  color: #fff;
-  opacity: 0;
-  z-index: 5;
-  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform, opacity;
-  letter-spacing: -1px;
-}
-
-.profile-version-stamp.active {
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
-}
-
-.stamp-arrow {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-style: italic;
-  font-weight: 300;
-  margin-right: 12px;
-  color: rgba(255, 255, 255, 0.9);
 }
 
 /* ── Far-Right Vertical Progress Bar ── */
@@ -366,16 +228,22 @@
   font-weight: 800;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(255, 255, 255, 0.45); /* slightly dimmed by default for premium visual hierarchy */
   text-decoration: none;
   position: relative;
   white-space: nowrap;
   transition: color 0.25s ease;
 }
 
+.profile-social-links a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
 .profile-social-links a:hover,
 .profile-nav-links a:hover,
-.profile-nav-right-links a:hover {
+.profile-nav-right-links a:hover,
+.profile-nav-links a.active,
+.profile-nav-right-links a.active {
   color: #fff;
 }
 
@@ -384,10 +252,7 @@
   color: rgba(255, 255, 255, 0.38);
 }
 
-.profile-nav-right-links a {
-  color: #fff;
-}
-
+.profile-nav-links a::after,
 .profile-nav-right-links a::after {
   content: '';
   position: absolute;
@@ -399,7 +264,10 @@
   transition: width 0.25s ease;
 }
 
-.profile-nav-right-links a:hover::after {
+.profile-nav-links a:hover::after,
+.profile-nav-right-links a:hover::after,
+.profile-nav-links a.active::after,
+.profile-nav-right-links a.active::after {
   width: 100%;
 }
 
@@ -431,37 +299,20 @@
 
   .profile-story-area {
     height: auto;
-    min-height: auto;
-    padding: 0;
+    padding: 20px 0;
     display: block;
   }
 
-  .profile-story-scroller {
-    transform: none !important;
-  }
-
-  .profile-headline-row, 
-  .profile-bio-row {
-    position: relative;
-    width: 100%;
-    height: auto;
-    transform: none !important;
+  .profile-headline-main {
+    max-width: 100%;
+    /* Keep fully solid and clean on mobile */
     opacity: 1 !important;
     filter: none !important;
-    pointer-events: auto !important;
-    padding: 20px 0;
   }
 
-  .profile-headline-row {
-    margin-bottom: 20px;
-  }
-
-  .profile-row-left {
-    padding-top: 4px;
-  }
-
-  .profile-row-num {
-    font-size: 0.85rem;
+  .profile-headline-main span {
+    opacity: 1 !important;
+    filter: none !important;
   }
 
   .profile-visual-area {
@@ -480,24 +331,13 @@
   .profile-capsule-photo {
     border-top-left-radius: 24vh;
     border-bottom-left-radius: 24vh;
-    filter: none !important; /* skip dynamic blur on mobile for readability */
+    filter: none !important; 
     box-shadow: none;
   }
 
   .profile-photo-new {
     transform: none !important;
-    filter: none !important; /* keep standard clear picture on mobile */
-  }
-
-  .profile-photo-red-overlay {
-    display: none;
-  }
-
-  .profile-version-stamp {
-    opacity: 1 !important;
-    transform: translateY(-50%) translateX(0) !important;
-    left: -24px;
-    font-size: 2.2rem;
+    filter: none !important; 
   }
 
   .profile-progress-sidebar {
@@ -541,17 +381,7 @@
     font-size: 1.85rem;
   }
 
-  .profile-bio-text {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
   .profile-capsule-container {
     height: 40vh;
-  }
-
-  .profile-version-stamp {
-    font-size: 1.8rem;
-    left: -12px;
   }
 }
