@@ -85,6 +85,13 @@
   font-style: italic;
 }
 
+/* Word-reveal — each word is inline, transitions driven by JS */
+.gallery-word {
+  display: inline;
+  transition: opacity 0.12s linear, filter 0.12s linear;
+  will-change: opacity, filter;
+}
+
 .gallery-aside {
   position: absolute;
   right: clamp(28px, 3vw, 58px);

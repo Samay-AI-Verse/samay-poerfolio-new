@@ -58,6 +58,42 @@ function getImageStyle(index, progress, total) {
   };
 }
 
+/* ── Word-reveal config ──────────────────────────────────────────
+   The copy is visible while progress is roughly 0.5 → 0.88.
+   We spread the word reveal across that window.
+   Each word gets a threshold; once progress crosses it the word
+   becomes fully visible.  Words below threshold stay dim + blurred.
+──────────────────────────────────────────────────────────────── */
+
+// Segments: { text, italic }
+const COPY_SEGMENTS = [
+  { text: 'Each',       italic: false },
+  { text: 'project',    italic: false },
+  { text: 'is',         italic: false },
+  { text: 'a',          italic: false },
+  { text: 'chance',     italic: false },
+  { text: 'to',         italic: false },
+  { text: 'learn,',     italic: true  },
+  { text: 'experiment', italic: true  },
+  { text: 'and',        italic: false },
+  { text: 'push',       italic: false },
+  { text: 'my',         italic: false },
+  { text: 'limits.',    italic: false },
+];
+
+// Line breaks after these word indices (0-based)
+const LINE_BREAKS_AFTER = new Set([5, 8]);
+
+const REVEAL_START = 0.50; // progress when first word lights up
+const REVEAL_END   = 0.84; // progress when last word lights up
+
+function getWordOpacity(wordIndex, totalWords, progress) {
+  const t = wordIndex / (totalWords - 1);
+  const threshold = REVEAL_START + t * (REVEAL_END - REVEAL_START);
+  // How far past the threshold are we?  Ramp over ~0.04 of progress
+  return clamp((progress - threshold) / 0.045);
+}
+
 export default function ProjectGallerySection() {
   const sectionRef = useRef(null);
   const rafRef = useRef(0);
@@ -98,16 +134,43 @@ export default function ProjectGallerySection() {
 
   const copyOpacity = easeInOut((progress - 0.5) / 0.16) * (1 - easeInOut((progress - 0.88) / 0.08));
 
+  const totalWords = COPY_SEGMENTS.length;
+
   return (
     <section className="gallery-section" ref={sectionRef} aria-label="Project gallery">
       <div className="gallery-sticky">
         <div className="gallery-copy" style={{ '--gallery-copy-opacity': copyOpacity.toFixed(3) }}>
           <p>
-            Each project is a chance to
-            <br />
-            <em>learn, experiment</em> and push
-            <br />
-            my limits.
+            {COPY_SEGMENTS.map((seg, i) => {
+              const wordProgress = getWordOpacity(i, totalWords, progress);
+              const opacity  = lerp(0.18, 1, wordProgress);
+              const blur     = lerp(5, 0, wordProgress);
+
+              const wordEl = (
+                <span
+                  key={i}
+                  className="gallery-word"
+                  style={{
+                    opacity,
+                    filter: blur > 0.05 ? `blur(${blur.toFixed(2)}px)` : 'none',
+                    fontStyle: seg.italic ? 'italic' : 'normal',
+                    fontFamily: seg.italic ? "Georgia, 'Times New Roman', serif" : 'inherit',
+                    fontSize:   seg.italic ? '0.94em' : 'inherit',
+                    fontWeight: seg.italic ? 400 : 'inherit',
+                  }}
+                >
+                  {seg.text}
+                </span>
+              );
+
+              return (
+                <span key={`w-${i}`}>
+                  {wordEl}
+                  {/* Insert line break after specific words */}
+                  {LINE_BREAKS_AFTER.has(i) ? <br /> : ' '}
+                </span>
+              );
+            })}
           </p>
         </div>
 

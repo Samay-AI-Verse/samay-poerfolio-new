@@ -158,10 +158,10 @@ function App() {
       <div className="overlap-sections">
         <ProfileSection showNav={navVisible} />
         <AboutSection />
-        <SkillsSection />
         <ServicesSection />
         <ProjectsSection />
         <ProjectGallerySection />
+        <SkillsSection />
         <AnotherSection />
         <CertificationsSection />
         <ContactSection />
