@@ -30,7 +30,7 @@
 .srv-section      { z-index: 4; }
 /* proj-section z-index is set to 5 in its own CSS */
 /* gallery-section z-index is set to 6 in its own CSS */
-.contact-section  { z-index: 8; }
+.contact-section  { z-index: 9; }
 
 
 .section-inner {
