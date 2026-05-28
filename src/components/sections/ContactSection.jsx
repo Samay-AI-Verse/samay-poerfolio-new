@@ -37,9 +37,16 @@ export default function ContactSection() {
       section.style.setProperty('--footer-social', smoothStep((progress - 0.84) / 0.08).toFixed(4));
       section.style.setProperty('--footer-nav', smoothStep((progress - 0.86) / 0.08).toFixed(4));
       section.style.setProperty('--footer-name', smoothStep((progress - 0.84) / 0.12).toFixed(4));
-      section.style.setProperty('--footer-first-name', smoothStep((progress - 0.84) / 0.06).toFixed(4));
-      section.style.setProperty('--footer-last-name', smoothStep((progress - 0.88) / 0.06).toFixed(4));
-      section.style.setProperty('--footer-dot', smoothStep((progress - 0.92) / 0.04).toFixed(4));
+      
+      // Calculate staggered progress for each character (5 in "Samay", 6 in "Powade", 1 for the dot = 12 total)
+      const firstNameLength = 5;
+      const lastNameLength = 6;
+      const totalChars = firstNameLength + lastNameLength + 1;
+      for (let i = 0; i < totalChars; i++) {
+        const start = 0.82 + i * 0.012;
+        const charProgress = smoothStep((progress - start) / 0.05);
+        section.style.setProperty(`--char-progress-${i}`, charProgress.toFixed(4));
+      }
     };
 
     const onScroll = () => {
@@ -145,9 +152,40 @@ export default function ContactSection() {
             <a href="#contact">Contact</a>
           </nav>
           <div className="contact-footer-name" aria-hidden="true">
-            <span className="footer-name-word footer-name-first">Samay</span>
-            <span className="footer-name-word footer-name-last">Powade</span>
-            <b className="footer-name-dot">.</b>
+            <span className="footer-name-word footer-name-first">
+              {'Samay'.split('').map((char, index) => (
+                <span
+                  key={`first-${index}`}
+                  className="footer-char"
+                  style={{ '--char-index': index, '--char-progress': `var(--char-progress-${index})` }}
+                >
+                  {char}
+                </span>
+              ))}
+            </span>
+            <span className="footer-name-word footer-name-last">
+              {'Powade'.split('').map((char, index) => {
+                const globalIndex = 5 + index; // 'Samay' has 5 letters
+                return (
+                  <span
+                    key={`last-${index}`}
+                    className="footer-char"
+                    style={{ '--char-index': globalIndex, '--char-progress': `var(--char-progress-${globalIndex})` }}
+                  >
+                    {char}
+                  </span>
+                );
+              })}
+              <b
+                className="footer-name-dot footer-char"
+                style={{
+                  '--char-index': 11,
+                  '--char-progress': 'var(--char-progress-11)'
+                }}
+              >
+                .
+              </b>
+            </span>
           </div>
         </footer>
       </div>

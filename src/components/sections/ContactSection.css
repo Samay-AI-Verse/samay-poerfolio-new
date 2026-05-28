@@ -469,10 +469,9 @@
   left: clamp(28px, 2.9vw, 56px);
   right: clamp(28px, 2.9vw, 56px);
   bottom: clamp(22px, 3vh, 34px);
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) auto;
+  display: flex;
+  justify-content: space-between;
   align-items: baseline;
-  gap: clamp(36px, 5vw, 96px);
   color: #f2f2f0;
   line-height: 0.72;
   white-space: nowrap;
@@ -487,7 +486,6 @@
   font-weight: 500;
   letter-spacing: 0;
   text-transform: none;
-  will-change: opacity, transform;
 }
 
 .footer-name-first {
@@ -495,9 +493,6 @@
   font-size: clamp(7rem, 18vw, 21rem);
   font-style: normal;
   font-weight: 500;
-  opacity: var(--footer-first-name);
-  transform: translateY(calc((1 - var(--footer-first-name)) * 90px));
-  text-shadow: 0 0 calc((1 - var(--footer-first-name)) * 26px) rgba(84, 155, 255, 0.95);
 }
 
 .footer-name-last {
@@ -506,9 +501,6 @@
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.03em;
-  opacity: var(--footer-last-name);
-  transform: translateY(calc((1 - var(--footer-last-name)) * 90px));
-  text-shadow: 0 0 calc((1 - var(--footer-last-name)) * 26px) rgba(84, 155, 255, 0.95);
 }
 
 .footer-name-dot {
@@ -516,10 +508,19 @@
   color: #ff2a11;
   font-size: clamp(5.2rem, 9.6vw, 12rem);
   line-height: 0.48;
-  opacity: var(--footer-dot);
-  transform: translateY(calc((1 - var(--footer-dot)) * 70px)) scale(calc(0.65 + (var(--footer-dot) * 0.35)));
-  text-shadow: 0 0 calc((1 - var(--footer-dot)) * 20px) rgba(84, 155, 255, 0.95);
-  will-change: opacity, transform;
+}
+
+.footer-char {
+  display: inline-block;
+  opacity: var(--char-progress, 0);
+  transform: 
+    translateY(calc((1 - var(--char-progress, 0)) * 110px)) 
+    rotate(calc((1 - var(--char-progress, 0)) * -16deg))
+    scale(calc(0.5 + (var(--char-progress, 0) * 0.5)));
+  filter: blur(calc((1 - var(--char-progress, 0)) * 10px));
+  will-change: transform, opacity, filter;
+  text-shadow: 0 0 calc((1 - var(--char-progress, 0)) * 32px) rgba(84, 155, 255, 0.95);
+  transition: text-shadow 0.3s ease;
 }
 
 @media (max-width: 980px) {
@@ -591,8 +592,9 @@
   .contact-footer-name {
     left: 24px;
     right: 24px;
-    grid-template-columns: 1fr;
-    justify-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
     bottom: 30px;
     white-space: normal;
