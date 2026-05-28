@@ -3,7 +3,6 @@ import './Navbar.css';
 const NAV_LINKS = [
   { label: 'Projects',       href: '#projects'       },
   { label: 'Skills',         href: '#skills'         },
-  { label: 'Certifications', href: '#certifications' },
   { label: 'Participations', href: '#participations' },
   { label: 'Contact',        href: '#contact', cta: true },
 ];

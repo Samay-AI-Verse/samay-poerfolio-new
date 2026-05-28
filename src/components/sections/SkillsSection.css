@@ -4,7 +4,10 @@
 
 .skills-scroll-section {
   position: relative;
-  background: #000;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(255, 42, 17, 0.09), transparent 30%),
+    radial-gradient(circle at 86% 42%, rgba(255, 42, 17, 0.055), transparent 36%),
+    #000;
   color: #fff;
   z-index: 7; /* Slides over previous, stays under contact */
   box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.8), 0 20px 80px rgba(0, 0, 0, 0.8);
@@ -22,7 +25,9 @@
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    background: #000;
+    background:
+      linear-gradient(115deg, rgba(255, 42, 17, 0.04), transparent 32%, transparent 72%, rgba(255, 42, 17, 0.035)),
+      #000;
     display: flex;
     align-items: center;
   }
@@ -186,18 +191,55 @@
 }
 
 .skills-contact-link .sparkle {
-  color: #f5a623;
+  color: #ff2a11;
   transition: transform 0.35s ease;
 }
 
 .skills-contact-link:hover {
-  color: #f5a623;
-  border-color: #f5a623;
+  color: #ff2a11;
+  border-color: rgba(255, 42, 17, 0.72);
   letter-spacing: 3px;
 }
 
 .skills-contact-link:hover .sparkle {
   transform: rotate(90deg) scale(1.2);
+}
+
+.skills-contact-link.is-launching {
+  color: #fff;
+  border-color: rgba(255, 42, 17, 0.9);
+  animation: skillsContactLaunch 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.skills-contact-link.is-launching .sparkle {
+  animation: skillsContactSpark 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes skillsContactLaunch {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  45% {
+    transform: scale(1.22);
+    filter: brightness(1.55);
+  }
+  100% {
+    transform: scale(0.88);
+    filter: brightness(1);
+  }
+}
+
+@keyframes skillsContactSpark {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  45% {
+    transform: rotate(135deg) scale(1.45);
+  }
+  100% {
+    transform: rotate(220deg) scale(0.9);
+  }
 }
 
 /* ==========================================================================
@@ -237,6 +279,7 @@
   opacity: 1;
   filter: blur(0); /* Completely sharp focus */
   transform: scale(1.02);
+  border-top-color: rgba(255, 42, 17, 0.32);
 }
 
 .skills-category-header {
@@ -273,7 +316,7 @@
 
 .skills-category-row:hover .skills-toggle-icon,
 .skills-category-row.active .skills-toggle-icon {
-  color: #ffffff;
+  color: #ff2a11;
 }
 
 .skills-category-row.active .skills-category-title {
@@ -331,7 +374,7 @@
 
 .skills-category-row.active .skill-item:hover {
   opacity: 1;
-  color: #ffffff;
+  color: #ff2a11;
   transform: translateX(4px); /* Sleek hover slide-out */
 }
 
@@ -382,7 +425,7 @@
     top: 0;
     left: 0;
     width: 1px;
-    background: #fff;
+    background: linear-gradient(to bottom, #ff2a11, rgba(255, 255, 255, 0.84));
     transition: height 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }

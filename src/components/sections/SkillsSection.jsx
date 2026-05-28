@@ -69,7 +69,7 @@ const SKILLS_DATA = [
   }
 ];
 
-export default function SkillsSection() {
+export default function SkillsSection({ onContactClick }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const rafRef = useRef(0);
@@ -101,8 +101,6 @@ export default function SkillsSection() {
       let progress = 0;
       if (rect.top <= 0) {
         progress = Math.min(-rect.top / Math.max(scrollableHeight, 1), 1);
-      } else {
-        progress = 0;
       }
 
       // Sync progress value as a CSS property for hardware-accelerated scrolls
@@ -183,7 +181,7 @@ export default function SkillsSection() {
               <h2 className="skills-main-desc">
                 AI ENGINEER &amp; FULL STACK DEVELOPER, SPECIALIZED IN AGENTIC AI &amp; LARGE LANGUAGE MODELS, PASSIONATE ABOUT BUILDING INTELLIGENT APPLICATIONS AND SEAMLESS WEB EXPERIENCE.
               </h2>
-              <a href="#contact" className="skills-contact-link">
+              <a href="#contact" className="skills-contact-link" onClick={onContactClick}>
                 CONTACT ME <span className="sparkle">✦</span>
               </a>
             </div>

@@ -1,20 +1,308 @@
 /* ══════════════════════════════════════
-   PROFILE SECTION — full height split
-══════════════════════════════════════ */
-.profile-section {
+   SCROLL STORYTELLING TRACK
+   Holds the sticky profile section during
+   the 300vh scrolling phase.
+   ══════════════════════════════════════ */
+.profile-scroll-track {
+  position: relative;
+  height: 300vh; /* scrollable distance for animation steps */
+  background: #000;
+  z-index: 1;
+}
+
+.profile-section-new {
   position: sticky;
   top: 0;
   height: 100vh;
-  z-index: 1;
+  width: 100%;
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 76% 38%, rgba(255, 148, 35, 0.92) 0%, rgba(232, 104, 32, 0.72) 28%, rgba(61, 26, 0, 0) 56%),
-    linear-gradient(120deg, #160800 0%, #351500 42%, #c84f17 74%, #f5a623 100%);
+  background: #000;
+  box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.9);
 }
 
-/* ── Nav bar — top of the orange section ── */
+/* Subtle background noise texture */
+.profile-section-new::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.8;
+}
+
+/* ── Container Grid ── */
+.profile-container-new {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* Left text scroller, Right visual capsule */
+  align-items: stretch;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  position: relative;
+}
+
+/* ── Left Story/Text Area ── */
+.profile-story-area {
+  position: relative;
+  height: 100vh; /* full height to support 100vh rows */
+  overflow: hidden;
+  padding: 0 4% 0 10%; /* matching left padding of reference */
+}
+
+.profile-story-scroller {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Row-based Grid Layout for perfect alignment */
+.profile-headline-row,
+.profile-bio-row {
+  display: grid;
+  grid-template-columns: clamp(40px, 5.5vw, 85px) 1fr;
+  align-items: center;
+  gap: clamp(12px, 2.5vw, 36px);
+  width: 100%;
+  height: 100vh; /* Each text block is exactly 100vh to ensure perfect centering */
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, filter;
+}
+
+/* Active & Blurred States matching screenshot perfectly */
+.profile-headline-row.blurred,
+.profile-bio-row.blurred {
+  opacity: 0.12;
+  filter: blur(5px);
+}
+
+.profile-headline-row.active,
+.profile-bio-row.active {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* ── Number Columns (Left side of the grid) ── */
+.profile-row-left {
+  display: flex;
+  justify-content: flex-start;
+  align-self: center;
+}
+
+.profile-row-num {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.95rem, 1.3vw, 1.4rem);
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+/* ── Right side text contents ── */
+.profile-row-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.profile-headline-main {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 3.6vw, 4.3rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #fff;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+.serif-italic {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.profile-bio-text {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.1rem, 1.55vw, 1.8rem);
+  line-height: 1.5;
+  font-weight: 400;
+  color: #fff;
+  max-width: 520px;
+  margin: 0 0 28px 0;
+  letter-spacing: -0.2px;
+}
+
+.profile-info-link-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 6px;
+  align-self: flex-start;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.profile-info-link-btn:hover {
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateX(4px);
+}
+
+/* ── Right Capsule Visual Area (Full Height off-screen crop) ── */
+.profile-visual-area {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 48vw; /* Takes up 48% of screen width */
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-capsule-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.profile-capsule-photo {
+  position: absolute;
+  inset: 0;
+  border-top-left-radius: 50vh; /* Giant sweeping circular arc */
+  border-bottom-left-radius: 50vh;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+  /* Neon red halo glow extending out from the curved border exactly like 3D reference */
+  box-shadow: -25px 0 80px rgba(255, 28, 10, 0.35), -10px 0 30px rgba(255, 28, 10, 0.25);
+  transition: filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: filter;
+  background: #080100;
+}
+
+.profile-capsule-photo.blur-high {
+  filter: blur(22px);
+}
+
+.profile-capsule-photo.blur-med {
+  filter: blur(9px);
+}
+
+.profile-capsule-photo.blur-none {
+  filter: blur(0);
+}
+
+.profile-photo-new {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  /* High contrast neon red duotone styling using browser filters matching reference guy exactly */
+  filter: grayscale(100%) sepia(100%) hue-rotate(-50deg) saturate(650%) brightness(0.82) contrast(1.22);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Elegant red glowing tint overlay to match reference exactly */
+.profile-photo-red-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 40% 50%, rgba(255, 28, 10, 0.3) 0%, rgba(160, 12, 5, 0.15) 50%, rgba(0, 0, 0, 0.8) 100%);
+  mix-blend-mode: hard-light;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Floating version stamp in final step */
+.profile-version-stamp {
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-20px);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 3.6rem);
+  font-weight: 600;
+  color: #fff;
+  opacity: 0;
+  z-index: 5;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
+  letter-spacing: -1px;
+}
+
+.profile-version-stamp.active {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.stamp-arrow {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  margin-right: 12px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Far-Right Vertical Progress Bar ── */
+.profile-progress-sidebar {
+  position: absolute;
+  right: clamp(16px, 3vw, 42px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 10;
+}
+
+.sidebar-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sidebar-progress-track {
+  width: 1px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.15);
+  position: relative;
+}
+
+.sidebar-progress-fill {
+  width: 1px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: height 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: height;
+  box-shadow: 0 0 8px #fff;
+}
+
+
+/* ══════════════════════════════════════
+   NAVIGATION BAR STYLES
+   Persistent, elegant, three-column header
+   ══════════════════════════════════════ */
 .profile-nav {
   position: absolute;
   top: 0;
@@ -23,315 +311,21 @@
   z-index: 10;
   height: 72px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  column-gap: clamp(24px, 5vw, 80px);
+  padding: 0 clamp(22px, 5vw, 72px);
+  background: transparent;
   align-items: center;
-  column-gap: clamp(28px, 6vw, 96px);
-  padding: 0 clamp(22px, 6vw, 88px);
-  background:
-    linear-gradient(90deg, rgba(10, 10, 10, 0.9) 0%, rgba(12, 10, 10, 0.68) 36%, rgba(20, 10, 6, 0.42) 67%, rgba(0, 0, 0, 0.18) 100%),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0));
-  backdrop-filter: blur(10px);
-  /* hidden by default */
   opacity: 0;
   transform: translateY(-12px);
   pointer-events: none;
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* shown when hero is fully scrolled past */
 .profile-nav.visible {
   opacity: 1;
   transform: translateY(0);
   pointer-events: all;
-}
-
-.profile-nav-logo {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.08rem;
-  font-weight: 900;
-  letter-spacing: 3.5px;
-  text-transform: uppercase;
-  color: #fff;
-  text-decoration: none;
-}
-
-.profile-nav-logo span {
-  color: #f5a623;
-}
-
-/* Center — links */
-.profile-nav-links {
-  display: flex;
-  align-items: center;
-  gap: clamp(18px, 2.6vw, 34px);
-  list-style: none;
-  /* true centering in the 3-col grid */
-  justify-content: center;
-}
-
-.profile-nav-links a {
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 1.7px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.78);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.25s ease;
-  white-space: nowrap;
-}
-
-.profile-nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 1.5px;
-  background: #fff;
-  transition: width 0.25s ease;
-}
-
-.profile-nav-links a:hover { color: #fff; }
-.profile-nav-links a:hover::after { width: 100%; }
-
-/* Right — Contact pill */
-.pnav-cta {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 7px 0;
-  color: #fff;
-  transition: color 0.25s ease;
-  white-space: nowrap;
-}
-
-.pnav-cta:hover {
-  color: #f5a623;
-}
-
-.profile-social-links,
-.profile-nav-links {
-  display: flex;
-  align-items: center;
-  gap: clamp(22px, 3vw, 44px);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-}
-
-.profile-social-links {
-  justify-content: center;
-  transform: translateX(clamp(0px, 10vw, 160px));
-}
-
-.profile-nav-links {
-  justify-content: flex-end;
-}
-
-.profile-social-links li {
-  display: flex;
-  align-items: center;
-  gap: clamp(18px, 2.5vw, 38px);
-}
-
-.profile-social-links a,
-.profile-nav-links a {
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(0.92rem, 1.45vw, 1.35rem);
-  font-weight: 900;
-  letter-spacing: 0;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.76);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.25s ease;
-  white-space: nowrap;
-}
-
-.profile-nav-divider {
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(1.2rem, 1.8vw, 1.8rem);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.24);
-  line-height: 1;
-}
-
-.profile-social-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 1.5px;
-  background: #fff;
-  transition: width 0.25s ease;
-}
-
-.profile-social-links a:hover,
-.profile-nav-links a:hover {
-  color: #fff;
-}
-
-.profile-social-links a:hover::after,
-.profile-nav-links a:hover::after {
-  width: 100%;
-}
-
-/* Subtle texture */
-.profile-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ── Left: text — padded below nav ── */
-.profile-left {
-  position: relative;
-  z-index: 4;
-  flex: 0 0 54%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 100px 4% 80px 8%;
-  gap: 18px;
-}
-
-.profile-eyebrow {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.profile-name {
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(4rem, 8vw, 8rem);
-  font-weight: 900;
-  line-height: 0.95;
-  color: #fff;
-  text-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-  letter-spacing: -0.02em;
-}
-
-.profile-role {
-  font-size: clamp(0.85rem, 1.4vw, 1.1rem);
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.profile-desc {
-  font-size: 1rem;
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.5);
-  max-width: 440px;
-}
-
-/* ── Right: photo — fills full section height ── */
-.profile-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  width: 68%;
-  height: 100%;
-  margin-left: 0;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.16) 18%, rgba(0, 0, 0, 0.72) 34%, #000 52%);
-  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.16) 18%, rgba(0, 0, 0, 0.72) 34%, #000 52%);
-}
-
-.profile-photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  filter: contrast(1.08) brightness(0.98) saturate(1.06);
-}
-
-/* Left-edge fade so photo blends into text side */
-.profile-right::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to right, rgba(53, 21, 0, 0.72) 0%, rgba(53, 21, 0, 0.26) 34%, transparent 62%),
-    linear-gradient(to bottom, transparent 74%, rgba(0, 0, 0, 0.28) 100%);
-  z-index: 3;
-  pointer-events: none;
-}
-
-@media (max-width: 900px) {
-  .profile-nav {
-    height: auto;
-    min-height: 72px;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    row-gap: 12px;
-    padding: 14px 18px;
-  }
-
-  .profile-social-links {
-    transform: none;
-  }
-
-  .profile-social-links,
-  .profile-nav-links {
-    justify-content: center;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-
-  .profile-social-links li {
-    gap: 14px;
-  }
-
-  .profile-social-links a,
-  .profile-nav-links a {
-    font-size: 0.82rem;
-  }
-}
-
-@media (max-width: 520px) {
-  .profile-nav {
-    row-gap: 10px;
-  }
-
-  .profile-social-links,
-  .profile-nav-links {
-    gap: 14px;
-  }
-
-  .profile-social-links li {
-    gap: 10px;
-  }
-
-  .profile-social-links a,
-  .profile-nav-links a {
-    font-size: 0.72rem;
-  }
-}
-
-/* Final nav layout: transparent 3-zone bar */
-.profile-nav {
-  height: 58px;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  column-gap: clamp(24px, 5vw, 80px);
-  padding: 0 clamp(22px, 5vw, 72px);
-  background: transparent;
-  backdrop-filter: none;
 }
 
 .profile-social-links,
@@ -348,7 +342,6 @@
 
 .profile-social-links {
   justify-content: flex-start;
-  transform: none;
 }
 
 .profile-nav-links {
@@ -360,6 +353,8 @@
 }
 
 .profile-social-links li {
+  display: flex;
+  align-items: center;
   gap: clamp(12px, 2vw, 24px);
 }
 
@@ -375,6 +370,13 @@
   text-decoration: none;
   position: relative;
   white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.profile-social-links a:hover,
+.profile-nav-links a:hover,
+.profile-nav-right-links a:hover {
+  color: #fff;
 }
 
 .profile-nav-divider {
@@ -397,21 +399,121 @@
   transition: width 0.25s ease;
 }
 
-.profile-nav-right-links a:hover {
-  color: #fff;
-}
-
 .profile-nav-right-links a:hover::after {
   width: 100%;
 }
 
+
+/* ══════════════════════════════════════
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ══════════════════════════════════════ */
 @media (max-width: 900px) {
+  .profile-scroll-track {
+    height: auto; /* natural flow on tablet/mobile */
+  }
+
+  .profile-section-new {
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+    padding: 90px 0 50px 0;
+    display: block;
+  }
+
+  .profile-container-new {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 40px 6%;
+    align-items: stretch;
+    height: auto;
+  }
+
+  .profile-story-area {
+    height: auto;
+    min-height: auto;
+    padding: 0;
+    display: block;
+  }
+
+  .profile-story-scroller {
+    transform: none !important;
+  }
+
+  .profile-headline-row, 
+  .profile-bio-row {
+    position: relative;
+    width: 100%;
+    height: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    pointer-events: auto !important;
+    padding: 20px 0;
+  }
+
+  .profile-headline-row {
+    margin-bottom: 20px;
+  }
+
+  .profile-row-left {
+    padding-top: 4px;
+  }
+
+  .profile-row-num {
+    font-size: 0.85rem;
+  }
+
+  .profile-visual-area {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .profile-capsule-container {
+    height: 48vh;
+    max-width: 380px;
+  }
+
+  .profile-capsule-photo {
+    border-top-left-radius: 24vh;
+    border-bottom-left-radius: 24vh;
+    filter: none !important; /* skip dynamic blur on mobile for readability */
+    box-shadow: none;
+  }
+
+  .profile-photo-new {
+    transform: none !important;
+    filter: none !important; /* keep standard clear picture on mobile */
+  }
+
+  .profile-photo-red-overlay {
+    display: none;
+  }
+
+  .profile-version-stamp {
+    opacity: 1 !important;
+    transform: translateY(-50%) translateX(0) !important;
+    left: -24px;
+    font-size: 2.2rem;
+  }
+
+  .profile-progress-sidebar {
+    display: none; /* hide sidebar on small screens */
+  }
+
   .profile-nav {
     height: auto;
     min-height: 58px;
     grid-template-columns: 1fr;
     row-gap: 10px;
     padding: 14px 18px;
+    opacity: 1; /* always show on mobile */
+    transform: none;
+    pointer-events: all;
+    position: absolute;
   }
 
   .profile-social-links,
@@ -426,5 +528,30 @@
   .profile-nav-links a,
   .profile-nav-right-links a {
     font-size: 0.62rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .profile-container-new {
+    gap: 28px;
+    padding: 20px 5%;
+  }
+
+  .profile-headline-main {
+    font-size: 1.85rem;
+  }
+
+  .profile-bio-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .profile-capsule-container {
+    height: 40vh;
+  }
+
+  .profile-version-stamp {
+    font-size: 1.8rem;
+    left: -12px;
   }
 }

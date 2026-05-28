@@ -12,9 +12,9 @@ import ProjectsSection from './components/sections/ProjectsSection';
 import ProjectGallerySection from './components/sections/ProjectGallerySection';
 import AnotherSection from './components/sections/AnotherSection';
 import SkillsSection from './components/sections/SkillsSection';
-import CertificationsSection from './components/sections/CertificationsSection';
 import ContactSection from './components/sections/ContactSection';
 import ProfileSection from './components/sections/ProfileSection';
+import ContactPage from './components/sections/ContactPage';
 
 const FULLSCREEN_PROMPT_KEY = 'samay-fullscreen-prompt-seen';
 
@@ -33,6 +33,8 @@ function App() {
   const [isPlaying,   setIsPlaying]   = useState(false);
   const [videoEnded,  setVideoEnded]  = useState(false);
   const [navVisible,  setNavVisible]  = useState(false);   // no longer drives a separate nav
+  const [contactPageOpen, setContactPageOpen] = useState(false);
+  const [contactPageOrigin, setContactPageOrigin] = useState({ x: 50, y: 50 });
   const videoRef = useRef(null);
 
   // Keep video paused on load
@@ -49,6 +51,11 @@ function App() {
       document.body.classList.remove('prompt-open');
     };
   }, [showPrompt]);
+
+  useEffect(() => {
+    document.body.classList.toggle('contact-page-open', contactPageOpen);
+    return () => document.body.classList.remove('contact-page-open');
+  }, [contactPageOpen]);
 
   // Sync fullscreen state when user presses Escape etc.
   useEffect(() => {
@@ -134,6 +141,23 @@ function App() {
     setIsMuted(video.muted);
   };
 
+  const handleSkillsContactClick = (event) => {
+    event.preventDefault();
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    setContactPageOrigin({
+      x: ((rect.left + rect.width / 2) / window.innerWidth) * 100,
+      y: ((rect.top + rect.height / 2) / window.innerHeight) * 100,
+    });
+    event.currentTarget.classList.add('is-launching');
+    window.setTimeout(() => {
+      event.currentTarget.classList.remove('is-launching');
+    }, 520);
+    window.setTimeout(() => {
+      setContactPageOpen(true);
+    }, 340);
+  };
+
   return (
     <div className="site-wrapper">
 
@@ -161,11 +185,17 @@ function App() {
         <ServicesSection />
         <ProjectsSection />
         <ProjectGallerySection />
-        <SkillsSection />
+        <SkillsSection onContactClick={handleSkillsContactClick} />
         <AnotherSection />
-        <CertificationsSection />
         <ContactSection />
       </div>
+
+      {contactPageOpen && (
+        <ContactPage
+          origin={contactPageOrigin}
+          onBack={() => setContactPageOpen(false)}
+        />
+      )}
 
     </div>
   );

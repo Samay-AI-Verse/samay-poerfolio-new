@@ -146,8 +146,8 @@ export default function ServicesSection() {
 
           <div className="srv-stage" aria-live="polite">
             <h2 className="srv-counter">
-              06+<br />
-              Services
+              <span>06+</span>
+              <strong>Services</strong>
             </h2>
           </div>
 

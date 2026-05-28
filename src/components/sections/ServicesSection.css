@@ -1,6 +1,6 @@
 .srv-section {
   --srv-progress: 0;
-  --srv-accent: #ff6b00;
+  --srv-accent: #ff2a11;
   position: relative;
   z-index: 4;
   height: calc((var(--srv-count) - 0.55) * 100vh);
@@ -84,6 +84,7 @@
 .srv-menu-label {
   display: block;
   margin-bottom: clamp(22px, 4vh, 42px);
+  color: #141414;
 }
 
 .srv-menu-list {
@@ -101,7 +102,7 @@
   font-weight: 500;
   line-height: 1.05;
   text-decoration: none;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
 }
 
 .srv-menu-item span {
@@ -113,12 +114,14 @@
 }
 
 .srv-menu-item.is-active {
+  color: #060606;
   transform: translateX(8px);
 }
 
 .srv-menu-item.is-active span {
   opacity: 1;
   transform: translateX(0);
+  color: #060606;
 }
 
 .srv-stage {
@@ -146,6 +149,17 @@
   pointer-events: none;
   text-align: left;
   white-space: nowrap;
+}
+
+.srv-counter span,
+.srv-counter strong {
+  display: block;
+}
+
+.srv-counter strong {
+  color: #000;
+  font-weight: 400;
+  text-shadow: none;
 }
 
 .srv-copy {

@@ -10,7 +10,6 @@ import {
   siLangchain,
   siLanggraph,
   siMongodb,
-  siMysql,
   siNextdotjs,
   siNodedotjs,
   siOllama,
@@ -164,6 +163,7 @@ export default function AboutSection() {
             </div>
           </div>
         </div>
+
 
         {/* FULL-WIDTH — icon marquee */}
         <div className="about-marquee-section">

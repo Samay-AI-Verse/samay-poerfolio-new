@@ -9,12 +9,40 @@ const smoothStep = (value) => {
 const CONTACT_LINKS = [
   { label: 'GitHub', href: 'https://github.com/Samay-AI-Verse' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-  { label: 'Email', href: 'mailto:samay@example.com' },
+  { label: 'Email', href: 'mailto:samaypowade9@gmail.com' },
 ];
 
 export default function ContactSection() {
   const sectionRef = useRef(null);
   const rafRef = useRef(0);
+  const footerRef = useRef(null);
+
+  // Mouse cursor parallax tracking for background aurora blobs
+  useEffect(() => {
+    const footer = footerRef.current;
+    if (!footer) return;
+
+    const handleMouseMove = (e) => {
+      const rect = footer.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+      const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
+      footer.style.setProperty('--mouse-x', x.toFixed(3));
+      footer.style.setProperty('--mouse-y', y.toFixed(3));
+    };
+
+    const handleMouseLeave = () => {
+      footer.style.setProperty('--mouse-x', '0');
+      footer.style.setProperty('--mouse-y', '0');
+    };
+
+    footer.addEventListener('mousemove', handleMouseMove);
+    footer.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      footer.removeEventListener('mousemove', handleMouseMove);
+      footer.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -83,7 +111,7 @@ export default function ContactSection() {
               <br />
               full-stack tools.
             </h2>
-            <a href="mailto:samay@example.com">Contact me<span>*</span></a>
+            <a href="mailto:samaypowade9@gmail.com">Contact me<span>*</span></a>
           </div>
           <div className="contact-scroll-rail">
             <span />
@@ -136,20 +164,81 @@ export default function ContactSection() {
           </div>
         </div>
 
-        <footer className="contact-footer">
+        <footer className="contact-footer" ref={footerRef}>
+          {/* Animated aurora background blobs with dynamic 3D mouse parallax wrappers */}
+          <div className="footer-aurora-container" aria-hidden="true">
+            <div className="footer-aurora-blob-wrapper" style={{ transform: 'translate(calc(var(--mouse-x, 0) * 52px), calc(var(--mouse-y, 0) * 52px))' }}>
+              <div className="footer-aurora-blob footer-blob-one" />
+            </div>
+            <div className="footer-aurora-blob-wrapper" style={{ transform: 'translate(calc(var(--mouse-x, 0) * -36px), calc(var(--mouse-y, 0) * -36px))' }}>
+              <div className="footer-aurora-blob footer-blob-two" />
+            </div>
+            <div className="footer-aurora-blob-wrapper" style={{ transform: 'translate(calc(var(--mouse-x, 0) * 22px), calc(var(--mouse-y, 0) * 22px))' }}>
+              <div className="footer-aurora-blob footer-blob-three" />
+            </div>
+          </div>
+
           <div className="contact-footer-meta">
-            <a href="mailto:samay@example.com">samay@example.com</a>
-            <span>© 2026</span>
+            <a href="mailto:samaypowade9@gmail.com">
+              {'samaypowade9@gmail.com'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char}
+                </span>
+              ))}
+            </a>
+            <span>
+              {'© 2026'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              ))}
+            </span>
           </div>
           <nav className="contact-footer-social" aria-label="Social links">
-            <a href="https://github.com/Samay-AI-Verse" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="mailto:samay@example.com">Email</a>
+            <a href="https://github.com/Samay-AI-Verse" target="_blank" rel="noreferrer">
+              {'GitHub'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char}
+                </span>
+              ))}
+            </a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+              {'LinkedIn'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char}
+                </span>
+              ))}
+            </a>
+            <a href="mailto:samaypowade9@gmail.com">
+              {'Email'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char}
+                </span>
+              ))}
+            </a>
           </nav>
           <nav className="contact-footer-nav" aria-label="Footer navigation">
-            <a href="#projects">Work</a>
-            <a href="#skills">Info</a>
-            <a href="#contact">Contact</a>
+            <a href="#projects">
+              {'Work'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char}
+                </span>
+              ))}
+            </a>
+            <a href="#skills">
+              {'Info'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char}
+                </span>
+              ))}
+            </a>
+            <a href="#contact">
+              {'Contact'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char}
+                </span>
+              ))}
+            </a>
           </nav>
           <div className="contact-footer-name" aria-hidden="true">
             <span className="footer-name-word footer-name-first">

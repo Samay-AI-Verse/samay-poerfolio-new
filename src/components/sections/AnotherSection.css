@@ -14,10 +14,12 @@
   overflow: hidden;
   perspective: 1500px;
   background: 
+    radial-gradient(circle at 18% 24%, rgba(255, 42, 17, 0.09), transparent 30%),
+    radial-gradient(circle at 78% 42%, rgba(255, 42, 17, 0.06), transparent 36%),
     radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.95), #050505 100%),
     linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
-  background-size: 100% 100%, 60px 60px, 60px 60px;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 60px 60px, 60px 60px;
   background-position: center;
 }
 
@@ -49,7 +51,9 @@
 .another-gallery-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 35%, rgba(5, 5, 5, 0.85) 90%);
+  background:
+    linear-gradient(115deg, rgba(255, 42, 17, 0.055), transparent 30%, transparent 72%, rgba(255, 42, 17, 0.035)),
+    radial-gradient(circle at center, transparent 35%, rgba(5, 5, 5, 0.85) 90%);
   z-index: 48;
   pointer-events: none;
 }
@@ -152,7 +156,7 @@
   transform: translate3d(0, -10px, 45px) scale(1.08);
   box-shadow: 
     0 35px 70px rgba(0, 0, 0, 0.8),
-    0 0 30px rgba(232, 117, 50, 0.22); /* Orange theme hover glow! */
+    0 0 30px rgba(255, 42, 17, 0.14);
   filter: brightness(1.08) contrast(1.04);
 }
 
@@ -210,7 +214,7 @@
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 400;
   font-style: italic;
-  color: #a8a8a8;
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .another-gallery-copy strong {
