@@ -33,6 +33,7 @@ const SKILLS_DATA = [
     ]
   },
 
+
   {
     id: 'backend',
     category: 'Backend Engineering',
