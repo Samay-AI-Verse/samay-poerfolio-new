@@ -15,6 +15,7 @@ import SkillsSection from './components/sections/SkillsSection';
 import ContactSection from './components/sections/ContactSection';
 import ProfileSection from './components/sections/ProfileSection';
 import ContactPage from './components/sections/ContactPage';
+import MaxAssistantOverlay from './components/overlay/MaxAssistantOverlay';
 
 const FULLSCREEN_PROMPT_KEY = 'samay-fullscreen-prompt-seen';
 
@@ -35,7 +36,43 @@ function App() {
   const [navVisible,  setNavVisible]  = useState(false);   // no longer drives a separate nav
   const [contactPageOpen, setContactPageOpen] = useState(false);
   const [contactPageOrigin, setContactPageOrigin] = useState({ x: 50, y: 50 });
+  const [isMaxOpen, setIsMaxOpen] = useState(false);
+  const [maxTriggerCoords, setMaxTriggerCoords] = useState(null);
   const videoRef = useRef(null);
+
+  const handleMaxOpen = (coords) => {
+    setMaxTriggerCoords(coords);
+    setIsMaxOpen(true);
+  };
+
+  const handleViewProject = (projectId) => {
+    const projectSection = document.getElementById('projects');
+    if (projectSection) {
+      const items = projectSection.querySelectorAll('.proj-item');
+      let targetItem = null;
+      items.forEach(item => {
+        const numText = item.querySelector('.proj-item-num')?.textContent;
+        if (numText && numText.includes(projectId)) {
+          targetItem = item;
+        }
+      });
+
+      if (targetItem) {
+        targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetItem.classList.add('max-highlight-project');
+        setTimeout(() => {
+          targetItem.classList.remove('max-highlight-project');
+        }, 4000);
+      } else {
+        projectSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleMaxContact = () => {
+    setContactPageOrigin({ x: 50, y: 50 });
+    setContactPageOpen(true);
+  };
 
   // Keep video paused on load
   useEffect(() => {
@@ -187,13 +224,26 @@ function App() {
         <ProjectGallerySection />
         <SkillsSection onContactClick={handleSkillsContactClick} />
         <AnotherSection />
-        <ContactSection onContactClick={handleSkillsContactClick} />
+        <ContactSection 
+          onContactClick={handleSkillsContactClick} 
+          onMaxOpen={handleMaxOpen}
+        />
       </div>
 
       {contactPageOpen && (
         <ContactPage
           origin={contactPageOrigin}
           onBack={() => setContactPageOpen(false)}
+        />
+      )}
+
+      {isMaxOpen && (
+        <MaxAssistantOverlay
+          isOpen={isMaxOpen}
+          triggerCoords={maxTriggerCoords}
+          onClose={() => setIsMaxOpen(false)}
+          onViewProject={handleViewProject}
+          onContact={handleMaxContact}
         />
       )}
 

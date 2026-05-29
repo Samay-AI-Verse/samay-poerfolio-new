@@ -7,7 +7,7 @@ import DemoOne from './components/background/demo.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/slider" element={<DemoOne />} />
         <Route path="/*" element={<App />} />
@@ -15,4 +15,3 @@ createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </StrictMode>,
 )
-

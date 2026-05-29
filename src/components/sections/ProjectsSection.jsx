@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { assetPath } from '../../utils/assetPath';
 import './ProjectsSection.css';
 
 const PROJECTS = [
@@ -10,7 +11,7 @@ const PROJECTS = [
     tags: ['React', 'FastAPI', 'LangChain', 'PostgreSQL'],
     live: '#',
     github: 'https://github.com/Samay-AI-Verse',
-    image: '/proj_sanjeevani_new.png',
+    image: assetPath('/proj_sanjeevani_new.png'),
   },
   {
     id: '02',
@@ -20,7 +21,7 @@ const PROJECTS = [
     tags: ['Vapi AI', 'NLP', 'LangChain', 'FastAPI'],
     live: '#',
     github: 'https://github.com/Samay-AI-Verse/ChetanaLabs-',
-    image: '/proj_chetanalabs.png',
+    image: assetPath('/proj_chetanalabs.png'),
   },
   {
     id: '03',
@@ -30,7 +31,7 @@ const PROJECTS = [
     tags: ['Python', 'YOLO', 'OpenCV', 'Edge AI'],
     live: '#',
     github: 'https://github.com/Samay-AI-Verse',
-    image: '/proj_trinetra.png',
+    image: assetPath('/proj_trinetra.png'),
   },
   {
     id: '04',
@@ -40,7 +41,7 @@ const PROJECTS = [
     tags: ['LangChain', 'Pinecone', 'FastAPI', 'LLMs'],
     live: '#',
     github: 'https://github.com/Samay-AI-Verse/Sarthi-Astra',
-    image: '/proj_sarathi.png',
+    image: assetPath('/proj_sarathi.png'),
   },
   {
     id: '05',
@@ -50,7 +51,7 @@ const PROJECTS = [
     tags: ['Python', 'YOLO', 'Edge AI', 'React'],
     live: '#',
     github: 'https://github.com/Samay-AI-Verse/Chatbot-Women-Sefty',
-    image: '/proj_loan.png',
+    image: assetPath('/proj_loan.png'),
   },
   {
     id: '06',
@@ -60,7 +61,7 @@ const PROJECTS = [
     tags: ['TypeScript', 'VS Code API', 'OpenAI', 'LLMs'],
     live: '#',
     github: 'https://github.com/Samay-AI-Verse',
-    image: '/proj_bugsentry.png',
+    image: assetPath('/proj_bugsentry.png'),
   },
 ];
 

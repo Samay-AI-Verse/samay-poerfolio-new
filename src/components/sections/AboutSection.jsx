@@ -28,6 +28,7 @@ import numpyIcon from 'devicon/icons/numpy/numpy-original.svg?raw';
 import pandasIcon from 'devicon/icons/pandas/pandas-original.svg?raw';
 import postgresqlIcon from 'devicon/icons/postgresql/postgresql-original.svg?raw';
 import pythonIcon from 'devicon/icons/python/python-original.svg?raw';
+import { assetPath } from '../../utils/assetPath';
 import './AboutSection.css';
 
 const SvgIcon = ({ icon, title, className = '' }) => (
@@ -264,7 +265,7 @@ export default function AboutSection() {
           <div className="profile-visual">
             <div className="pv-avatar" style={{ filter: `blur(${imageBlur}px)` }}>
               <img
-                src="/cool.jpeg"
+                src={assetPath('/cool.jpeg')}
                 alt="Samay"
                 className="pv-avatar-img"
                 draggable="false"

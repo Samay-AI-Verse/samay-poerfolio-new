@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/samay-poerfolio-new/',
   plugins: [react()],
   resolve: {
     alias: {

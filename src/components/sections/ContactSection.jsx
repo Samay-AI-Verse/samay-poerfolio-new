@@ -13,7 +13,7 @@ const CONTACT_LINKS = [
   { label: 'Email', href: 'mailto:samaypowade9@gmail.com' },
 ];
 
-export default function ContactSection({ onContactClick }) {
+export default function ContactSection({ onContactClick, onMaxOpen }) {
   const sectionRef = useRef(null);
   const rafRef = useRef(0);
   const footerRef = useRef(null);
@@ -250,12 +250,24 @@ export default function ContactSection({ onContactClick }) {
             </span>
           </div>
 
-          {/* 3D sphere center button (Back to Top) */}
+          {/* 3D sphere center button (Launch MAX AI Voice Assistant) */}
           <button 
             className="footer-center-circle" 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            title="Back to top"
-            aria-label="Back to top"
+            onClick={(e) => {
+              if (onMaxOpen) {
+                const rect = e.currentTarget.getBoundingClientRect();
+                onMaxOpen({
+                  top: rect.top,
+                  left: rect.left,
+                  width: rect.width,
+                  height: rect.height
+                });
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            title="Interact with MAX Assistant"
+            aria-label="Interact with MAX Assistant"
           />
 
           <div className="contact-footer-name" aria-hidden="true">
