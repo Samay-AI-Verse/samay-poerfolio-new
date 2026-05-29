@@ -134,7 +134,6 @@ export function ShaderAnimation() {
         let targetHover = 0.0
         let currentHover = 0.0
         
-        let targetScale = 0.0
         let currentScale = 0.0
  
         const handleMouseMove = (e) => {
@@ -174,27 +173,16 @@ export function ShaderAnimation() {
             const viewportHeight = window.innerHeight
             const visibleHeight = Math.max(0, viewportHeight - rect.top)
             
-            let scrollProgress = 0.0
-            if (rect.height > 0) {
-                // Reaches full scale when 55% of the viewport is scroll-revealed
-                scrollProgress = Math.min(1.0, visibleHeight / (viewportHeight * 0.55))
-            } else {
-                scrollProgress = 1.0
-            }
+            const scrollProgress = rect.bottom < 0
+                ? 0.0
+                : rect.height > 0
+                    // Reaches full scale when 55% of the viewport is scroll-revealed
+                    ? Math.min(1.0, visibleHeight / (viewportHeight * 0.55))
+                    : 1.0
  
-            if (rect.bottom < 0) {
-                scrollProgress = 0.0
-            }
- 
-            // Target scale grows with scroll progress
-            let targetScaleVal = scrollProgress
- 
-            // Hover pulsing and gentle breathing expansion
-            if (targetHover > 0.5) {
-                targetScaleVal = 1.22 * scrollProgress + Math.sin(uniforms.time.value * 0.04) * 0.04 * scrollProgress
-            } else {
-                targetScaleVal = 1.0 * scrollProgress
-            }
+            const targetScaleVal = targetHover > 0.5
+                ? 1.22 * scrollProgress + Math.sin(uniforms.time.value * 0.04) * 0.04 * scrollProgress
+                : scrollProgress
  
             currentScale += (targetScaleVal - currentScale) * 0.06
             uniforms.scale.value = Math.max(0.0, currentScale)
