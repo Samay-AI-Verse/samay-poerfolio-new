@@ -18,22 +18,23 @@ const RIGHT_NAV_LINKS = [
   { label: 'Contact', href: '#contact', id: 'contact' },
 ];
 
-// The words of the headline matching your reference text
+// The words of the headline used for the scroll reveal animation.
 const HEADLINE_WORDS = [
   { text: "As", italic: false },
-  { text: "a", italic: false },
-  { text: "creative", italic: true },
-  { text: "developer,", italic: true },
+  { text: "an", italic: false },
+  { text: "AI-driven", italic: true },
+  { text: "software", italic: true },
+  { text: "engineer,", italic: true },
   { text: "I", italic: false },
-  { text: "craft", italic: false },
-  { text: "tailor-made", italic: false },
-  { text: "web", italic: false },
-  { text: "experiences,", italic: false },
-  { text: "blending", italic: false },
-  { text: "technical", italic: false },
-  { text: "precision", italic: false },
+  { text: "build", italic: false },
+  { text: "intelligent", italic: false },
+  { text: "products,", italic: false },
+  { text: "automation", italic: false },
+  { text: "tools,", italic: false },
   { text: "and", italic: false },
-  { text: "emotion.", italic: true }
+  { text: "real-world", italic: false },
+  { text: "project", italic: false },
+  { text: "solutions.", italic: true }
 ];
 
 export default function ProfileSection({ showNav }) {

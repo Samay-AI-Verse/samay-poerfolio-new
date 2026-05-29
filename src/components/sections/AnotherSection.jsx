@@ -34,8 +34,18 @@ const HIGHLIGHT_MEDIA = [
   { src: '/highlights/WhatsApp Image 2026-05-28 at 12.40.45 AM.jpeg', alt: 'Winner Team Celebration' },
   { src: '/highlights/WhatsApp Image 2026-05-28 at 12.41.25 AM.jpeg', alt: 'Electronics and coding implementation' },
   { src: '/highlights/WhatsApp Image 2026-05-28 at 12.41.26 AM.jpeg', alt: 'Grand Finale Showcase' },
-  { src: '/highlights/WhatsApp Video 2026-05-28 at 12.41.12 AM.mp4', alt: 'Innovation Pitch Video', isVideo: true },
-  { src: '/highlights/WhatsApp Video 2026-05-28 at 12.41.29 AM.mp4', alt: 'Live Project Demonstration Video', isVideo: true },
+  {
+    src: '/highlights/WhatsApp Video 2026-05-28 at 12.41.12 AM.mp4',
+    poster: '/highlights/WhatsApp Image 2026-05-28 at 12.41.25 AM.jpeg',
+    alt: 'Innovation Pitch Video',
+    isVideo: true,
+  },
+  {
+    src: '/highlights/WhatsApp Video 2026-05-28 at 12.41.29 AM.mp4',
+    poster: '/highlights/WhatsApp Image 2026-05-28 at 12.41.26 AM.jpeg',
+    alt: 'Live Project Demonstration Video',
+    isVideo: true,
+  },
 ];
 
 const COLUMN_MEDIA = [0, 1, 2].map((columnIndex) =>
@@ -48,10 +58,15 @@ const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
 function HighlightCard({ item }) {
   return (
-    <div className="another-card-wrapper">
+    <div
+      className="another-card-wrapper"
+      style={item.poster ? { '--poster-image': `url("${item.poster}")` } : undefined}
+    >
       {item.isVideo ? (
         <video
           src={item.src}
+          poster={item.poster}
+          preload="metadata"
           autoPlay
           loop
           muted

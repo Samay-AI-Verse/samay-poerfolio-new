@@ -3,68 +3,78 @@ import './SkillsSection.css';
 
 const SKILLS_DATA = [
   {
-    id: 'ai-development',
-    category: 'AI & Agentic',
+    id: 'ai-engineering',
+    category: 'AI Engineering',
     skills: [
-      'Gemini & OpenAI',
-      'Claude & Ollama',
-      'LangChain & LangGraph',
+      'LLM Applications',
+      'Agentic AI Systems',
       'RAG Pipelines',
-      'Qdrant & Vector DBs',
-      'Agentic Workflows',
-      'Structured Outputs',
-      'Streamlit Interfaces'
+      'LangChain',
+      'LangGraph',
+      'Prompt Engineering',
+      'Multi-Agent Workflows',
+      'Semantic Search',
+      'AI Chat Systems',
+      'Streaming Responses',
+      'Model Context Protocol (MCP)',
+      'AI Workflow Automation',
+      'Local LLM Integration',
+      'Inference APIs'
     ]
   },
+
   {
     id: 'frontend',
     category: 'Frontend',
     skills: [
       'React.js',
       'Next.js',
-      'TypeScript',
-      'JavaScript',
-      'Tailwind CSS',
-      'Framer Motion',
-      'GSAP Animations',
-      'Electron Apps'
+      'JavaScript'
     ]
   },
+
   {
     id: 'backend',
-    category: 'Backend',
+    category: 'Backend Engineering',
     skills: [
       'Python',
       'FastAPI',
       'Flask',
       'Node.js',
       'Express.js',
+      'REST APIs',
       'WebSockets',
-      'JWT Security'
+      'JWT Authentication',
+      'Async Programming',
+      'API Architecture'
     ]
   },
+
   {
     id: 'databases',
     category: 'Databases',
     skills: [
       'PostgreSQL',
-      'MySQL',
       'MongoDB',
+      'MySQL',
       'Supabase',
-      'Redis Caching',
-      'Vector Search'
+      'Vector DBs',
+
     ]
   },
+
   {
     id: 'devops',
-    category: 'DevOps & Tools',
+    category: 'DevOps & Deployment',
     skills: [
       'Docker',
       'Git & GitHub',
       'GitHub Actions',
-      'Vercel & Netlify',
-      'Google Cloud (GCP)',
-      'Linux & Bash'
+      'CI/CD Pipelines',
+      'Linux',
+      'Vercel',
+      'Netlify',
+      'Google Cloud Platform'
     ]
   }
 ];
@@ -150,7 +160,7 @@ export default function SkillsSection({ onContactClick }) {
       const rect = section.getBoundingClientRect();
       const sectionAbsoluteTop = window.pageYOffset + rect.top;
       const scrollableHeight = rect.height - window.innerHeight;
-      
+
       const targetProgress = index / SKILLS_DATA.length;
       // scroll and center the clicked category
       const targetScrollPosition = sectionAbsoluteTop + (targetProgress * scrollableHeight) + 15;
@@ -169,13 +179,13 @@ export default function SkillsSection({ onContactClick }) {
     <section className="skills-scroll-section" id="skills" ref={sectionRef}>
       <div className="skills-sticky-wrapper">
         <div className="skills-inner-layout">
-          
+
           {/* LEFT COLUMN: Sticky Context Info */}
           <div className="skills-left-col">
             <div className="skills-left-percentage" aria-hidden="true">
               ({scrollPercent.toString().padStart(2, '0')})
             </div>
-            
+
             <div className="skills-left-content">
               <span className="skills-eyebrow-label">Skills</span>
               <h2 className="skills-main-desc">

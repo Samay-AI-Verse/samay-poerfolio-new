@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import {
   siDocker,
   siFastapi,
@@ -124,41 +125,153 @@ const MarqueeStrip = ({ items, reverse = false }) => {
 
 
 
+// Headline words for AboutSection
+const TITLE_WORDS = [
+  { text: "I", italic: false },
+  { text: "build", italic: false },
+  { text: "AI", italic: true },
+  { text: "systems", italic: true },
+  { text: "that", italic: false },
+  { text: "connect", italic: false },
+  { text: "data,", italic: false },
+  { text: "automation,", italic: true },
+  { text: "and", italic: false },
+  { text: "backend", italic: true },
+  { text: "workflows.", italic: true }
+];
+
 export default function AboutSection() {
+  const sectionRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      const sectionHeight = rect.height;
+      const totalScrollable = sectionHeight + viewportHeight;
+      const scrolled = viewportHeight - rect.top;
+      
+      const currentProgress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+      setProgress(currentProgress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial run
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Calculate dynamic style for each word of the about section title
+  const getWordStyle = (index) => {
+    // Unblur titles much earlier (progress 0.05 to 0.38) to keep it perfectly readable in the viewport
+    const startScroll = 0.05;
+    const endScroll = 0.38;
+    const totalRange = endScroll - startScroll;
+
+    const wordStep = totalRange / TITLE_WORDS.length;
+    const wordStart = startScroll + index * wordStep;
+    const wordEnd = wordStart + wordStep * 1.5;
+
+    let wordProgress = 0;
+    if (progress > wordStart) {
+      wordProgress = (progress - wordStart) / (wordEnd - wordStart);
+      wordProgress = Math.min(1, Math.max(0, wordProgress));
+    }
+
+    // Soft, elegant max blur of 4px so it is always highly readable
+    const blur = 4 - wordProgress * 4;
+    const opacity = 0.25 + wordProgress * 0.75;
+
+    return {
+      opacity,
+      filter: `blur(${blur}px)`,
+      display: 'inline-block',
+      marginRight: '0.24em',
+      whiteSpace: 'pre',
+    };
+  };
+
+  // Calculate general fade-up styles for bio content based on progress
+  const getFadeUpStyle = (triggerProgress, delay = 0) => {
+    // Staggered fade in happens much earlier so content is solid in the viewing zone
+    const start = triggerProgress + delay;
+    const end = start + 0.12;
+    
+    let fadeProgress = 0;
+    if (progress > start) {
+      fadeProgress = (progress - start) / (end - start);
+      fadeProgress = Math.min(1, Math.max(0, fadeProgress));
+    }
+
+    const translateY = 15 - fadeProgress * 15;
+    const opacity = 0.3 + fadeProgress * 0.7; // higher baseline opacity (starts at 30% instead of 0%)
+
+    return {
+      opacity,
+      transform: `translateY(${translateY}px)`,
+      transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+    };
+  };
+
+  // Calculate dynamic blur for the circular about photo
+  // Starts softly blurred and becomes perfectly clear very early on
+  let imageBlur = 8;
+  if (progress > 0.08) {
+    const blurProgress = (progress - 0.08) / (0.32 - 0.08);
+    imageBlur = 8 - Math.min(1, Math.max(0, blurProgress)) * 8;
+  }
+
   return (
-    <section id="about" className="about-section">
+    <section id="about" className="about-section" ref={sectionRef}>
       <div className="about-inner">
         <div className="about-left">
           <span className="about-label">About Me</span>
           <h2 className="about-title">
-            I build AI systems that connect data, automation, and backend workflows.
+            {TITLE_WORDS.map((word, idx) => (
+              <span 
+                key={idx} 
+                style={getWordStyle(idx)}
+                className={word.italic ? 'serif-italic-about' : ''}
+              >
+                {word.text}
+              </span>
+            ))}
           </h2>
-          <p className="about-bio">
+          
+          <p className="about-bio" style={getFadeUpStyle(0.38)}>
             I work on AI products that connect language models, backend services,
             and structured data. My focus is simple: take a useful idea from
             prototype to a reliable system people can actually use.
           </p>
-          <div className="about-profile-card">
-            <div className="profile-card-row">
+          
+          <div className="about-profile-card" style={getFadeUpStyle(0.44)}>
+            <div className="profile-card-row" style={getFadeUpStyle(0.44, 0.03)}>
               <span>Education</span>
               <p>B.Tech 3rd Year - AI &amp; Computer Engineering</p>
             </div>
-            <div className="profile-card-row">
+            <div className="profile-card-row" style={getFadeUpStyle(0.44, 0.08)}>
               <span>College</span>
               <p>Gramin Technical &amp; Management Science College, Maneeg Campus</p>
             </div>
           </div>
         </div>
 
-        {/* RIGHT — Clean profile photo */}
+        {/* RIGHT — Clean profile photo with scroll parallax & dynamic unblur */}
         <div className="about-right">
           <div className="profile-visual">
-            <div className="pv-avatar">
+            <div className="pv-avatar" style={{ filter: `blur(${imageBlur}px)` }}>
               <img
                 src="/cool.jpeg"
                 alt="Samay"
                 className="pv-avatar-img"
                 draggable="false"
+                style={{
+                  transform: `scale(${1.08 - progress * 0.08})`,
+                  transition: 'transform 0.4s ease-out',
+                }}
               />
             </div>
           </div>
@@ -166,7 +279,7 @@ export default function AboutSection() {
 
 
         {/* FULL-WIDTH — icon marquee */}
-        <div className="about-marquee-section">
+        <div className="about-marquee-section" style={getFadeUpStyle(0.48)}>
           <MarqueeStrip items={ROW_ONE} />
           {/* <div className="mq-center-label">
             <span className="mq-label-line" />

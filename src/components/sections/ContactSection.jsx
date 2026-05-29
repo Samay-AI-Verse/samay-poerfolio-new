@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './ContactSection.css';
+import { ShaderAnimation } from '../background/sideranimation';
 
 const smoothStep = (value) => {
   const clamped = Math.min(1, Math.max(0, value));
@@ -12,7 +13,7 @@ const CONTACT_LINKS = [
   { label: 'Email', href: 'mailto:samaypowade9@gmail.com' },
 ];
 
-export default function ContactSection() {
+export default function ContactSection({ onContactClick }) {
   const sectionRef = useRef(null);
   const rafRef = useRef(0);
   const footerRef = useRef(null);
@@ -111,7 +112,16 @@ export default function ContactSection() {
               <br />
               full-stack tools.
             </h2>
-            <a href="mailto:samaypowade9@gmail.com">Contact me<span>*</span></a>
+            <a 
+              href="mailto:samaypowade9@gmail.com"
+              onClick={(e) => {
+                if (onContactClick) {
+                  onContactClick(e);
+                }
+              }}
+            >
+              Contact me<span>*</span>
+            </a>
           </div>
           <div className="contact-scroll-rail">
             <span />
@@ -165,17 +175,9 @@ export default function ContactSection() {
         </div>
 
         <footer className="contact-footer" ref={footerRef}>
-          {/* Animated aurora background blobs with dynamic 3D mouse parallax wrappers */}
-          <div className="footer-aurora-container" aria-hidden="true">
-            <div className="footer-aurora-blob-wrapper" style={{ transform: 'translate(calc(var(--mouse-x, 0) * 52px), calc(var(--mouse-y, 0) * 52px))' }}>
-              <div className="footer-aurora-blob footer-blob-one" />
-            </div>
-            <div className="footer-aurora-blob-wrapper" style={{ transform: 'translate(calc(var(--mouse-x, 0) * -36px), calc(var(--mouse-y, 0) * -36px))' }}>
-              <div className="footer-aurora-blob footer-blob-two" />
-            </div>
-            <div className="footer-aurora-blob-wrapper" style={{ transform: 'translate(calc(var(--mouse-x, 0) * 22px), calc(var(--mouse-y, 0) * 22px))' }}>
-              <div className="footer-aurora-blob footer-blob-three" />
-            </div>
+          {/* Animated Three.js ShaderAnimation background */}
+          <div className="footer-aurora-container" aria-hidden="true" style={{ pointerEvents: 'none' }}>
+            <ShaderAnimation />
           </div>
 
           <div className="contact-footer-meta">
@@ -232,7 +234,14 @@ export default function ContactSection() {
                 </span>
               ))}
             </a>
-            <a href="#contact">
+            <a 
+              href="#contact"
+              onClick={(e) => {
+                if (onContactClick) {
+                  onContactClick(e);
+                }
+              }}
+            >
               {'Contact'.split('').map((char, index) => (
                 <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
                   {char}

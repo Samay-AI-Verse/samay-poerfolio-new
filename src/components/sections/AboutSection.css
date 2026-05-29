@@ -79,6 +79,14 @@
   text-shadow: 0 14px 48px rgba(0, 0, 0, 0.52);
 }
 
+.serif-italic-about {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  text-transform: none;
+}
+
 .about-bio {
   max-width: 640px;
   margin: 0 0 28px;

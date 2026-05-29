@@ -187,7 +187,7 @@ function App() {
         <ProjectGallerySection />
         <SkillsSection onContactClick={handleSkillsContactClick} />
         <AnotherSection />
-        <ContactSection />
+        <ContactSection onContactClick={handleSkillsContactClick} />
       </div>
 
       {contactPageOpen && (
