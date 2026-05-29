@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { MessageCircle, PhoneCall } from 'lucide-react';
 import './ContactPage.css';
 
 const CONTACT_LINKS = [
@@ -120,7 +121,8 @@ export default function ContactPage({ origin, onBack }) {
                   className="contact-page-ai-link whatsapp-demo-link"
                 >
                   <span className="demo-pulse-indicator"></span>
-                  💬 WhatsApp Bot
+                  <MessageCircle size={18} className="demo-icon" />
+                  <span>WhatsApp Bot</span>
                 </a>
                 <a
                   href="https://github.com/Samay-AI-Verse/ChetanaLabs-"
@@ -129,7 +131,8 @@ export default function ContactPage({ origin, onBack }) {
                   className="contact-page-ai-link voice-demo-link"
                 >
                   <span className="demo-pulse-indicator"></span>
-                  📞 Voice Agent (Chetana)
+                  <PhoneCall size={18} className="demo-icon" />
+                  <span>Voice Agent</span>
                 </a>
               </nav>
             </div>

@@ -190,6 +190,67 @@
   pointer-events: all;
 }
 
+/* ── Logo & Brand ── */
+.profile-logo-brand-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.profile-logo-brand {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 12px);
+  text-decoration: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.profile-logo-brand:hover {
+  transform: scale(1.03);
+}
+
+.profile-logo-icon {
+  width: clamp(24px, 2.2vw, 30px);
+  height: clamp(24px, 2.2vw, 30px);
+  filter: drop-shadow(0 0 6px rgba(0, 243, 255, 0.45)) drop-shadow(0 0 15px rgba(134, 59, 255, 0.25));
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
+}
+
+.profile-logo-brand:hover .profile-logo-icon {
+  transform: rotate(12deg) scale(1.08);
+  filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.75)) drop-shadow(0 0 20px rgba(232, 104, 32, 0.35));
+}
+
+.profile-logo-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.78rem, 1vw, 0.95rem);
+  font-weight: 900;
+  letter-spacing: 2.2px;
+  color: #fff;
+  text-transform: uppercase;
+  transition: text-shadow 0.3s ease;
+}
+
+.profile-logo-text span {
+  color: #e86820; /* Signature orange */
+}
+
+.profile-logo-brand:hover .profile-logo-text {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.profile-logo-vertical-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.14);
+  margin: 0 clamp(10px, 1.6vw, 20px);
+  flex-shrink: 0;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.05);
+}
+
 .profile-social-links,
 .profile-nav-links,
 .profile-nav-right-links {
@@ -354,6 +415,27 @@
     transform: none;
     pointer-events: all;
     position: absolute;
+  }
+
+  .profile-logo-brand-container {
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .profile-logo-vertical-divider {
+    margin: 0 10px;
+    height: 14px;
+  }
+
+  .profile-logo-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .profile-logo-text {
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
   }
 
   .profile-social-links,

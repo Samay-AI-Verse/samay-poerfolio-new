@@ -251,11 +251,50 @@
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.contact-page-ai-link:hover {
-  background: rgba(255, 42, 17, 0.18);
-  border-color: rgba(255, 42, 17, 0.5);
-  transform: translateX(4px) translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 42, 17, 0.15);
+.contact-page-ai-link .demo-icon {
+  transition: color 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* WhatsApp demo link hover */
+.whatsapp-demo-link:hover {
+  background: rgba(37, 211, 102, 0.08) !important;
+  border-color: rgba(37, 211, 102, 0.4) !important;
+  transform: translateX(4px) translateY(-1px) !important;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.15) !important;
+}
+
+.whatsapp-demo-link:hover .demo-icon {
+  color: #25D366;
+  transform: scale(1.1);
+}
+
+.whatsapp-demo-link:hover .demo-pulse-indicator {
+  background: #25D366;
+  box-shadow: 0 0 8px #25D366;
+}
+
+/* Voice demo link hover */
+.voice-demo-link:hover {
+  background: rgba(139, 92, 246, 0.08) !important;
+  border-color: rgba(139, 92, 246, 0.4) !important;
+  transform: translateX(4px) translateY(-1px) !important;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15) !important;
+}
+
+.voice-demo-link:hover .demo-icon {
+  color: #a78bfa;
+  animation: phoneWiggle 0.5s ease-in-out infinite alternate;
+}
+
+.voice-demo-link:hover .demo-pulse-indicator {
+  background: #a78bfa;
+  box-shadow: 0 0 8px #a78bfa;
+}
+
+@keyframes phoneWiggle {
+  0% { transform: scale(1.1) rotate(-8deg); }
+  100% { transform: scale(1.1) rotate(8deg); }
 }
 
 .demo-pulse-indicator {
@@ -265,6 +304,7 @@
   border-radius: 50%;
   background: #ff2a11;
   box-shadow: 0 0 8px #ff2a11;
+  transition: all 0.3s ease;
   animation: demoPulse 1.6s infinite alternate;
 }
 

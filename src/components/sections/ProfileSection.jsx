@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './ProfileSection.css';
 import samayPhoto from '../../image/samayphoto.png';
+import { assetPath } from '../../utils/assetPath';
 
 const SOCIAL_LINKS = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
@@ -150,14 +151,31 @@ export default function ProfileSection({ showNav }) {
         
         {/* Navigation Bar at the Top */}
         <nav className={`profile-nav${showNav ? ' visible' : ''}`}>
-          <ul className="profile-social-links" aria-label="Social links">
-            {SOCIAL_LINKS.map(({ label, href }, index) => (
-              <li key={label}>
-                <a href={href} target="_blank" rel="noreferrer">{label}</a>
-                {index < SOCIAL_LINKS.length - 1 && <span className="profile-nav-divider">/</span>}
-              </li>
-            ))}
-          </ul>
+          <div className="profile-logo-brand-container">
+            <a 
+              href="#" 
+              className="profile-logo-brand" 
+              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            >
+              <img 
+                src={assetPath('favicon.svg')} 
+                alt="Samay Logo" 
+                className="profile-logo-icon" 
+              />
+              <span className="profile-logo-text">
+                Sam<span>a</span>y
+              </span>
+            </a>
+            <span className="profile-logo-vertical-divider" />
+            <ul className="profile-social-links" aria-label="Social links">
+              {SOCIAL_LINKS.map(({ label, href }, index) => (
+                <li key={label}>
+                  <a href={href} target="_blank" rel="noreferrer">{label}</a>
+                  {index < SOCIAL_LINKS.length - 1 && <span className="profile-nav-divider">/</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <ul className="profile-nav-links" aria-label="Main navigation">
             {CENTER_NAV_LINKS.map(({ label, href, id }) => (
