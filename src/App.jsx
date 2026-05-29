@@ -226,7 +226,7 @@ function App() {
         <AnotherSection />
         <ContactSection 
           onContactClick={handleSkillsContactClick} 
-          onMaxOpen={handleMaxOpen}
+          // onMaxOpen={handleMaxOpen}
         />
       </div>
 
