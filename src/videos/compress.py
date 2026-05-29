@@ -1,8 +1,8 @@
 import cv2
 import os
 
-input_video = r"d:\My Self\portfolio-samay\src\videos\Intro.mp4"
-output_video = r"d:\My Self\portfolio-samay\src\videos\Intro_compressed.mp4"
+input_video = r"d:\My Self\portfolio-samay\src\videos\intro.mp4"
+output_video = r"d:\My Self\portfolio-samay\src\videos\intro_compressed.mp4"
 
 cap = cv2.VideoCapture(input_video)
 if not cap.isOpened():
@@ -28,9 +28,10 @@ else:
 print(f"Target properties: {target_width}x{target_height} @ {fps} fps")
 
 # Let's try codecs sequentially and verify with out.isOpened()
+# Prioritize avc1 (H.264) which is natively played by Chrome/Edge/Firefox/Safari!
 codecs = [
-    ('mp4v', '.mp4'),
     ('avc1', '.mp4'),
+    ('mp4v', '.mp4'),
     ('XVID', '.avi'),
     ('MJPG', '.avi')
 ]
