@@ -783,3 +783,49 @@
     animation: none !important;
   }
 }
+
+/* Slightly larger 3D Glossy Sphere Button Style */
+.footer-center-circle {
+  width: clamp(70px, 9vw, 90px); /* Bada size, but not too much */
+  height: clamp(70px, 9vw, 90px);
+  border-radius: 50%;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #aadaff 25%, #0077ff 65%, #0040c0 90%, #002080 100%);
+  box-shadow: 
+    0 12px 35px rgba(0, 85, 255, 0.45),
+    inset 0 -6px 15px rgba(0, 0, 0, 0.5),
+    inset 0 6px 15px rgba(255, 255, 255, 0.5);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.footer-center-circle:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 
+    0 18px 50px rgba(0, 85, 255, 0.7),
+    0 0 30px rgba(0, 119, 255, 0.4),
+    inset 0 -6px 15px rgba(0, 0, 0, 0.5),
+    inset 0 6px 15px rgba(255, 255, 255, 0.6);
+}
+
+.footer-center-circle:active {
+  transform: translate(-50%, -50%) scale(0.95);
+  box-shadow: 
+    0 6px 20px rgba(0, 85, 255, 0.5),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.6),
+    inset 0 4px 10px rgba(255, 255, 255, 0.4);
+}
+
+/* Ensure the button is fully center-aligned on mobile too */
+@media (max-width: 980px) {
+  .footer-center-circle {
+    top: 40%;
+  }
+}
+

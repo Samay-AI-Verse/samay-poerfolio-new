@@ -250,6 +250,14 @@ export default function ContactSection({ onContactClick }) {
             </span>
           </div>
 
+          {/* 3D sphere center button (Back to Top) */}
+          <button 
+            className="footer-center-circle" 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            title="Back to top"
+            aria-label="Back to top"
+          />
+
           <div className="contact-footer-name" aria-hidden="true">
             <span className="footer-name-word footer-name-first">
               {'Samay'.split('').map((char, index) => (
