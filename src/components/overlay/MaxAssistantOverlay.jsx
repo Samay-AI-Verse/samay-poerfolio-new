@@ -170,20 +170,20 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
 
       // Welcome voice greeting (Centered Welcome phase)
       const welcomeVoiceTimer = setTimeout(() => {
-        handleMaxResponse("Hey, I am MAX, assistant of Samay Sir.");
+        handleMaxResponse("Hey, my name is MAX and I am the assistant of Samay Sir.");
       }, 900);
 
-      // Present Samay (Shift to left split-pane, reveal circular photo)
+      // Present Samay (Shift to left split-pane, reveal capsule photo)
       const presentLayoutTimer = setTimeout(() => {
         setAnimationPhase('intro-present');
-        handleMaxResponse("So this is my sir, Samay Powade. Do you have any questions for me?");
-      }, 3400);
+        handleMaxResponse("So this is my sir, Samay Powade. Welcome sir, how can I help you?");
+      }, 4300);
 
       // Transition to centered idle & activate continuous voice loops
       const idleTimer = setTimeout(() => {
         setAnimationPhase('idle-center');
         setVoiceActive(true); // Automatically engage continuous voice listening!
-      }, 8200);
+      }, 9800);
 
       return () => {
         clearTimeout(morphTimer);
@@ -724,7 +724,6 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
               <div className="max-photo-frame">
                 <img src={samayPhoto} alt="Samay Powade" className="max-profile-img" />
               </div>
-              <span className="max-nameplate">SAMAY POWADE</span>
             </div>
 
             {/* Gorgeous Glassmorphic 3D-Effect Panel for Services Showcase */}
