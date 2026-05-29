@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './MaxAssistantOverlay.css';
 import samayPhoto from '../../image/samayphoto.png';
+import { assetPath } from '../../utils/assetPath';
 
 const SERVICES = [
   { id: 1, title: 'AI Applications', kicker: 'INTELLIGENT SYSTEMS', desc: 'LLM products, RAG pipelines, and smart automation agents.' },
@@ -12,12 +13,66 @@ const SERVICES = [
 ];
 
 const PROJECTS = [
-  { id: '01', title: 'Sanjeevani', category: 'Healthcare AI Ecosystem', desc: 'Healthcare dashboard optimizing supply chains with AI and RAG.' },
-  { id: '02', title: 'ChetanaLabs', category: 'Voice AI / HR Tech', desc: 'AI-powered HR voice assistant screening candidates at scale.' },
-  { id: '03', title: 'Trinetra System', category: 'Drone Tech / Surveillance', desc: 'AI drone surveillance system with real-time YOLO object detection.' },
-  { id: '04', title: 'Sarathi Astra', category: 'RAG / Document Intelligence', desc: 'NotebookLM-style advanced RAG system for contextual PDF Q&A.' },
-  { id: '05', title: 'SHAKTI', category: 'Women Safety AI', desc: 'Situation awareness and emergency triggers alert platform.' },
-  { id: '06', title: 'BugSentry', category: 'VS VS Code Extension / DevTools', desc: 'Real-time AI developer companion identifying bugs inside IDE.' },
+  {
+    id: '01',
+    title: 'Sanjeevani',
+    category: 'Healthcare AI Ecosystem',
+    desc: 'A multi-tenant healthcare delivery dashboard optimizing pharmaceutical supply chains with AI-driven inventory, WhatsApp ordering, and RAG-powered medicine recommendations.',
+    tags: ['React', 'FastAPI', 'LangChain', 'PostgreSQL'],
+    live: '#',
+    github: 'https://github.com/Samay-AI-Verse',
+    image: assetPath('/proj_sanjeevani_new.png'),
+  },
+  {
+    id: '02',
+    title: 'ChetanaLabs',
+    category: 'Voice AI / HR Tech',
+    desc: 'AI-powered HR voice assistant automating candidate screening, outbound calling workflows, and intelligent interview scheduling at scale.',
+    tags: ['Vapi AI', 'NLP', 'LangChain', 'FastAPI'],
+    live: '#',
+    github: 'https://github.com/Samay-AI-Verse/ChetanaLabs-',
+    image: assetPath('/proj_chetanalabs.png'),
+  },
+  {
+    id: '03',
+    title: 'Trinetra System',
+    category: 'Drone Tech / Surveillance',
+    desc: 'AI-enabled drone ecosystem with real-time telemetry, live video streaming, object detection, and autonomous surveillance capabilities.',
+    tags: ['Python', 'YOLO', 'OpenCV', 'Edge AI'],
+    live: '#',
+    github: 'https://github.com/Samay-AI-Verse',
+    image: assetPath('/proj_trinetra.png'),
+  },
+  {
+    id: '04',
+    title: 'Sarathi Astra',
+    category: 'RAG / Document Intelligence',
+    desc: 'Advanced NotebookLM-style RAG system for document intelligence. Interacts with PDFs via contextual Q&A and semantic data extraction.',
+    tags: ['LangChain', 'Pinecone', 'FastAPI', 'LLMs'],
+    live: '#',
+    github: 'https://github.com/Samay-AI-Verse/Sarthi-Astra',
+    image: assetPath('/proj_sarathi.png'),
+  },
+  {
+    id: '05',
+    title: 'SHAKTI',
+    category: 'Women Safety AI',
+    desc: 'AI-powered women safety platform with emergency triggers, real-time situational awareness, and automated community alert system.',
+    tags: ['Python', 'YOLO', 'Edge AI', 'React'],
+    live: '#',
+    github: 'https://github.com/Samay-AI-Verse/Chatbot-Women-Sefty',
+    image: assetPath('/proj_loan.png'),
+  },
+  {
+    id: '06',
+    title: 'BugSentry',
+    category: 'VS Code Extension / DevTools',
+    desc: 'A VS Code extension that uses AI to detect bugs in real-time as you write code — pinpoints issues, explains root causes, and suggests intelligent fixes.',
+    tags: ['TypeScript', 'VS Code API', 'OpenAI', 'LLMs'],
+    live: '#',
+    github: 'https://github.com/Samay-AI-Verse',
+    image: assetPath('/proj_bugsentry.png'),
+  },
 ];
 
 const SUGGESTIONS = [
@@ -35,9 +90,10 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
   // Continuous voice tracking states
   const [voiceActive, setVoiceActive] = useState(false);
   
-  // Motion timeline states: 'intro-center' | 'idle-center' | 'showcase-right'
-  const [animationPhase, setAnimationPhase] = useState('intro-center');
+  // Motion timeline states: 'intro-welcome' | 'intro-present' | 'idle-center' | 'showcase-right'
+  const [animationPhase, setAnimationPhase] = useState('intro-welcome');
   const [showcaseType, setShowcaseType] = useState(null); // null | 'services' | 'projects'
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   
   // HUD Subtitles & Terminal Pane visibility states (both hidden by default!)
   const [showText, setShowText] = useState(false);
@@ -77,8 +133,9 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
     if (isOpen) {
       setIsMounted(true);
       document.body.classList.add('max-active');
-      setAnimationPhase('intro-center');
+      setAnimationPhase('intro-welcome');
       setShowcaseType(null);
+      setActiveProjectIndex(0);
       setVoiceActive(false); // Do not capture voice during intro
       setShowConsole(false); // Hide console initially
       setShowText(false); // Hide subtitles initially
@@ -111,31 +168,37 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
         setSphereStyle({}); // CSS centers
       }, 50);
 
-      // Intro voice command
-      const introVoiceTimer = setTimeout(() => {
-        handleMaxResponse(
-          "Hey, I am MAX, assistant of Samay Sir. So this is my sir, Samay Powade. Do you have any questions for me?"
-        );
-      }, 950);
+      // Welcome voice greeting (Centered Welcome phase)
+      const welcomeVoiceTimer = setTimeout(() => {
+        handleMaxResponse("Hey, I am MAX, assistant of Samay Sir.");
+      }, 900);
+
+      // Present Samay (Shift to left split-pane, reveal circular photo)
+      const presentLayoutTimer = setTimeout(() => {
+        setAnimationPhase('intro-present');
+        handleMaxResponse("So this is my sir, Samay Powade. Do you have any questions for me?");
+      }, 3400);
 
       // Transition to centered idle & activate continuous voice loops
       const idleTimer = setTimeout(() => {
         setAnimationPhase('idle-center');
         setVoiceActive(true); // Automatically engage continuous voice listening!
-      }, 5500);
+      }, 8200);
 
       return () => {
         clearTimeout(morphTimer);
-        clearTimeout(introVoiceTimer);
+        clearTimeout(welcomeVoiceTimer);
+        clearTimeout(presentLayoutTimer);
         clearTimeout(idleTimer);
       };
     } else {
       document.body.classList.remove('max-active');
       setIsMounted(false);
-      setAnimationPhase('intro-center');
+      setAnimationPhase('intro-welcome');
       setIsSpeaking(false);
       setIsListening(false);
       setShowcaseType(null);
+      setActiveProjectIndex(0);
       setVoiceActive(false);
       setShowConsole(false);
       setShowText(false);
@@ -222,8 +285,9 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
     if (synthRef.current) synthRef.current.cancel();
     setIsSpeaking(false);
     setIsListening(false);
-    setAnimationPhase('intro-center');
+    setAnimationPhase('intro-welcome');
     setShowcaseType(null);
+    setActiveProjectIndex(0);
     setShowConsole(false);
     setShowText(false);
 
@@ -332,7 +396,16 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
   const handleBackToCenter = () => {
     setAnimationPhase('idle-center');
     setShowcaseType(null);
+    setActiveProjectIndex(0);
     handleMaxResponse("Returning to center voice idle mode.");
+  };
+
+  const handlePrevProject = () => {
+    setActiveProjectIndex(prev => (prev === 0 ? PROJECTS.length - 1 : prev - 1));
+  };
+
+  const handleNextProject = () => {
+    setActiveProjectIndex(prev => (prev === PROJECTS.length - 1 ? 0 : prev + 1));
   };
 
   // 7. Core Query matcher
@@ -354,7 +427,7 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
 
     // A. BIO / BIOGRAPHY
     if (query.includes('who') || query.includes('samay') || query.includes('sir') || query.includes('assistant') || query.includes('intro') || query.includes('about')) {
-      setAnimationPhase('intro-center');
+      setAnimationPhase('intro-present');
       setShowcaseType(null);
       handleMaxResponse(
         "Samay Powade is a highly skilled AI developer based in India, specialized in creating advanced LLM systems, full-stack React utilities, WhatsApp automation, and custom web products. I am MAX, his customized AI companion designed to navigate you through his craft!"
@@ -571,9 +644,9 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
   if (!isMounted) return null;
 
   // Determine active visual layout classes based on phase states
-  const isCenteredState = animationPhase === 'intro-center' || animationPhase === 'idle-center';
-  const isChatbotState = animationPhase === 'showcase-right';
-  const isPhotoVisible = animationPhase === 'intro-center';
+  const isCenteredState = animationPhase === 'intro-welcome' || animationPhase === 'idle-center';
+  const isChatbotState = animationPhase === 'intro-present' || animationPhase === 'showcase-right';
+  const isPhotoVisible = animationPhase === 'intro-present';
   const isShowcaseVisible = animationPhase === 'showcase-right';
 
   return (
@@ -681,37 +754,119 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
             </div>
 
             {/* Gorgeous Glassmorphic 3D-Effect Panel for Project Portfolio Showcase */}
-            <div className={`max-showcase-panel${isShowcaseVisible && showcaseType === 'projects' ? ' is-visible' : ''}`}>
+            <div className={`max-showcase-panel project-showcase-deck${isShowcaseVisible && showcaseType === 'projects' ? ' is-visible' : ''}`}>
               <div className="max-showcase-header">
                 <span className="max-showcase-title">Selected Projects</span>
                 <button className="max-showcase-back-btn" onClick={handleBackToCenter}>
                   Back to Center
                 </button>
               </div>
-              <div className="max-showcase-scroll">
-                <div className="max-3d-perspective-wrapper">
-                  {PROJECTS.map(p => (
-                    <div 
-                      key={p.id} 
-                      className="max-project-card-3d"
-                      onClick={() => processUserQuery('sanjeevani chetana trinetra sarathi shakti bugsentry'.split(' ')[parseInt(p.id)-1])}
-                      style={{ marginBottom: '12px' }}
-                    >
-                      <div className="max-project-info-3d">
-                        <span className="max-project-num-3d">[{p.id}]</span>
-                        <span className="max-project-title-3d">{p.title}</span>
-                        <span className="max-project-cat-3d">/ {p.category}</span>
-                      </div>
-                      <div className="max-project-link-3d">
-                        Launch
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
+              
+              {/* Rich Project Slideshow UI */}
+              {PROJECTS[activeProjectIndex] && (
+                <div className="max-project-deck">
+                  
+                  {/* Mockup Image Frame with glow effect */}
+                  <div className="max-deck-image-frame" onClick={() => handleViewProject(PROJECTS[activeProjectIndex].id)}>
+                    <img 
+                      src={PROJECTS[activeProjectIndex].image} 
+                      alt={PROJECTS[activeProjectIndex].title} 
+                      className="max-deck-image"
+                      draggable="false"
+                    />
+                    <div className="max-deck-image-overlay">
+                      <span>Click to view live on site</span>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Project Details */}
+                  <div className="max-deck-details">
+                    <div className="max-deck-meta">
+                      <span className="max-deck-index">[{PROJECTS[activeProjectIndex].id} / 06]</span>
+                      <span className="max-deck-category">// {PROJECTS[activeProjectIndex].category}</span>
+                    </div>
+                    <h3 className="max-deck-title">{PROJECTS[activeProjectIndex].title}</h3>
+                    <p className="max-deck-desc">{PROJECTS[activeProjectIndex].desc}</p>
+                    
+                    {/* Technology tags */}
+                    <div className="max-deck-tags">
+                      {PROJECTS[activeProjectIndex].tags.map(tag => (
+                        <span key={tag} className="max-deck-tag-pill">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Actions Links */}
+                  <div className="max-deck-actions">
+                    <a 
+                      href={PROJECTS[activeProjectIndex].live} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="max-deck-btn max-deck-btn-live"
+                    >
+                      Live Demo
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
+                    <a 
+                      href={PROJECTS[activeProjectIndex].github} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="max-deck-btn max-deck-btn-github"
+                    >
+                      GitHub Repo
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
+                  </div>
+
+                  {/* Slideshow Navigation Controller */}
+                  <div className="max-deck-nav">
+                    <button 
+                      type="button" 
+                      className="max-deck-arrow"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrevProject();
+                      }}
+                      aria-label="Previous Project"
+                    >
+                      ←
+                    </button>
+                    
+                    {/* Slide Dots indicator */}
+                    <div className="max-deck-dots">
+                      {PROJECTS.map((p, idx) => (
+                        <button
+                          key={p.id}
+                          type="button"
+                          className={`max-deck-dot${idx === activeProjectIndex ? ' is-active' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveProjectIndex(idx);
+                          }}
+                          aria-label={`Go to slide ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    <button 
+                      type="button" 
+                      className="max-deck-arrow"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNextProject();
+                      }}
+                      aria-label="Next Project"
+                    >
+                      →
+                    </button>
+                  </div>
+
                 </div>
-              </div>
+              )}
             </div>
 
           </div>
@@ -733,6 +888,26 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
             [Configure Gemini AI core settings]
           </button>
         </div>
+
+        {/* Bottom Left Quick Launch Action Buttons (Explore Projects, Our Services) */}
+        {!showConsole && animationPhase === 'idle-center' && (
+          <div className="max-default-left-actions">
+            <button
+              type="button"
+              className="max-default-action-btn"
+              onClick={() => processUserQuery('Show me his projects')}
+            >
+              Explore Projects
+            </button>
+            <button
+              type="button"
+              className="max-default-action-btn"
+              onClick={() => processUserQuery('What are his services?')}
+            >
+              Our Services
+            </button>
+          </div>
+        )}
 
         {/* Pane 2: Dedicated Bottom Console Area (Guarantees zero overlapping, hidden by default!) */}
         <div className={`max-console-pane${showConsole ? ' is-visible' : ''}`}>

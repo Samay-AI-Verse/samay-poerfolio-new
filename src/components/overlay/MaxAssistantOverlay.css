@@ -19,12 +19,14 @@ body.max-active {
   overflow: hidden !important;
 }
 
-/* Clean Cinematic Black Backdrop */
+/* Premium Glassmorphic Cinematic Backdrop */
 .max-overlay {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: var(--max-bg-black);
+  background: rgba(3, 3, 3, 0.76); /* deep translucent black */
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
   color: var(--max-text-white);
   font-family: 'Inter', sans-serif;
   opacity: 0;
@@ -438,15 +440,18 @@ body.max-active {
   transform: scale(1);
 }
 
-/* Cinematic large natural frame - 300px x 400px maximum */
+/* Circular avatar glowing frame */
 .max-photo-frame {
-  width: clamp(240px, 22vw, 290px);
-  height: clamp(320px, 30vw, 390px);
-  border-radius: 12px;
+  width: clamp(230px, 22vw, 270px);
+  height: clamp(230px, 22vw, 270px);
+  border-radius: 50%; /* perfect circle! */
   overflow: hidden;
   background: #080808;
-  border: 1px solid var(--max-border-clean);
-  box-shadow: 0 20px 45px rgba(0,0,0,0.85);
+  border: 2px solid var(--max-accent-blue);
+  box-shadow: 
+    0 0 25px rgba(0, 119, 255, 0.4),
+    0 20px 50px rgba(0, 0, 0, 0.95);
+  transition: all 0.5s ease;
 }
 
 .max-profile-img {
@@ -1230,3 +1235,315 @@ body.max-active {
     font-size: 0.72rem;
   }
 }
+
+/* ==========================================================================
+   BOTTOM-LEFT DEFAULT ACTION BUTTONS (Explore Projects, Our Services)
+   ========================================================================== */
+.max-default-left-actions {
+  position: absolute;
+  bottom: 24px;
+  left: clamp(24px, 5vw, 96px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 99;
+  animation: default-actions-fadein 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes default-actions-fadein {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.max-default-action-btn {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--max-border-clean);
+  border-radius: 30px;
+  padding: 10px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--max-text-white);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+
+.max-default-action-btn:hover {
+  background: var(--max-accent-blue);
+  border-color: var(--max-accent-blue);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(0, 119, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 980px) {
+  .max-default-left-actions {
+    bottom: 20px;
+    left: 20px;
+    gap: 10px;
+  }
+  .max-default-action-btn {
+    padding: 8px 18px;
+    font-size: 0.78rem;
+  }
+}
+
+/* ==========================================================================
+   INTERACTIVE PROJECT SHOWCASE DECK (Full-UI Slider)
+   ========================================================================== */
+.project-showcase-deck {
+  max-width: 480px !important;
+}
+
+.max-project-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+/* Mockup Frame with Neon Glow */
+.max-deck-image-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #050505;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.7),
+    0 0 15px rgba(0, 119, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.max-deck-image-frame:hover {
+  transform: translateY(-2px);
+  border-color: var(--max-accent-cyan);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(0, 243, 255, 0.25);
+}
+
+.max-deck-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.max-deck-image-frame:hover .max-deck-image {
+  transform: scale(1.04);
+}
+
+.max-deck-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.max-deck-image-frame:hover .max-deck-image-overlay {
+  opacity: 1;
+}
+
+.max-deck-image-overlay span {
+  font-family: monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--max-accent-cyan);
+  letter-spacing: 0.1em;
+  padding: 6px 16px;
+  border: 1px solid var(--max-accent-cyan);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Meta Categories */
+.max-deck-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.max-deck-index {
+  font-family: monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--max-text-dim);
+}
+
+.max-deck-category {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--max-accent-cyan);
+  letter-spacing: 0.12em;
+}
+
+.max-deck-title {
+  margin: 0 0 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: var(--max-text-white);
+  letter-spacing: -0.02em;
+}
+
+.max-deck-desc {
+  margin: 0 0 16px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--max-text-dim);
+  min-height: 58px; /* prevents layout shifts between projects */
+}
+
+/* Tech Tag Pills */
+.max-deck-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.max-deck-tag-pill {
+  font-family: monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--max-border-clean);
+  color: var(--max-text-white);
+  border-radius: 4px;
+}
+
+/* Slide Actions buttons */
+.max-deck-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.max-deck-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--max-border-clean);
+}
+
+.max-deck-btn svg {
+  transition: transform 0.25s ease;
+}
+
+.max-deck-btn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.max-deck-btn-live {
+  background: var(--max-accent-blue);
+  border-color: var(--max-accent-blue);
+  color: #ffffff;
+}
+
+.max-deck-btn-live:hover {
+  background: #0066dd;
+  box-shadow: 0 0 15px rgba(0, 119, 255, 0.45);
+}
+
+.max-deck-btn-github {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--max-text-white);
+}
+
+.max-deck-btn-github:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Nav Controller */
+.max-deck-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.max-deck-arrow {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--max-border-clean);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--max-text-white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.max-deck-arrow:hover {
+  background: rgba(0, 119, 255, 0.12);
+  border-color: var(--max-accent-blue);
+  color: var(--max-accent-cyan);
+}
+
+.max-deck-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.max-deck-dot {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.max-deck-dot.is-active {
+  background: var(--max-accent-cyan);
+  box-shadow: 0 0 10px var(--max-accent-cyan);
+  transform: scale(1.4);
+}
+
+@media (max-width: 980px) {
+  .project-showcase-deck {
+    max-width: 100% !important;
+  }
+  .max-deck-title {
+    font-size: 1.2rem;
+  }
+  .max-deck-desc {
+    font-size: 0.78rem;
+    min-height: auto;
+  }
+}
+
