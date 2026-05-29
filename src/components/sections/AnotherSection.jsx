@@ -118,7 +118,7 @@ export default function AnotherSection() {
   }, []);
 
   return (
-    <section className="another-gallery-section" ref={sectionRef} aria-label="Achievements Showcase Gallery">
+    <section className="another-gallery-section" id="participations" ref={sectionRef} aria-label="Achievements Showcase Gallery">
       <div className="another-gallery-sticky">
         <div className="another-gallery-vignette" />
 

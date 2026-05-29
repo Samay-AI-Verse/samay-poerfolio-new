@@ -111,6 +111,30 @@ export default function ContactPage({ origin, onBack }) {
             </div>
 
             <div>
+              <h3>Live AI Demos</h3>
+              <nav aria-label="Interactive AI systems" className="contact-page-ai-demos">
+                <a
+                  href="https://wa.me/919764096358?text=Hi%20Samay,%20I%20saw%20your%20portfolio%20and%20wanted%20to%20try%20your%20WhatsApp%20AI%20Assistant!"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="contact-page-ai-link whatsapp-demo-link"
+                >
+                  <span className="demo-pulse-indicator"></span>
+                  💬 WhatsApp Bot
+                </a>
+                <a
+                  href="https://github.com/Samay-AI-Verse/ChetanaLabs-"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="contact-page-ai-link voice-demo-link"
+                >
+                  <span className="demo-pulse-indicator"></span>
+                  📞 Voice Agent (Chetana)
+                </a>
+              </nav>
+            </div>
+
+            <div>
               <h3>Brief format</h3>
               <ul>
                 {BRIEF_ITEMS.map((item) => (

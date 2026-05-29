@@ -180,22 +180,6 @@ export default function ContactSection({ onContactClick }) {
             <ShaderAnimation />
           </div>
 
-          <div className="contact-footer-meta">
-            <a href="mailto:samaypowade9@gmail.com">
-              {'samaypowade9@gmail.com'.split('').map((char, index) => (
-                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
-                  {char}
-                </span>
-              ))}
-            </a>
-            <span>
-              {'© 2026'.split('').map((char, index) => (
-                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
-                  {char === ' ' ? '\u00A0' : char}
-                </span>
-              ))}
-            </span>
-          </div>
           <nav className="contact-footer-social" aria-label="Social links">
             <a href="https://github.com/Samay-AI-Verse" target="_blank" rel="noreferrer">
               {'GitHub'.split('').map((char, index) => (
@@ -249,6 +233,23 @@ export default function ContactSection({ onContactClick }) {
               ))}
             </a>
           </nav>
+          <div className="contact-footer-meta">
+            <a href="mailto:samaypowade9@gmail.com">
+              {'samaypowade9@gmail.com'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char}
+                </span>
+              ))}
+            </a>
+            <span>
+              {'© 2026'.split('').map((char, index) => (
+                <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              ))}
+            </span>
+          </div>
+
           <div className="contact-footer-name" aria-hidden="true">
             <span className="footer-name-word footer-name-first">
               {'Samay'.split('').map((char, index) => (

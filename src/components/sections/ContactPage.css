@@ -220,8 +220,8 @@
 
 .contact-page-bottom {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 7vw, 96px);
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(30px, 4vw, 64px);
   margin-top: clamp(20px, 2.8vh, 32px);
   border-top: 1px solid rgba(255, 255, 255, 0.16);
   padding-top: clamp(16px, 2vh, 22px);
@@ -229,6 +229,56 @@
 
 .contact-page-bottom h3 {
   margin: 0 0 clamp(10px, 1.5vh, 16px);
+}
+
+.contact-page-ai-demos {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.2vh, 12px);
+}
+
+.contact-page-ai-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(255, 42, 17, 0.08);
+  border: 1px solid rgba(255, 42, 17, 0.2);
+  color: #fff !important;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.contact-page-ai-link:hover {
+  background: rgba(255, 42, 17, 0.18);
+  border-color: rgba(255, 42, 17, 0.5);
+  transform: translateX(4px) translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 42, 17, 0.15);
+}
+
+.demo-pulse-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff2a11;
+  box-shadow: 0 0 8px #ff2a11;
+  animation: demoPulse 1.6s infinite alternate;
+}
+
+@keyframes demoPulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.5;
+    box-shadow: 0 0 0 0 rgba(255, 42, 17, 0.7);
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 1;
+    box-shadow: 0 0 8px 3px rgba(255, 42, 17, 0);
+  }
 }
 
 .contact-page-bottom nav,
