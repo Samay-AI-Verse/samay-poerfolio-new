@@ -498,6 +498,24 @@ body.max-active {
   -webkit-backdrop-filter: blur(15px);
   display: flex;
   flex-direction: column;
+  
+  /* Prevent clipping on any screen resolution */
+  max-height: calc(100vh - 270px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.max-showcase-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.max-showcase-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+
+.max-showcase-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .max-showcase-panel.is-visible {
@@ -1055,10 +1073,12 @@ body.max-active {
 @media (max-width: 980px) {
   .max-split-layout {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: auto auto;
     height: calc(100vh - 250px);
     padding: 60px 24px 0;
     align-items: stretch;
+    overflow-y: auto;
+    scrollbar-width: thin;
   }
 
   .max-left-pane {
@@ -1561,5 +1581,13 @@ body.max-active {
     font-size: 0.78rem;
     min-height: auto;
   }
+}
+
+/* Premium: Hide the background page 3D launch sphere completely while MAX overlay is open */
+body.max-active .footer-center-circle {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
