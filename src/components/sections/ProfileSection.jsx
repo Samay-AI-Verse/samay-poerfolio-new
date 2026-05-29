@@ -157,11 +157,6 @@ export default function ProfileSection({ showNav }) {
               className="profile-logo-brand" 
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             >
-              <img 
-                src={assetPath('favicon.svg')} 
-                alt="Samay Logo" 
-                className="profile-logo-icon" 
-              />
               <span className="profile-logo-text">
                 Sam<span>a</span>y
               </span>
