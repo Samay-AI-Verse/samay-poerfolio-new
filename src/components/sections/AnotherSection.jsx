@@ -25,7 +25,6 @@ const HIGHLIGHT_MEDIA = [
   { src: assetPath('/highlights/depex_3.jpeg'), alt: 'State-Level Award Winner' },
   { src: assetPath('/highlights/depex_mit.jpeg'), alt: 'Innovation Pavilion - MIT' },
   { src: assetPath('/highlights/hackfusion.jpeg'), alt: 'Hackfusion 3.0 - SGGS Nanded' },
-  { src: assetPath('/highlights/itm_collage.jpeg'), alt: 'Project Competition - ITM College Nanded' },
   { src: assetPath('/highlights/sggs.jpeg'), alt: 'Campus Highlights - SGGS Nanded' },
   { src: assetPath('/highlights/WhatsApp Image 2026-05-28 at 12.40.34 AM.jpeg'), alt: 'Technical Project Presentation' },
   { src: assetPath('/highlights/WhatsApp Image 2026-05-28 at 12.40.38 AM.jpeg'), alt: 'Active Robotics Team' },
