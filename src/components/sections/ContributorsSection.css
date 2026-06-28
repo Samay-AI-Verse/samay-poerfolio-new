@@ -1,335 +1,497 @@
-.contributors-section {
+/* Premium Vercel/Linear Style CSS */
+:root {
+  --net-bg: #050505;
+  --net-accent: #2EA043; /* GitHub Green */
+  --net-accent-glow: rgba(46, 160, 67, 0.3);
+  --net-text: #FFFFFF;
+  --net-text-muted: #9CA3AF;
+  --net-border: rgba(255, 255, 255, 0.06);
+}
+
+.network-dashboard {
   position: relative;
   width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background-color: var(--color-bg, #050505); /* Match portfolio bg */
-  color: var(--color-text, #fff);
-  padding: 4rem 2rem;
+  justify-content: center;
+  background-color: var(--net-bg);
+  color: var(--net-text);
+  padding: 6rem 2rem;
   overflow: hidden;
   z-index: 2;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.contributors-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+/* --- Minimal Backgrounds --- */
+.network-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 32px 32px;
+  z-index: 0;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 70%);
 }
 
-/* Left Content Styles */
-.contributors-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  z-index: 10;
-}
-
-.contributors-content .section-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 0;
-  letter-spacing: -0.03em;
-}
-
-.contributors-content .section-title span {
-  background: linear-gradient(90deg, #fff, #888);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.contributors-desc {
-  font-size: 1.1rem;
-  color: #a0a0a0;
-  line-height: 1.6;
-  max-width: 500px;
-}
-
-.org-stats {
-  display: flex;
-  gap: 3rem;
-  margin: 1rem 0;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.github-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 30px;
-  font-weight: 500;
-  width: fit-content;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-}
-
-.github-btn:hover {
-  background-color: #fff;
-  color: #000;
-  transform: translateY(-2px);
-}
-
-/* Vertical Organization Selector */
-.org-layout {
-  display: flex;
-  gap: 3rem;
-  margin-top: 2rem;
-}
-
-.org-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  min-width: 200px;
-}
-
-.org-label {
-  font-size: 0.85rem;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.org-vertical-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.org-list-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: transparent;
-  border: none;
-  color: #aaa;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.3s ease;
-}
-
-.org-list-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-}
-
-.org-list-item.active {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-weight: 600;
-}
-
-.org-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(255,255,255,0.8);
-}
-
-.org-stats-block {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 1.5rem;
-}
-
-.honeycomb-grid.loading {
-  opacity: 0.5;
+.network-bg-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw;
+  height: 70vh;
+  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
+  z-index: 0;
   pointer-events: none;
 }
 
-/* 
-  Right Side: The Improved "Hexagon Constellation" 
-  Using a clean Flex layout that looks like a floating cluster instead of a rigid broken honeycomb 
-*/
-.honeycomb-wrapper {
+.network-container {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 10;
+  max-width: 1500px;
   width: 100%;
+  display: grid;
+  grid-template-columns: 320px 1fr 500px;
+  gap: 4rem;
+  align-items: start;
 }
 
-.honeycomb-grid {
+/* ================= COLUMN 1: Organizations ================= */
+.network-col-left {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.org-explorer-header h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -0.02em;
+}
+
+.org-explorer-header p {
+  font-size: 15px;
+  color: var(--net-text-muted);
+  margin: 0;
+}
+
+.org-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.org-card {
+  position: relative;
+  background: transparent;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.org-card:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--net-border);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.org-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.org-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--net-border);
+}
+
+.org-title-area h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--net-text);
+}
+
+.org-title-area span {
+  font-size: 14px;
+  color: var(--net-text-muted);
+}
+
+.org-external-icon {
+  color: var(--net-text-muted);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.25s ease;
+}
+
+.org-card:hover .org-external-icon {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--net-text);
+}
+
+
+/* ================= COLUMN 2: Hero & Timeline ================= */
+.network-col-center {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  padding: 0 1rem;
+}
+
+.network-hero {
+  text-align: left;
+}
+
+.hero-title {
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.05;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.05em;
+  color: var(--net-text);
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  color: var(--net-text-muted);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0;
+}
+
+/* Minimal Vertical Timeline */
+.timeline-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline-feed::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 5px;
+  width: 1px;
+  background: var(--net-border);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  position: relative;
+}
+
+.timeline-icon {
+  width: 12px;
+  height: 12px;
+  background: var(--net-bg);
+  border: 1px solid var(--net-text-muted);
+  border-radius: 50%;
+  position: absolute;
+  left: -20px;
+  top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--net-text-muted);
+}
+.timeline-icon svg {
+  display: none; /* Keep dot minimal, only show SVG if requested bigger */
+}
+
+/* Optional: if we want to show the specific Lucide icon instead of a dot */
+.timeline-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--net-bg);
+  border: none;
+  left: -26px;
+  top: -2px;
+  color: var(--net-text-muted);
+}
+.timeline-icon svg {
+  display: block;
+}
+
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: opacity 0.2s ease;
+}
+
+.timeline-content p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--net-text-muted);
+  font-weight: 400;
+}
+
+.timeline-user {
+  color: var(--net-text);
+  font-weight: 500;
+}
+
+.timeline-repo {
+  color: var(--net-text);
+}
+
+.timeline-time {
+  font-size: 13px;
+  color: #666;
+}
+
+.timeline-item:hover .timeline-icon {
+  color: var(--net-text);
+}
+.timeline-item:hover .timeline-content p {
+  color: #bbb;
+}
+
+
+/* ================= COLUMN 3: Hexagon Network ================= */
+.network-col-right {
+  position: relative;
+  display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 580px;
-  gap: 16px; /* Clean, consistent gap */
-  padding: 2rem 0;
+  min-height: 550px;
 }
 
-/* Individual Hexagon */
-.hex {
+/* Animated Connection Lines */
+.network-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.animated-line {
+  stroke-dasharray: 6 6;
+  animation: dash 30s linear infinite;
+}
+@keyframes dash {
+  to { stroke-dashoffset: -1000; }
+}
+
+.hex-network-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
   position: relative;
-  width: 105px;
-  height: 120px;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background-color: #1a1a1a;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
-  cursor: pointer;
-  /* Add staggered vertical offset for a dynamic "orbit" feel without rigid negative margin math */
-  margin-top: calc(var(--offset, 0) * 30px);
-  animation: floatHex 6s ease-in-out infinite alternate;
 }
 
-/* Stagger every other hex slightly for the constellation look */
-.hex:nth-child(even) {
-  --offset: 1;
+.hex-row {
+  display: flex;
+  justify-content: center;
+  margin-top: -26px; /* math for interlocking */
 }
-.hex:nth-child(odd) {
-  --offset: -1;
+.hex-row:first-child {
+  margin-top: 0;
+}
+
+.hex-wrapper {
+  position: relative;
+  margin: 0 4px;
+}
+
+.hex-premium {
+  display: block;
+  width: 90px;
+  height: 104px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(255,255,255,0.02);
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
 }
 
 .hex-inner {
-  position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 .hex-inner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: opacity 0.3s;
+  opacity: 0.85;
 }
 
-/* Hover overlay inside hex */
-.hex-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  backdrop-filter: blur(2px);
+/* Hover States */
+.hex-premium:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 20px var(--net-accent-glow));
+  z-index: 50;
 }
-
-.hex-overlay span {
-  font-size: 0.85rem;
-  font-weight: 600;
-  word-break: break-all;
-}
-
-.hex-overlay small {
-  font-size: 0.65rem;
-  color: #ccc;
-  margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.hex:hover {
-  transform: scale(1.15) translateY(-5px);
-  z-index: 10;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-}
-
-.hex:hover .hex-overlay {
+.hex-premium:hover .hex-inner img {
   opacity: 1;
 }
 
-.hex:hover .hex-inner img {
-  transform: scale(1.1);
+/* ================= PREMIUM TOOLTIP (Vercel/Linear Style) ================= */
+.premium-tooltip {
+  position: absolute;
+  top: 50%;
+  left: 110%; /* Display to the right to avoid vertical stacking issues */
+  transform: translateY(-50%) translateX(10px);
+  width: 280px;
+  background: #111111; /* Dark solid base */
+  border: 1px solid var(--net-border);
+  border-radius: 16px;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.hex-empty {
-  background-color: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  cursor: default;
-}
-.hex-empty:hover {
-  transform: none;
-  filter: none;
+/* Show tooltip on wrapper hover */
+.hex-wrapper:hover .premium-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(20px);
 }
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
-  .contributors-container {
-    grid-template-columns: 1fr;
-    text-align: center;
+/* Smart Tooltip Positioning: if wrapper is in the last two items of a row, flip tooltip to left */
+.hex-wrapper:nth-last-child(1) .premium-tooltip,
+.hex-wrapper:nth-last-child(2) .premium-tooltip {
+  left: auto;
+  right: 110%;
+  transform: translateY(-50%) translateX(-10px);
+}
+.hex-wrapper:nth-last-child(1):hover .premium-tooltip,
+.hex-wrapper:nth-last-child(2):hover .premium-tooltip {
+  transform: translateY(-50%) translateX(-20px);
+}
+
+/* Tooltip Content */
+.tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--net-border);
+  padding-bottom: 12px;
+}
+
+.tooltip-header img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--net-border);
+}
+
+.tooltip-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tooltip-title strong {
+  font-size: 16px;
+  color: var(--net-text);
+  font-weight: 600;
+}
+
+.tooltip-title span {
+  font-size: 13px;
+  color: var(--net-accent); /* GitHub Green */
+  font-weight: 500;
+}
+
+.tooltip-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tooltip-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.tooltip-stat span {
+  color: var(--net-text-muted);
+}
+
+.tooltip-stat b {
+  color: var(--net-text);
+  font-weight: 500;
+}
+
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1400px) {
+  .network-container {
+    grid-template-columns: 280px 1fr 450px;
     gap: 3rem;
   }
+}
 
-  .contributors-content {
-    align-items: center;
-  }
-
-  .org-layout {
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .org-sidebar {
-    width: 100%;
-    max-width: 400px;
+@media (max-width: 1200px) {
+  .network-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 5rem;
   }
   
-  .org-label {
-    text-align: center;
+  .network-col-left {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 1rem;
   }
-
-  .org-stats-block {
-    align-items: center;
+  .org-explorer-header { width: 300px; flex-shrink: 0; }
+  .org-list { flex-direction: row; }
+  .org-card { width: 260px; flex-shrink: 0; border: 1px solid var(--net-border); }
+  
+  .hex-network-grid { justify-content: center; }
+  
+  /* Reset tooltip positioning for mobile */
+  .premium-tooltip,
+  .hex-wrapper:nth-last-child(1) .premium-tooltip,
+  .hex-wrapper:nth-last-child(2) .premium-tooltip {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: 110%;
+    transform: translateX(-50%) translateY(10px);
   }
-
-  .org-stats {
-    justify-content: center;
-  }
-
-  .github-btn {
-    margin: 0 auto;
+  .hex-wrapper:hover .premium-tooltip,
+  .hex-wrapper:nth-last-child(1):hover .premium-tooltip,
+  .hex-wrapper:nth-last-child(2):hover .premium-tooltip {
+    transform: translateX(-50%) translateY(0);
   }
 }
 
-@media (max-width: 576px) {
-  .hex {
-    width: 85px;
-    height: 98px;
-  }
+@media (max-width: 768px) {
+  .hero-title { font-size: 48px; }
+  .network-col-left { flex-direction: column; }
+  .org-explorer-header { width: 100%; }
 }
-
