@@ -3,6 +3,7 @@ import './ProfileSection.css';
 import samayPhoto from '../../image/myimage.jpeg';
 import { assetPath } from '../../utils/assetPath';
 
+
 const SOCIAL_LINKS = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/samay-p-103259269/' },
   { label: 'GitHub', href: 'https://github.com/Samay-AI-Verse' },
