@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './ProfileSection.css';
-import samayPhoto from '../../image/samayphoto.png';
+import samayPhoto from '../../image/myimage.jpeg';
 import { assetPath } from '../../utils/assetPath';
 
 const SOCIAL_LINKS = [
@@ -64,7 +64,7 @@ export default function ProfileSection({ showNav }) {
       // 2. Real-time ScrollSpy tracker to highlight active navigation link
       const scrollPosition = window.scrollY + window.innerHeight * 0.45; // trigger halfway
       const sections = ['about', 'services', 'projects', 'skills', 'contact'];
-      
+
       if (scrollPosition < window.innerHeight) {
         setActiveSection('');
         return;
@@ -148,13 +148,13 @@ export default function ProfileSection({ showNav }) {
   return (
     <div className="profile-scroll-track" ref={trackRef}>
       <section className="profile-section-new">
-        
+
         {/* Navigation Bar at the Top */}
         <nav className={`profile-nav${showNav ? ' visible' : ''}`}>
           <div className="profile-logo-brand-container">
-            <a 
-              href="#" 
-              className="profile-logo-brand" 
+            <a
+              href="#"
+              className="profile-logo-brand"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             >
               <span className="profile-logo-text">
@@ -175,8 +175,8 @@ export default function ProfileSection({ showNav }) {
           <ul className="profile-nav-links" aria-label="Main navigation">
             {CENTER_NAV_LINKS.map(({ label, href, id }) => (
               <li key={label}>
-                <a 
-                  href={href} 
+                <a
+                  href={href}
                   className={activeSection === id ? 'active' : ''}
                   onClick={(e) => handleNavClick(e, id)}
                 >
@@ -189,7 +189,7 @@ export default function ProfileSection({ showNav }) {
           <ul className="profile-nav-right-links" aria-label="Contact navigation">
             {RIGHT_NAV_LINKS.map(({ label, href, id }) => (
               <li key={label}>
-                <a 
+                <a
                   href={href}
                   className={activeSection === id ? 'active' : ''}
                   onClick={(e) => handleNavClick(e, id)}
@@ -203,13 +203,13 @@ export default function ProfileSection({ showNav }) {
 
         {/* Content Container */}
         <div className="profile-container-new">
-          
+
           {/* Left Area: Dynamic Word-by-Word Headline */}
           <div className="profile-story-area">
             <h2 className="profile-headline-main">
               {HEADLINE_WORDS.map((word, idx) => (
-                <span 
-                  key={idx} 
+                <span
+                  key={idx}
                   style={getWordStyle(idx)}
                   className={word.italic ? 'serif-italic' : ''}
                 >
