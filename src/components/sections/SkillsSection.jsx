@@ -29,7 +29,12 @@ const SKILLS_DATA = [
     skills: [
       'React.js',
       'Next.js',
-      'JavaScript'
+      'JavaScript',
+      'TypeScript',
+      'HTML5',
+      'CSS3',
+      'Tailwind CSS',
+      'Three.js'
     ]
   },
 

@@ -240,7 +240,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    overflow: visible !important;
+    overflow: hidden !important;
     padding: 80px 24px 60px 24px;
   }
 

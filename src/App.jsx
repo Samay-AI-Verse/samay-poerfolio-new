@@ -12,6 +12,7 @@ import ProjectsSection from './components/sections/ProjectsSection';
 import ProjectGallerySection from './components/sections/ProjectGallerySection';
 import AnotherSection from './components/sections/AnotherSection';
 import ContributorsSection from './components/sections/ContributorsSection';
+import HackathonSection from './components/sections/HackathonSection';
 import SkillsSection from './components/sections/SkillsSection';
 import ContactSection from './components/sections/ContactSection';
 import ProfileSection from './components/sections/ProfileSection';
@@ -223,6 +224,7 @@ function App() {
         <ServicesSection />
         <ProjectsSection />
         <ProjectGallerySection />
+        <HackathonSection />
         <SkillsSection onContactClick={handleSkillsContactClick} />
         <AnotherSection />
         <ContributorsSection />

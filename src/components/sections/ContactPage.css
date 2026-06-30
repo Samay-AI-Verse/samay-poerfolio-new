@@ -3,7 +3,8 @@
   inset: 0;
   z-index: 999;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   color: #f6f4f1;
   background:
     radial-gradient(circle at 56% 31%, rgba(255, 30, 20, 0.88), transparent 23%),
@@ -69,7 +70,7 @@
 
 .contact-page-layout {
   width: min(90vw, 1740px);
-  height: 100svh;
+  min-height: 100svh;
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(290px, 0.82fr) minmax(0, 1.68fr);

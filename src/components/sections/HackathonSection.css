@@ -1,0 +1,220 @@
+.hackathon-section {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #030303;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4rem 2rem;
+  z-index: 10;
+}
+
+/* Optional subtle background gradient to fit portfolio style */
+.hackathon-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vw;
+  background: radial-gradient(circle, rgba(40,40,40,0.4) 0%, rgba(3,3,3,0) 60%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hackathon-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 4rem;
+  z-index: 2;
+}
+
+/* === TEXT AREA === */
+.hackathon-text-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: calc(0.2 + var(--hackathon-progress, 0) * 1.5);
+  transform: translateY(calc(50px - var(--hackathon-progress, 0) * 50px));
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+.hackathon-eyebrow {
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.hackathon-title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  font-weight: 400;
+  color: #f4f4f5;
+  margin: 0 0 1.5rem 0;
+}
+
+.hackathon-highlight {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+  color: #fff;
+}
+
+.hackathon-description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #a1a1aa;
+  max-width: 90%;
+  margin: 0 0 2.5rem 0;
+}
+
+.hackathon-stats {
+  display: flex;
+  gap: 3rem;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #777;
+}
+
+/* === SLIDER AREA === */
+.hackathon-slider-area {
+  flex: 1.8;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  opacity: calc(0.2 + var(--hackathon-progress, 0) * 1.5);
+  transform: translateY(calc(30px - var(--hackathon-progress, 0) * 30px));
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+.hackathon-slider-viewport {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.hackathon-slider-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.hackathon-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  position: relative;
+}
+
+.hackathon-slide img,
+.hackathon-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hackathon-slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+  pointer-events: none;
+}
+
+.hackathon-slider-nav {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+  z-index: 10;
+}
+
+.hackathon-slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.hackathon-slider-dot.active {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.3);
+}
+
+.hackathon-slider-dot:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .hackathon-container {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .hackathon-text-area {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hackathon-slider-area {
+    opacity: 1;
+    transform: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .hackathon-title {
+    font-size: 2.2rem;
+  }
+  
+  .hackathon-stats {
+    gap: 1.5rem;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+  }
+}
