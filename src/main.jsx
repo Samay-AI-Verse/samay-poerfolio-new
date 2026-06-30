@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import DemoOne from './components/background/demo.jsx'
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter basename={import.meta.env.BASE_URL}>
