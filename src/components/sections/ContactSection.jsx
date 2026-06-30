@@ -9,7 +9,7 @@ const smoothStep = (value) => {
 
 const CONTACT_LINKS = [
   { label: 'GitHub', href: 'https://github.com/Samay-AI-Verse' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/samay-p-103259269/' },
   { label: 'Email', href: 'mailto:samaypowade9@gmail.com' },
 ];
 
@@ -188,7 +188,7 @@ export default function ContactSection({ onContactClick, onMaxOpen }) {
                 </span>
               ))}
             </a>
-            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+            <a href="https://www.linkedin.com/in/samay-p-103259269/" target="_blank" rel="noreferrer">
               {'LinkedIn'.split('').map((char, index) => (
                 <span key={index} className="footer-char-reveal" style={{ '--char-idx': index }}>
                   {char}

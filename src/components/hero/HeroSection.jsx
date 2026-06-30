@@ -1,5 +1,5 @@
 import './HeroSection.css';
-import bgVideo from '../../videos/intro.mp4';
+import bgVideo from '../../videos/Intro.mp4';
 
 export default function HeroSection({
   videoRef,

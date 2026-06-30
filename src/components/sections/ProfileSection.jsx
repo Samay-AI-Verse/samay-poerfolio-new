@@ -4,7 +4,7 @@ import samayPhoto from '../../image/samayphoto.png';
 import { assetPath } from '../../utils/assetPath';
 
 const SOCIAL_LINKS = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/samay-p-103259269/' },
   { label: 'GitHub', href: 'https://github.com/Samay-AI-Verse' },
 ];
 

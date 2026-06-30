@@ -5,7 +5,7 @@ import './ContactPage.css';
 const CONTACT_LINKS = [
   { label: 'WhatsApp', href: 'https://wa.me/919764096358' },
   { label: 'Direct mail', href: 'mailto:samaypowade9@gmail.com' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/samay-p-103259269/' },
   { label: 'GitHub', href: 'https://github.com/Samay-AI-Verse' },
   { label: 'Hugging Face', href: 'https://huggingface.co/Samay-AI-Verse' },
   { label: 'Kaggle', href: 'https://www.kaggle.com/' },
@@ -108,32 +108,6 @@ export default function ContactPage({ origin, onBack }) {
                     {label}
                   </a>
                 ))}
-              </nav>
-            </div>
-
-            <div>
-              <h3>Live AI Demos</h3>
-              <nav aria-label="Interactive AI systems" className="contact-page-ai-demos">
-                <a
-                  href="https://wa.me/919764096358?text=Hi%20Samay,%20I%20saw%20your%20portfolio%20and%20wanted%20to%20try%20your%20WhatsApp%20AI%20Assistant!"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="contact-page-ai-link whatsapp-demo-link"
-                >
-                  <span className="demo-pulse-indicator"></span>
-                  <MessageCircle size={18} className="demo-icon" />
-                  <span>WhatsApp Bot</span>
-                </a>
-                <a
-                  href="https://github.com/Samay-AI-Verse/ChetanaLabs-"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="contact-page-ai-link voice-demo-link"
-                >
-                  <span className="demo-pulse-indicator"></span>
-                  <PhoneCall size={18} className="demo-icon" />
-                  <span>Voice Agent</span>
-                </a>
               </nav>
             </div>
 

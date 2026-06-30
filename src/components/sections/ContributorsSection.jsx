@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './ContributorsSection.css';
 
 // ==========================================
-// MOCK DATA (Realistic & Fast for Showcase)
+// REAL DATA FOR SHOWCASE
 // ==========================================
 
 const ORGANIZATIONS = [
@@ -13,27 +13,25 @@ const ORGANIZATIONS = [
   { id: 'TeamSamay', name: 'TeamSamay', desc: 'Developer Community' }
 ];
 
-const TIMELINE_EVENTS = [
-  { id: 1, user: 'Onkarnagargoje', action: 'pushed to', repo: 'Samay-AI-Verse/frontend', time: '2 min ago', type: 'push' },
-  { id: 2, user: 'Abh234', action: 'merged PR #124 in', repo: 'Sanjeevaniai-in/api', time: '12 min ago', type: 'merge' },
-  { id: 3, user: 'shivam-kapate', action: 'opened Issue #89 in', repo: 'Shakti-Team/core', time: '35 min ago', type: 'issue' },
-  { id: 4, user: 'sujalkhargakharate', action: 'created repository', repo: 'TeamSamay/AI-Agent', time: '1 hour ago', type: 'repo' },
-  { id: 5, user: 'rutujadhav96k', action: 'starred', repo: 'Open-Neuro/brain-scan', time: '3 hours ago', type: 'star' },
+const FALLBACK_EVENTS = [
+  { id: 1, user: 'Onkarnagargoje', action: 'pushed to', repo: 'Samay-AI-Verse/frontend', time: 'Recently', type: 'push' },
+  { id: 2, user: 'Abh234', action: 'merged PR #124 in', repo: 'Sanjeevaniai-in/api', time: 'Recently', type: 'merge' },
+  { id: 3, user: 'shivam-kapate', action: 'opened Issue #89 in', repo: 'Shakti-Team/core', time: 'Recently', type: 'issue' },
+  { id: 4, user: 'sujalkhargakharate', action: 'created repository', repo: 'TeamSamay/AI-Agent', time: 'Recently', type: 'repo' },
+  { id: 5, user: 'rutujadhav96k', action: 'starred', repo: 'Open-Neuro/brain-scan', time: 'Recently', type: 'star' },
 ];
 
 const MOCK_CONTRIBUTORS = [
   'Samay-AI-Verse', 'Onkarnagargoje', 'Abh234', 'shivam-kapate', 
-  'sujalkhargakharate', 'rutujadhav96k', 'Maheshvarii', 'palkrutwardhanshri-lgtm',
-  'torvalds', 'gaearon', 'yyx990803', 'addyosmani', 'sindresorhus', 
-  'tj', 'danabramov', 'bradtraversy', 'ryanflorence', 'kentcdodds', 'Rich-Harris'
+  'sujalkhargakharate', 'rutujadhav96k', 'Maheshvarii', 'palkrutwardhanshri-lgtm'
 ].map(username => ({
   login: username,
   avatar_url: `https://github.com/${username}.png`,
   html_url: `https://github.com/${username}`,
   role: 'Core Contributor',
   org: 'Samay-AI-Verse',
-  repos: Math.floor(Math.random() * 8) + 1,
-  commits: Math.floor(Math.random() * 150) + 10,
+  repos: 'Active',
+  commits: 'Live Activity',
 }));
 
 // ==========================================
@@ -48,8 +46,72 @@ const IconStar = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="non
 
 export default function ContributorsSection() {
 
-  // Diamond Honeycomb Pattern: 3, 4, 5, 4, 3
-  const pattern = [3, 4, 5, 4, 3];
+  const [timelineEvents, setTimelineEvents] = useState(FALLBACK_EVENTS);
+
+  useEffect(() => {
+    async function fetchGitHubActivity() {
+      try {
+        const response = await fetch('https://api.github.com/users/Samay-AI-Verse/events/public?per_page=15');
+        if (!response.ok) return;
+        const data = await response.json();
+        
+        const parsedEvents = data
+          .filter(ev => ['PushEvent', 'PullRequestEvent', 'IssuesEvent', 'CreateEvent', 'WatchEvent'].includes(ev.type))
+          .slice(0, 5)
+          .map((ev) => {
+            let action = '';
+            let type = '';
+
+            if (ev.type === 'PushEvent') {
+              action = 'pushed to';
+              type = 'push';
+            } else if (ev.type === 'PullRequestEvent') {
+              action = `${ev.payload.action} PR in`;
+              type = 'merge';
+            } else if (ev.type === 'IssuesEvent') {
+              action = `${ev.payload.action} Issue in`;
+              type = 'issue';
+            } else if (ev.type === 'CreateEvent') {
+              action = `created ${ev.payload.ref_type} in`;
+              type = 'repo';
+            } else if (ev.type === 'WatchEvent') {
+              action = 'starred';
+              type = 'star';
+            }
+
+            const date = new Date(ev.created_at);
+            const now = new Date();
+            const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+            let timeStr = '';
+            
+            if (seconds < 60) timeStr = 'Just now';
+            else if (seconds < 3600) timeStr = `${Math.floor(seconds / 60)} min ago`;
+            else if (seconds < 86400) timeStr = `${Math.floor(seconds / 3600)} hr ago`;
+            else timeStr = `${Math.floor(seconds / 86400)} days ago`;
+
+            return {
+              id: ev.id,
+              user: ev.actor.login,
+              action: action,
+              repo: ev.repo.name,
+              time: timeStr,
+              type: type
+            };
+          });
+
+        if (parsedEvents.length > 0) {
+          setTimelineEvents(parsedEvents);
+        }
+      } catch (error) {
+        console.error('Error fetching GitHub events:', error);
+      }
+    }
+
+    fetchGitHubActivity();
+  }, []);
+
+  // Diamond Honeycomb Pattern: 3, 2, 3 (for exactly 8 users)
+  const pattern = [3, 2, 3];
   const hexRows = [];
   let currentIndex = 0;
   for (let count of pattern) {
@@ -106,7 +168,7 @@ export default function ContributorsSection() {
           </div>
 
           <div className="timeline-feed">
-            {TIMELINE_EVENTS.map(event => (
+            {timelineEvents.map(event => (
               <div key={event.id} className="timeline-item">
                 <div className="timeline-icon">
                   {event.type === 'push' && <IconPush />}
