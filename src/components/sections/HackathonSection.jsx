@@ -6,15 +6,11 @@ import img2 from '../../image/hackthone Winner/img2.jpeg';
 import img3 from '../../image/hackthone Winner/img3.jpeg';
 import img4 from '../../image/hackthone Winner/img4.jpeg';
 import img5 from '../../image/hackthone Winner/img5.jpeg';
-import vid1 from '../../image/hackthone Winner/vid1.mp4';
-import vid2 from '../../image/hackthone Winner/vid2.mp4';
 
 const HACKATHON_MEDIA = [
-  { type: 'video', src: vid1 },
   { type: 'image', src: img1 },
   { type: 'image', src: img2 },
   { type: 'image', src: img3 },
-  { type: 'video', src: vid2 },
   { type: 'image', src: img4 },
   { type: 'image', src: img5 },
 ];
