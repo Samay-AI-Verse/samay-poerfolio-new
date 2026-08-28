@@ -25,11 +25,7 @@ body {
   -ms-overflow-style: none;
 }
 
-html.prompt-open,
-body.prompt-open {
-  overflow: hidden;
-  height: 100vh;
-}
+
 
 .site-wrapper {
   width: 100%;

@@ -3,11 +3,11 @@ import { assetPath } from '../../utils/assetPath';
 import './ProjectGallerySection.css';
 
 const GALLERY_IMAGES = [
+  { src: assetPath('/proj_shakti.png'), alt: 'SHAKTI Prime project preview', wide: true },
   { src: assetPath('/proj_sanjeevani_new.png'), alt: 'Sanjeevani project preview', wide: true },
   { src: assetPath('/proj_chetanalabs.png'), alt: 'ChetanaLabs project preview' },
   { src: assetPath('/proj_trinetra.png'), alt: 'Trinetra project preview' },
   { src: assetPath('/proj_sarathi.png'), alt: 'Sarathi Astra project preview', wide: true },
-  { src: assetPath('/proj_loan.png'), alt: 'SHAKTI project preview' },
   { src: assetPath('/proj_bugsentry.png'), alt: 'BugSentry project preview' },
   { src: assetPath('/proj_voice.png'), alt: 'Voice project preview' },
   { src: assetPath('/proj_whatsapp.png'), alt: 'WhatsApp automation project preview' },

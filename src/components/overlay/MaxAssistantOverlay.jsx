@@ -15,6 +15,16 @@ const SERVICES = [
 const PROJECTS = [
   {
     id: '01',
+    title: 'SHAKTI Prime',
+    category: 'Women Safety AI Ecosystem',
+    desc: 'AI-powered women safety platform featuring real-time distress detection, instant SOS trigger routing, situational awareness tracking, and automated emergency community dispatch.',
+    tags: ['React', 'FastAPI', 'AI/YOLO', 'SOS System'],
+    live: 'https://shakti-prime.vercel.app/',
+    github: 'https://github.com/Samay-AI-Verse/Chatbot-Women-Sefty',
+    image: assetPath('/proj_shakti.png'),
+  },
+  {
+    id: '02',
     title: 'Sanjeevani',
     category: 'Healthcare AI Ecosystem',
     desc: 'A multi-tenant healthcare delivery dashboard optimizing pharmaceutical supply chains with AI-driven inventory, WhatsApp ordering, and RAG-powered medicine recommendations.',
@@ -24,7 +34,7 @@ const PROJECTS = [
     image: assetPath('/proj_sanjeevani_new.png'),
   },
   {
-    id: '02',
+    id: '03',
     title: 'ChetanaLabs',
     category: 'Voice AI / HR Tech',
     desc: 'AI-powered HR voice assistant automating candidate screening, outbound calling workflows, and intelligent interview scheduling at scale.',
@@ -34,7 +44,7 @@ const PROJECTS = [
     image: assetPath('/proj_chetanalabs.png'),
   },
   {
-    id: '03',
+    id: '04',
     title: 'Trinetra System',
     category: 'Drone Tech / Surveillance',
     desc: 'AI-enabled drone ecosystem with real-time telemetry, live video streaming, object detection, and autonomous surveillance capabilities.',
@@ -44,7 +54,7 @@ const PROJECTS = [
     image: assetPath('/proj_trinetra.png'),
   },
   {
-    id: '04',
+    id: '05',
     title: 'Sarathi Astra',
     category: 'RAG / Document Intelligence',
     desc: 'Advanced NotebookLM-style RAG system for document intelligence. Interacts with PDFs via contextual Q&A and semantic data extraction.',
@@ -52,16 +62,6 @@ const PROJECTS = [
     live: '#',
     github: 'https://github.com/Samay-AI-Verse/Sarthi-Astra',
     image: assetPath('/proj_sarathi.png'),
-  },
-  {
-    id: '05',
-    title: 'SHAKTI',
-    category: 'Women Safety AI',
-    desc: 'AI-powered women safety platform with emergency triggers, real-time situational awareness, and automated community alert system.',
-    tags: ['Python', 'YOLO', 'Edge AI', 'React'],
-    live: '#',
-    github: 'https://github.com/Samay-AI-Verse/Chatbot-Women-Sefty',
-    image: assetPath('/proj_loan.png'),
   },
   {
     id: '06',

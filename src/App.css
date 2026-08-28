@@ -1,9 +1,4 @@
 /*
   App.css — intentionally minimal.
-  All styles live in their component folders:
-
-  src/styles/global.css                      → reset, fonts, body, site-wrapper
-  src/components/overlay/FullscreenPrompt.css → entry overlay
-  src/components/hero/HeroSection.css         → hero video, controls
-  src/components/sections/sections.css        → about, skills, contact, shared layout
+  All styles live in their component folders.
 */
