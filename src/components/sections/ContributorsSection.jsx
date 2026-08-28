@@ -14,15 +14,15 @@ const ORGANIZATIONS = [
 ];
 
 const FALLBACK_EVENTS = [
-  { id: 1, user: 'Onkarnagargoje', action: 'pushed to', repo: 'Samay-AI-Verse/frontend', time: 'Recently', type: 'push' },
-  { id: 2, user: 'Abh234', action: 'merged PR #124 in', repo: 'Sanjeevaniai-in/api', time: 'Recently', type: 'merge' },
+  { id: 1, user: 'poonamkurhe-commits', action: 'pushed to', repo: 'Samay-AI-Verse/frontend', time: 'Recently', type: 'push' },
+  { id: 2, user: 'Onkarnagargoje', action: 'merged PR #124 in', repo: 'Sanjeevaniai-in/api', time: 'Recently', type: 'merge' },
   { id: 3, user: 'shivam-kapate', action: 'opened Issue #89 in', repo: 'Shakti-Team/core', time: 'Recently', type: 'issue' },
   { id: 4, user: 'sujalkhargakharate', action: 'created repository', repo: 'TeamSamay/AI-Agent', time: 'Recently', type: 'repo' },
   { id: 5, user: 'rutujadhav96k', action: 'starred', repo: 'Open-Neuro/brain-scan', time: 'Recently', type: 'star' },
 ];
 
 const MOCK_CONTRIBUTORS = [
-  'Samay-AI-Verse', 'Onkarnagargoje', 'Abh234', 'shivam-kapate', 
+  'Samay-AI-Verse', 'poonamkurhe-commits', 'Onkarnagargoje', 'shivam-kapate', 
   'sujalkhargakharate', 'rutujadhav96k', 'Maheshvarii', 'palkrutwardhanshri-lgtm'
 ].map(username => ({
   login: username,
