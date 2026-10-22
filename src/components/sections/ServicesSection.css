@@ -4,7 +4,7 @@
   position: relative;
   z-index: 4;
   height: calc((var(--srv-count) - 0.55) * 100vh);
-  min-height: 3600px;
+  min-height: calc(var(--srv-count) * 600px);
   color: #050505;
   background: #f1f1ee;
   box-shadow: 0 -18px 70px rgba(0, 0, 0, 0.3);

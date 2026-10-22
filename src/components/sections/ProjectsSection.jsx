@@ -6,9 +6,9 @@ const PROJECTS = [
   {
     id: '01',
     title: 'SHAKTI Prime',
-    category: 'Women Safety AI Ecosystem',
-    desc: 'AI-powered women safety platform featuring real-time distress detection, instant SOS trigger routing, situational awareness tracking, and automated emergency community dispatch.',
-    tags: ['React', 'FastAPI', 'AI/YOLO', 'SOS System'],
+    category: 'Universal AI Safety Ecosystem',
+    desc: 'An all-in-one AI safety and emergency ecosystem for everyone — featuring parental controls, real-time emergency chat, community post feed, instant SOS alerts, and live distress detection.',
+    tags: ['React', 'FastAPI', 'Real-Time Chat', 'Parental Control', 'Community Posts', 'SOS Alert'],
     live: 'https://shakti-prime.vercel.app/',
     github: 'https://github.com/Samay-AI-Verse/Chatbot-Women-Sefty',
     image: assetPath('/proj_shakti.png'),

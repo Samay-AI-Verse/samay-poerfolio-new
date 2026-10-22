@@ -16,9 +16,9 @@ const PROJECTS = [
   {
     id: '01',
     title: 'SHAKTI Prime',
-    category: 'Women Safety AI Ecosystem',
-    desc: 'AI-powered women safety platform featuring real-time distress detection, instant SOS trigger routing, situational awareness tracking, and automated emergency community dispatch.',
-    tags: ['React', 'FastAPI', 'AI/YOLO', 'SOS System'],
+    category: 'Universal AI Safety Ecosystem',
+    desc: 'An all-in-one AI safety and emergency ecosystem for everyone — featuring parental controls, real-time emergency chat, community post feed, instant SOS alerts, and live distress detection.',
+    tags: ['React', 'FastAPI', 'Real-Time Chat', 'Parental Control', 'Community Posts', 'SOS Alert'],
     live: 'https://shakti-prime.vercel.app/',
     github: 'https://github.com/Samay-AI-Verse/Chatbot-Women-Sefty',
     image: assetPath('/proj_shakti.png'),
@@ -494,11 +494,11 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
       return;
     }
 
-    if (query.includes('shakti') || query.includes('women') || query.includes('safety')) {
-      handleMaxResponse("Unfolding SHAKTI Women Safety platform project page...");
+    if (query.includes('shakti') || query.includes('safety') || query.includes('parental') || query.includes('emergency')) {
+      handleMaxResponse("Unfolding SHAKTI Universal AI Safety platform project page...");
       setTimeout(() => {
         handleClose();
-        onViewProject('05');
+        onViewProject('01');
       }, 3500);
       return;
     }
@@ -537,24 +537,22 @@ export default function MaxAssistantOverlay({ isOpen, triggerCoords, onClose, on
     Mix a tiny bit of polite Hinglish where appropriate.
     
     ABOUT SAMAY:
-    - Specialization: AI engineering, LLM systems, RAG pipelines, WhatsApp bots, and full-stack software development.
-    - Skills: LangChain, FastAPI, React, Node.js, Python, PostgreSQL, YOLO, NLP.
+    - Specialization: AI engineering, LLM systems, RAG pipelines, WhatsApp bots, and full-stack development.
+    - Skills: LangChain, FastAPI, React, Python, PostgreSQL, YOLO, NLP, Deep Learning, Machine Learning, System Design.
+    - Achievements: 2x National Level Hackathon Winner (2nd Place Winner at Kurukshetra, MIT Pune & 1st Place National Level Champion).
     - Style: Practical, fast-loading, state-of-the-art visual animations.
     
     HIS CORE SERVICES:
     1. AI Applications: Intelligent LLM pipelines and RAG automation.
-    2. Full Stack Dev: Responsive React frontends and Node/Python backends.
-    3. Software Dev: Scaleable integrations and microservices.
-    4. Windows Apps: Desktop tools and native automations.
-    5. Android Dev: Clean mobile app products.
-    6. WhatsApp Bots: Smart customer flow and agent scheduling systems.
+    2. Full Stack Dev: Responsive React frontends and Python/FastAPI backends.
+    3. WhatsApp Bots: Smart customer flow and agent scheduling systems.
     
     HIS PROJECTS:
-    - Sanjeevani (id: '01'): Healthcare RAG delivery inventory tracker.
-    - ChetanaLabs (id: '02'): Outbound HR voice AI screening system.
-    - Trinetra System (id: '03'): Live video telemetry drone surveillance using YOLO.
-    - Sarathi Astra (id: '04'): NotebookLM document query system.
-    - SHAKTI (id: '05'): Emergency community alert women safety app.
+    - SHAKTI Prime (id: '01'): Universal AI safety app for everyone featuring parental control, real-time chat, community posts, and SOS alerts.
+    - Sanjeevani (id: '02'): Healthcare RAG delivery inventory tracker.
+    - ChetanaLabs (id: '03'): Outbound HR voice AI screening system.
+    - Trinetra System (id: '04'): Live video telemetry drone surveillance using YOLO.
+    - Sarathi Astra (id: '05'): NotebookLM document query system.
     - BugSentry (id: '06'): Real-time code debugger VS Code extension.
 
     TRIGGERS:

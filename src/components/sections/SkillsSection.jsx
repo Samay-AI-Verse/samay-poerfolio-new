@@ -6,6 +6,9 @@ const SKILLS_DATA = [
     id: 'ai-engineering',
     category: 'AI Engineering',
     skills: [
+      'Machine Learning',
+      'Deep Learning',
+      'NLP (Natural Language Processing)',
       'LLM Applications',
       'Agentic AI Systems',
       'RAG Pipelines',
@@ -28,16 +31,10 @@ const SKILLS_DATA = [
     category: 'Frontend',
     skills: [
       'React.js',
-      'Next.js',
       'JavaScript',
-      'TypeScript',
-      'HTML5',
-      'CSS3',
-      'Tailwind CSS',
-      'Three.js'
+      'HTML5'
     ]
   },
-
 
   {
     id: 'backend',
@@ -45,9 +42,7 @@ const SKILLS_DATA = [
     skills: [
       'Python',
       'FastAPI',
-      'Flask',
-      'Node.js',
-      'Express.js',
+      'System Design',
       'REST APIs',
       'WebSockets',
       'JWT Authentication',
@@ -63,16 +58,15 @@ const SKILLS_DATA = [
       'PostgreSQL',
       'MongoDB',
       'MySQL',
-      'Supabase',
-      'Vector DBs',
-
+      'Vector DBs'
     ]
   },
 
   {
     id: 'devops',
-    category: 'DevOps & Deployment',
+    category: 'Cloud & DevOps',
     skills: [
+      'AWS (Amazon Web Services)',
       'Docker',
       'Git & GitHub',
       'GitHub Actions',

@@ -17,24 +17,6 @@ const SERVICES = [
   },
   {
     id: 3,
-    title: 'Software Development',
-    kicker: 'CUSTOM SOFTWARE',
-    desc: 'I develop custom tools, scalable services, integrations, microservices, and data pipelines that support daily operations. The goal is software that solves a real problem and stays simple to operate.',
-  },
-  {
-    id: 4,
-    title: 'Windows Applications',
-    kicker: 'DESKTOP BUILDS',
-    desc: 'I build modern Windows applications with smooth UI, local data handling, automation hooks, and system integrations. These apps are designed for focused desktop workflows where speed and stability matter.',
-  },
-  {
-    id: 5,
-    title: 'Android Development',
-    kicker: 'MOBILE PRODUCTS',
-    desc: 'I design and develop Android apps with sharp UX, API integrations, real-time sync, and useful mobile flows. The result is a clean app experience that works well across everyday screens.',
-  },
-  {
-    id: 6,
     title: 'WhatsApp Chatbot',
     kicker: 'CHAT AUTOMATION',
     desc: 'I build AI-powered WhatsApp bots for voice, text, bookings, support, ordering, and customer automation. They can answer common questions, collect details, trigger workflows, and hand off complex cases when needed.',
@@ -146,7 +128,7 @@ export default function ServicesSection() {
 
           <div className="srv-stage" aria-live="polite">
             <h2 className="srv-counter">
-              <span>06+</span>
+              <span>{SERVICES.length.toString().padStart(2, '0')}+</span>
               <strong>Services</strong>
             </h2>
           </div>
